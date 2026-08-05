@@ -1,0 +1,1298 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gumaacha & Niyyaa / መዋጮ እና ኒያ - Malkaa Noonnoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      .input-field:invalid:touched,
+      .input-error {
+        border-color: #ef4444 !important;
+        background-color: #fef2f2 !important;
+        animation: shake 0.3s ease-in-out;
+      }
+      .error-msg {
+        color: #dc2626;
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+      .input-error + .error-msg {
+        display: block;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        20%,
+        60% {
+          transform: translateX(-4px);
+        }
+        40%,
+        80% {
+          transform: translateX(4px);
+        }
+      }
+    </style>
+    <!-- NAVIGEEHINII WALOO (SHARED NAVBAR) -->
+<nav style="background: #1b4332; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <h2 style="font-size: 1.1rem; margin: 0;">Managements System</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #2d6a4f;">Muummee (Home)</a>
+        <a href="donation-index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px;">Deeggarsa (User)</a>
+        <a href="donation-admin.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #6c757d;">Deeggarsa (Admin)</a>
+        <a href="finance-index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px;">Galii/Baasii (User)</a>
+        <a href="finance-admin.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #6c757d;">Galii/Baasii (Admin)</a>
+    </div>
+</nav>
+  </head>
+  <body
+    class="bg-emerald-50 min-h-screen text-slate-800 flex flex-col justify-between"
+  >
+    <!-- Header -->
+    <header class="bg-emerald-800 text-white p-6 shadow-lg text-center">
+      <h1 class="text-2xl md:text-3xl font-bold">
+        Mana Marii Dhimmoota Islaamummaa Kutaa Magaalaa Malkaa Noonnoo
+      </h1>
+      <h2 class="text-xl md:text-2xl font-bold text-emerald-200 mt-1">
+        መልካ ኖኖ ክ/ከተማ እስልምና ጉዳዮች ምክር ቤት
+      </h2>
+      <p class="text-emerald-100 mt-2 text-sm md:text-base">
+        Gumaachaa, Niyyaa fi Sadaqaa / መዋጮ፣ ኒያ እና ሶደቃ
+      </p>
+    </header>
+
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto px-4 py-8 w-full space-y-8">
+      <!-- Info Section -->
+      <section
+        class="bg-white rounded-2xl p-6 md:p-8 shadow-md border-t-4 border-emerald-600 space-y-4"
+      >
+        <div class="border-b pb-4">
+          <h3
+            class="font-bold text-emerald-900 text-base md:text-lg mb-2 flex items-center gap-2"
+          >
+            Waa'ee Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed text-justify">
+            Manni Marii Dhimmoota Islaamummaa Kutaa Magaalaa Malkaa Noonnoo
+            <strong>Aanaalee 3</strong>, <strong>Masjiidoota 80 olii</strong> fi
+            <strong>Madrasaalee fi Markazoota 90 ol</strong> kan of keessaa qabu
+            yoo ta'u, kaayyoolee gurguddoo galmaan ga'uuf tattaaffii cimaa
+            irratti argama. Rakkoolee isa harkaa qaban kanneen akka lojistikii,
+            kaffaltii kiraa fi kkf furmaata waaraa fiduuf tattaafataa jira[cite:
+            2].
+          </p>
+          <p
+            class="text-slate-700 text-sm leading-relaxed text-justify mt-2 font-medium text-emerald-800"
+          >
+            Kana hundaa wajjin madda galii tokko hin qabu. Kun kan galma ga'u
+            gargaarsa Rabbiitiin booda gargaarsa ummata Muslimaatiini. Kanaafuu
+            hundi keenya waan Rabbiin nuuf kenne irraa haga dandeenyu
+            gargaaruun, rakkoo mana marichaa walumaan haa hiiknu![cite: 2]
+          </p>
+        </div>
+
+        <div>
+          <h3
+            class="font-bold text-emerald-900 text-base md:text-lg mb-2 flex items-center gap-2"
+          >
+            ስለ መልካ ኖኖ ክፍለ ከተማ የእስልምና ጉዳዮች ምክር ቤት
+          </h3>
+          <p class="text-slate-700 text-sm leading-relaxed text-justify">
+            መልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት <strong>3 ወረዳዎችን</strong>፣
+            <strong>ከ80 በላይ መስጂዶችን</strong> እና
+            <strong>ከ90 በላይ መድረሳዎችንና ማዕከላትን (መርከዝ)</strong> በስሩ አቀፎ የያዘ ሲሆን፣
+            የተጣለበትን ታላቅ አላማ ለማሳካት ከፍተኛ ጥረት በማድረግ ላይ ይገኛል::[cite: 2]
+          </p>
+          <p
+            class="text-slate-700 text-sm leading-relaxed text-justify mt-2 font-medium text-emerald-800"
+          >
+            ይሁን እንጂ ከእነዚህ ሁሉ ጋር ምክር ቤቱ ምንም ዓይነት ቋሚ የገቢ ምንጭ የለውም:: እነዚህን ችግሮች
+            መፍታት የሚቻለው ከኣላህ እርዳታ በመቀጠል በሙስሊሙ ህብረተሰብ ድጋፍ ብቻ ነው:: ስለዚህ ሁላችንም አላህ
+            ከሰጠን ሀብትና ሲሳይ አቅማችን የፈቀደውን ያህል በመለገስ የሙስሊሙን ተቋም ችግሮች በአንድነት
+            እንፍታ![cite: 2]
+          </p>
+        </div>
+      </section>
+
+      <!-- Action Choice Tabs -->
+      <div
+        class="bg-white p-6 rounded-2xl shadow-md border border-emerald-100 max-w-4xl mx-auto"
+      >
+        <label
+          class="block text-sm font-bold text-slate-800 uppercase mb-4 text-center"
+        >
+          Gosa gargaarsaa Filadhaa / የእርዳታ ዓይነት ይምረጡ
+        </label>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <button
+            type="button"
+            id="btnPayNow"
+            onclick="switchTab('payNow')"
+            class="py-4 px-3 text-sm font-bold rounded-xl bg-white text-slate-700 border-2 border-slate-200 hover:bg-emerald-50 hover:border-emerald-600 transition text-center shadow-sm"
+          >
+            💳 Gargaarsa Amma Kaffaluu<br /><span
+              class="text-xs font-normal opacity-80"
+              >አሁን ለመክፈል</span
+            >
+          </button>
+
+          <button
+            type="button"
+            id="btnMakePledge"
+            onclick="switchTab('makePledge')"
+            class="py-4 px-3 text-sm font-bold rounded-xl bg-white text-slate-700 border-2 border-slate-200 hover:bg-emerald-50 hover:border-emerald-600 transition text-center shadow-sm"
+          >
+            🤲 Niyyaachuu (Waadaa Galuu)<br /><span
+              class="text-xs font-normal opacity-80"
+              >ቃል ለመግባት/ለመነየት</span
+            >
+          </button>
+
+          <button
+            type="button"
+            id="btnPayPledge"
+            onclick="switchTab('payPledge')"
+            class="py-4 px-3 text-sm font-bold rounded-xl bg-white text-slate-700 border-2 border-slate-200 hover:bg-amber-50 hover:border-amber-600 transition text-center shadow-sm"
+          >
+            🔍 Niyyaa Kaffaluu<br /><span class="text-xs font-normal opacity-80"
+              >ቃል የገቡትን መክፈል</span
+            >
+          </button>
+        </div>
+      </div>
+
+      <!-- SECTION 1: PAY NOW -->
+      <main
+        id="payNowContainer"
+        class="hidden grid grid-cols-1 lg:grid-cols-2 gap-8 items-start w-full"
+      >
+        <div
+          class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-emerald-100"
+        >
+          <h3 class="font-bold text-lg text-emerald-900 border-b pb-3 mb-4">
+            Foormii Gargaarsa amma kaffaluu / አሁን የመክፈል የእርዳታ ፎርም
+          </h3>
+          <form id="donationForm" class="space-y-4" novalidate>
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Maqaa Guutuu / ሙሉ ስም <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="donorName"
+                required
+                placeholder="Fkn: Muhammad Ahmad / መሐመድ አህመድ"
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+              />
+              <p class="error-msg">
+                Maaloo maqaa guutuu galchaa! / እባክዎን ሙሉ ስም ያስገቡ!
+              </p>
+            </div>
+
+            <!-- FILANNOO SAALAA (GENDER) -->
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Saala / ጾታ <span class="text-red-500">*</span></label
+              >
+              <select
+                id="donorGender"
+                required
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+              >
+                <option value="">-- Filadhu / ይምረጡ --</option>
+                <option value="Dhiira / ወንድ">Dhiira / ወንድ</option>
+                <option value="Dhalaa / ሴት">Dhalaa / ሴት</option>
+              </select>
+              <p class="error-msg">Maaloo saala filadhaa! / እባክዎን ጾታ ይምረጡ!</p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Bilbila / Email / ስልክ ቁጥር ወይም ኢሜይል
+                <span class="text-red-500">*</span></label
+              >
+              <input
+                type="text"
+                id="donorContact"
+                required
+                placeholder="09... / example@gmail.com"
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+              />
+              <p class="error-msg">
+                Maaloo bilbila ykn email galchaa! / እባክዎን ስልክ ወይም ኢሜይል ያስገቡ!
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Hamma kaffaltii / የድጋፍ መጠን (ETB)
+                <span class="text-red-500">*</span></label
+              >
+              <input
+                type="number"
+                id="donationAmount"
+                required
+                min="10"
+                placeholder="Fkn: 1000"
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+              />
+              <p class="error-msg">
+                Maaloo hamma gargaarsa sirrii galchaa! / እባክዎን ትክክለኛ የእርዳታ መጠን
+                ያስገቡ!
+              </p>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Akkaataa Kaffaltii / የአከፋፈል ዘዴ
+                <span class="text-red-500">*</span></label
+              >
+              <select
+                id="paymentMethod"
+                required
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+              >
+                <option value="">-- Filadhu / ይምረጡ --</option>
+                <option value="CBE / Baankii">
+                  Baankii Daldalaa / ንግድ ባንክ (CBE)
+                </option>
+                <option value="AWASH / Baankii">
+                  Baankii Awaash / አዋሽ ባንክ
+                </option>
+                <option value="Abiisiiniya / Baankii">
+                  Baankii Abiisiiniyaa / አቢሲኒያ ባንክ
+                </option>
+                <option value="Zamzam / Baankii">
+                  Zamzam Baankii / ዘምዘም ባንክ
+                </option>
+                <option value="Hijraa / Baankii">
+                  Hijraa Baankii / ሂጅራ ባንክ
+                </option>
+                <option value="Hibret / Baankii">Hibret Bank / ህብረት ባንክ</option>
+                <option value="Telebirr">Telebirr / ቴሌብር</option>
+                <option value="M-Pesa">M-Pesa / ኤም-ፔሳ</option>
+                <option value="PayPal / International">
+                  PayPal / Credit Card (Biyya Alaa / ከውጭ ሀገር)
+                </option>
+                <option value="Cash / Harkaan">
+                  Kaffaltii Kallattiin / በጥሬ ገንዘብ
+                </option>
+              </select>
+              <p class="error-msg">
+                Maaloo akkaataa kaffaltii filadhaa! / እባክዎን የአከፋፈል ዘዴ ይምረጡ!
+              </p>
+            </div>
+
+            <!-- Bank Name Selection Container -->
+            <div id="bankNameContainer" class="hidden space-y-1">
+              <label class="block text-sm font-semibold mb-1"
+                >Maqaa Baankii / የባንክ ስም
+                <span class="text-red-500">*</span></label
+              >
+              <select
+                id="donorBankName"
+                class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+              >
+                <option value="">-- Baankii Filadhu / ባንክ ይምረጡ --</option>
+                <option value="Commercial Bank of Ethiopia (CBE)">
+                  Commercial Bank of Ethiopia (CBE) / የኢትዮጵያ ንግድ ባንክ
+                </option>
+                <option value="Awash Bank">Awash Bank / አዋሽ ባንክ</option>
+                <option value="Dashen Bank">Dashen Bank / ዳሽን ባንክ</option>
+                <option value="Abyssinia Bank">
+                  Abyssinia Bank / የአቢሲኒያ ባንክ
+                </option>
+                <option value="Wegagen Bank">Wegagen Bank / ወጋገን ባንክ</option>
+                <option value="Nib International Bank">
+                  Nib International Bank / ንብ ኢንተርናሽናል ባንክ
+                </option>
+                <option value="Cooperative Bank of Oromia (CBO)">
+                  Cooperative Bank of Oromia (CBO) / የኦሮሚያ ህብረት ስራ ባንክ
+                </option>
+                <option value="Oromia International Bank (OIB)">
+                  Oromia International Bank (OIB) / ኦሮሚያ ባንክ
+                </option>
+                <option value="Zemen Bank">Zemen Bank / ዘመን ባንክ</option>
+                <option value="Hijra Bank">
+                  Hijra Bank / ሂጅራ ባንክ (Islamic)
+                </option>
+                <option value="Hibret Bank">Hibret Bank / ህብረት ባንክ</option>
+                <option value="Bunna Bank">Bunna Bank / ቡና ባንክ</option>
+                <option value="Berhan Bank">Berhan Bank / ብርሃን ባንክ</option>
+                <option value="Siinqee Bank">Siinqee Bank / ሲንቄ ባንክ</option>
+                <option value="Amhara Bank">Amhara Bank / አማራ ባንክ</option>
+                <option value="Global Bank Ethiopia">
+                  Global Bank Ethiopia / ግሎባል ባንክ ኢትዮጵያ
+                </option>
+                <option value="Tsehay Bank">Tsehay Bank / ፀሀይ ባንክ</option>
+                <option value="Ahadu Bank">Ahadu Bank / አሀዱ ባንክ</option>
+                <option value="Goh Betoch Bank">
+                  Goh Betoch Bank / ጎህ ቤቶች ባንክ
+                </option>
+                <option value="Tseday Bank">Tseday Bank / ጥጸደይ ባንክ</option>
+                <option value="Zamzam Bank">
+                  Zamzam Bank / ዘምዘም ባንክ (Islamic)
+                </option>
+                <option value="Enat Bank">Enat Bank / እናት ባንክ</option>
+                <option value="Other Bank">Other Bank / ሌሎች ባንኮች</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Nagahee/Resiitii Kaffaltii / የክፍያ ደረሰኝ (Optional / አማራጭ)</label
+              >
+              <input
+                type="file"
+                id="receiptFile"
+                accept="image/*,.pdf"
+                class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-100 file:text-emerald-800 hover:file:bg-emerald-200 border rounded-lg p-1 transition"
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold mb-1"
+                >Ergaa / መልእክት (Optional / አማራጭ)</label
+              >
+              <textarea
+                id="donorMessage"
+                rows="2"
+                placeholder="Ergaa gabaabaa... / አጭር መልእክት..."
+                class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              id="submitBtn"
+              class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 rounded-lg transition shadow-md mt-2"
+            >
+              Kaffaltii Galmeessi / ክፍያውን አስመዝግብ
+            </button>
+          </form>
+        </div>
+
+        <!-- Bank Info Section with USSD Only -->
+        <div class="space-y-6">
+          <div
+            class="bg-white p-6 md:p-8 rounded-2xl shadow-md border-l-4 border-emerald-600 space-y-3"
+          >
+            <h3
+              class="font-bold text-lg text-emerald-900 border-b pb-2 flex justify-between items-center"
+            >
+              <span>Herrega Baankii / የባንክ ሂሳብ</span>
+              <span class="text-xs font-normal text-emerald-700"
+                >(USSD banuuf lakk. tuqaa)</span
+              >
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <!-- CBE: USSD Only -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('1000571176878', '*847#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>CBE / የኢትዮጵያ ንግድ ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  1000571176878
+                  <span class="text-xs text-blue-600 font-normal">(*847#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+
+              <!-- Awash Bank -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('013XXXXXXXXX', '*901#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>Awash Bank / አዋሽ ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  013XXXXXXXXX
+                  <span class="text-xs text-blue-600 font-normal">(*901#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+
+              <!-- Abyssinia Bank -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('011XXXXXX', '*859#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>Abyssinia / አቢሲኒያ ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  011XXXXXX
+                  <span class="text-xs text-blue-600 font-normal">(*859#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+
+              <!-- Zamzam Bank -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('0037925310301', '*789#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>Zamzam Bank / ዘምዘም ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  0037925310301
+                  <span class="text-xs text-blue-600 font-normal">(*789#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+
+              <!-- Hijra Bank -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('1004930540001', '*858#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>Hijra Bank / ሂጅራ ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  1004930540001
+                  <span class="text-xs text-blue-600 font-normal">(*858#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+
+              <!-- Hibret Bank -->
+              <div
+                class="bg-slate-50 p-3 rounded-lg border cursor-pointer hover:bg-emerald-50 transition relative group"
+                onclick="openBankingUSSD('4059814990924016', '*814#', this)"
+              >
+                <p
+                  class="text-xs text-slate-500 font-medium flex justify-between items-center"
+                >
+                  <span>Hibret Bank / ህብረት ባንክ</span>
+                  <span
+                    class="text-[10px] bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded font-bold"
+                    >USSD ↗</span
+                  >
+                </p>
+                <p class="font-mono text-base font-bold text-slate-800 mt-1">
+                  4059814990924016
+                  <span class="text-xs text-blue-600 font-normal">(*814#)</span>
+                </p>
+                <span
+                  class="copy-feedback text-[10px] text-emerald-600 font-bold absolute top-2 right-3 hidden"
+                  >Copied & Dialing ✓</span
+                >
+              </div>
+            </div>
+            <p class="text-xs text-emerald-800 font-medium pt-2">
+              Lakkoofsa baankii yeroo tuqtan lakkoofsi kun
+              <b>automatic kopii</b> ta'uun USSD (fkn: *847#) kallattiin bilbila
+              keessan irratti bana[cite: 2].
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-6 rounded-2xl shadow-md border-l-4 border-blue-600 space-y-3"
+          >
+            <h3 class="font-bold text-base md:text-lg text-blue-900">
+              🌍 Gargaarsa biyya alaa irraa godhamu / ከውጭ ሀገር የሚደረግ ድጋፍ
+            </h3>
+            <p class="text-xs md:text-sm text-slate-600">
+              Gumaacha biyya alaa irraa PayPal ykn Credit Card'n kaffaluuf: /
+              ከውጭ ሀገር በPayPal ወይም በካርድ ለመክፈል:[cite: 2]
+            </p>
+            <a
+              href="https://www.paypal.com/donate"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition shadow text-sm"
+            >
+              Kaffali / ክፈል (PayPal / Card)
+            </a>
+          </div>
+        </div>
+      </main>
+
+      <!-- SECTION 2: MAKE PLEDGE -->
+      <div
+        id="makePledgeContainer"
+        class="hidden max-w-xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-md border border-emerald-200 space-y-4"
+      >
+        <h3 class="font-bold text-lg text-emerald-900 border-b pb-3 mb-2">
+          🤲 Formii Niyyaa (Waadaa Galuu) / የኒያ መመዝገቢያ ፎርም
+        </h3>
+        <form id="pledgeForm" class="space-y-4" novalidate>
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Maqaa Guutuu / ሙሉ ስም <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              id="pledgeDonorName"
+              required
+              placeholder="Fkn: Ahmad Muhammad / አህመድ መሐመድ"
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+            />
+          </div>
+
+          <!-- FILANNOO SAALAA (GENDER) - PLEDGE -->
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Saala / ጾታ <span class="text-red-500">*</span></label
+            >
+            <select
+              id="pledgeGender"
+              required
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+            >
+              <option value="">-- Filadhu / ይምረጡ --</option>
+              <option value="Dhiira / ወንድ">Dhiira / ወንድ</option>
+              <option value="Dhalaa / ሴት">Dhalaa / ሴት</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Lakk. Bilbilaa / ስልክ ቁጥር
+              <span class="text-red-500">*</span></label
+            >
+            <input
+              type="tel"
+              id="pledgeDonorPhone"
+              required
+              placeholder="0911......"
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+            />
+            <p class="text-xs text-slate-500 mt-1">
+              *Lakk. bilbilaa kanaan booda kaffaltii xumuruuf fayyadamtu/ይህ ስልክ
+              ቁጥር ክፍያውን ለመክፈል (ለማጠናቀቅ) ይጠቀሙበታል።.[cite: 2]
+            </p>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Hamma Niyyatame / የተነየተው መጠን (ETB)
+              <span class="text-red-500">*</span></label
+            >
+            <input
+              type="number"
+              id="pledgeDonorAmount"
+              required
+              min="10"
+              placeholder="Fkn: 5000"
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+            />
+          </div>
+
+          <!-- FILANNOO Hordoffii Kaffaltii (Frequency) -->
+          <div>
+            <label class="block text-sm font-semibold mb-1">
+              Hordoffii Kaffaltii (Frequency) / የክፍያ ድግግሞሽ
+              <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="pledgeFrequency"
+              required
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+            >
+              <option value="">
+                -- Gosa Irra-deddeebii Filadhu / ድግግሞሽ ይምረጡ --
+              </option>
+              <option value="Ji'a ji'aan / በወር በወር">
+                Ji'a ji'aan (Monthly) / በወር በወር
+              </option>
+              <option value="Ji'a ja'aan / በ6 ወር">
+                Ji'a jahaan (Semi-Annually) / በ6 ወር
+              </option>
+              <option value="Waggaan / በዓመት">Waggaan (Annually) / በዓመት</option>
+              <option value="Al tokko qofa / ለአንዴና ለመጨረሻ ጊዜ">
+                Al tokko qofa (One-time) / ለአንዴና ለመጨረሻ ጊዜ
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Karaa Gara Fuulduraatti ittiin Kaffaluuf Yaaddan / ለመክፈል ያሰቡበት
+              መንገድ <span class="text-red-500">*</span></label
+            >
+            <select
+              id="pledgePlannedMethod"
+              required
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-white"
+            >
+              <option value="">-- Filadhu / ይምረጡ --</option>
+              <option value="CBE / Baankii">
+                Baankii Daldalaa / ንግድ ባንክ (CBE)
+              </option>
+              <option value="AWASH / Baankii">Baankii Awaash / አዋሽ ባንክ</option>
+              <option value="Abiisiiniya / Baankii">
+                Baankii Abiisiiniyaa / አቢሲኒያ ባንክ
+              </option>
+              <option value="Zamzam / Baankii">
+                Zamzam Baankii / ዘምዘም ባንክ
+              </option>
+              <option value="Hijraa / Baankii">Hijraa Baankii / ሂጅራ ባንክ</option>
+              <option value="Hibret / Baankii">Hibret Bank / ህብረት ባንክ</option>
+              <option value="Telebirr">Telebirr / ቴሌብር</option>
+              <option value="M-Pesa">M-Pesa / ኤም-ፔሳ</option>
+              <option value="Cash / Harkaan">
+                Kaffaltii Kallattiin / በጥሬ ገንዘብ
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Guyyaa itti kaffaluuf Yaadame (E.C) / ለመክፈል ያሰቡት ቀን
+              <span class="text-red-500">*</span></label
+            >
+            <div class="grid grid-cols-3 gap-2">
+              <select
+                id="pledgeEthDay"
+                required
+                class="input-field p-2.5 border rounded-lg text-sm bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+              >
+                <option value="">Guyyaa / ቀን</option>
+              </select>
+
+              <select
+                id="pledgeEthMonth"
+                required
+                class="input-field p-2.5 border rounded-lg text-sm bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+              >
+                <option value="">Ji'a / ወር</option>
+                <option value="Meskerem / መስከረም">Meskerem / መስከረም</option>
+                <option value="Tikimt / ጥቅምት">Tikimt / ጥቅምት</option>
+                <option value="Hidar / ሕዳር">Hidar / ሕዳር</option>
+                <option value="Tahsas / ታኅሣሥ">Tahsas / ታኅሣሥ</option>
+                <option value="Tir / ጥር">Tir / ጥር</option>
+                <option value="Yekatit / የካቲት">Yekatit / የካቲት</option>
+                <option value="Megabit / መጋቢት">Megabit / መጋቢት</option>
+                <option value="Miyazia / ሚያዝያ">Miyazia / ሚያዝያ</option>
+                <option value="Ginbot / ግንቦት">Ginbot / ግንቦት</option>
+                <option value="Sene / ሰኔ">Sene / ሰኔ</option>
+                <option value="Hamle / ሐምሌ">Hamle / ሐምሌ</option>
+                <option value="Nehase / ነሐሴ">Nehase / ነሐሴ</option>
+                <option value="Pagume / ጳጉሜ">Pagume / ጳጉሜ</option>
+              </select>
+
+              <select
+                id="pledgeEthYear"
+                required
+                class="input-field p-2.5 border rounded-lg text-sm bg-white focus:ring-2 focus:ring-emerald-500 outline-none"
+              >
+                <option value="2018">2018 E.C</option>
+                <option value="2019">2019 E.C</option>
+                <option value="2020">2020 E.C</option>
+                <option value="2021">2021 E.C</option>
+                <option value="2022">2022 E.C</option>
+                <option value="2023">2023 E.C</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Ergaa/መልእክት (Optional / አማራጭ)</label
+            >
+            <textarea
+              id="pledgeDonorMessage"
+              rows="2"
+              placeholder="Ergaa gabaabaa... / አጭር መልእክት..."
+              class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            id="submitMakePledgeBtn"
+            class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 rounded-lg transition shadow-md mt-2"
+          >
+            Niyyaa Galmeessi / ኒያ አስመዝግብ
+          </button>
+        </form>
+      </div>
+
+      <!-- SECTION 3: PAY EXISTING PLEDGE -->
+      <div
+        id="payPledgeContainer"
+        class="hidden max-w-xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-md border border-amber-200 space-y-4"
+      >
+        <h3 class="font-bold text-lg text-amber-900 border-b pb-3 mb-2">
+          🔍 Niyyaa Duraan Galmeessitan Kaffaluu / ቃል የገቡትን መክፈያ
+        </h3>
+
+        <div id="searchStep" class="space-y-3">
+          <label class="block text-xs font-bold text-slate-700"
+            >Lakk. Bilbilaa Niyaa ittiin galmeessitan galchaa /እባክዎን የኒያ
+            ያስመዘገቡበትን ስልክ ቁጥርዎን ያስገቡ።</label
+          >
+          <div class="flex gap-2">
+            <input
+              type="tel"
+              id="searchPhone"
+              placeholder="0911......"
+              class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 outline-none"
+            />
+            <button
+              type="button"
+              onclick="searchPledge()"
+              class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-4 py-2.5 rounded-lg text-xs transition whitespace-nowrap"
+            >
+              🔎 Barbaadi / ፈልግ
+            </button>
+          </div>
+          <p id="searchResult" class="text-xs font-semibold mt-1"></p>
+        </div>
+
+        <form
+          id="payPledgeForm"
+          onsubmit="submitPledgePayment(event)"
+          class="hidden space-y-4 pt-3 border-t"
+        >
+          <div
+            class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900"
+          >
+            <p><strong>Maqaa / ስም:</strong> <span id="pledgeName">-</span></p>
+            <p>
+              <strong>Hamma Niyyatame / የተነየተው መጠን:</strong>
+              <span id="pledgeAmount" class="font-bold text-emerald-700"
+                >0 ETB</span
+              >
+            </p>
+          </div>
+
+          <input type="hidden" id="pledgeRecordId" />
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Karaa Kaffaltii Raawwattan / የከፈሉበት መንገድ *</label
+            >
+            <select
+              id="pledgePaymentMethod"
+              required
+              onchange="togglePledgeBankInput()"
+              class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 outline-none bg-white"
+            >
+              <option value="">
+                -- Karaa Kaffaltii Filadhu / የአከፋፈል ዘዴ ይምረጡ --
+              </option>
+              <option value="CBE / Baankii">
+                CBE / Baankii Daldalaa (በባንክ)
+              </option>
+              <option value="Telebirr">Telebirr / ቴሌብር</option>
+              <option value="M-Pesa">M-Pesa / ኤም-ፔሳ</option>
+              <option value="AWASH / Baankii">Awaash Baankii</option>
+              <option value="Abiisiiniya / Baankii">
+                Abiisiiniyaa Baankii
+              </option>
+              <option value="Zamzam / Baankii">Zamzam Baankii</option>
+              <option value="Hijraa / Baankii">Hijraa Baankii</option>
+              <option value="Hibret / Baankii">Hibret Bank</option>
+              <option value="Cash / Harkaan">
+                Kaffaltii Kallattiin / በጥሬ ገንዘብ
+              </option>
+            </select>
+          </div>
+
+          <!-- Pledge Bank Name Selection Container -->
+          <div id="pledgeBankNameContainer" class="hidden space-y-1">
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Maqaa Baankii / የባንክ ስም *</label
+            >
+            <select
+              id="pledgeBankName"
+              class="w-full p-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-emerald-600 outline-none bg-white"
+            >
+              <option value="">-- Baankii Filadhu / ባንክ ይምረጡ --</option>
+              <option value="Commercial Bank of Ethiopia (CBE)">
+                Commercial Bank of Ethiopia (CBE) / የኢትዮጵያ ንግድ ባንክ
+              </option>
+              <option value="Awash Bank">Awash Bank / አዋሽ ባንክ</option>
+              <option value="Dashen Bank">Dashen Bank / ዳሽን ባንክ</option>
+              <option value="Abyssinia Bank">
+                Abyssinia Bank / የአቢሲኒያ ባንክ
+              </option>
+              <option value="Wegagen Bank">Wegagen Bank / ወጋገን ባንክ</option>
+              <option value="Nib International Bank">
+                Nib International Bank / ንብ ኢንተርናሽናል ባንክ
+              </option>
+              <option value="Cooperative Bank of Oromia (CBO)">
+                Cooperative Bank of Oromia (CBO) / የኦሮሚያ ህብረት ስራ ባንክ
+              </option>
+              <option value="Oromia International Bank (OIB)">
+                Oromia International Bank (OIB) / ኦሮሚያ ባንክ
+              </option>
+              <option value="Zemen Bank">Zemen Bank / ዘመን ባንክ</option>
+              <option value="Hijra Bank">Hijra Bank / ሂጅራ ባንክ (Islamic)</option>
+              <option value="Hibret Bank">Hibret Bank / ህብረት ባንክ</option>
+              <option value="Bunna Bank">Bunna Bank / ቡና ባንክ</option>
+              <option value="Berhan Bank">Berhan Bank / ብርሃን ባንክ</option>
+              <option value="Siinqee Bank">Siinqee Bank / ሲንቄ ባንክ</option>
+              <option value="Amhara Bank">Amhara Bank / አማራ ባንክ</option>
+              <option value="Global Bank Ethiopia">
+                Global Bank Ethiopia / ግሎባል ባንክ ኢትዮጵያ
+              </option>
+              <option value="Tsehay Bank">Tsehay Bank / ፀሀይ ባንክ</option>
+              <option value="Ahadu Bank">Ahadu Bank / አሀዱ ባንክ</option>
+              <option value="Goh Betoch Bank">
+                Goh Betoch Bank / ጎህ ቤቶች ባንክ
+              </option>
+              <option value="Tseday Bank">Tseday Bank / ጥጸደይ ባንክ</option>
+              <option value="Zamzam Bank">
+                Zamzam Bank / ዘምዘም ባንክ (Islamic)
+              </option>
+              <option value="Enat Bank">Enat Bank / እናት ባንክ</option>
+              <option value="Other Bank">Other Bank / ሌሎች ባንኮች</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1"
+              >Nagahee Kaffaltii (Receipt) Upload Godhaa / የክፍያ ደረሰኝ ያስገቡ
+              *</label
+            >
+            <input
+              type="file"
+              id="pledgeReceiptFile"
+              required
+              accept="image/*,.pdf"
+              class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-50 file:text-emerald-700 hover:file:bg-emerald-100 border rounded-lg p-1"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="submitPledgeBtn"
+            class="w-full bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 rounded-lg text-sm transition shadow-md"
+          >
+            ✓ Nagahee Ergi / ደረሰኙን ላክ
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="text-center p-4 text-xs text-slate-500 border-t bg-white mt-auto"
+    >
+      © 2026 Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo[cite: 2]
+    </footer>
+
+    <script>
+      const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      const pledgeEthMonthSelect = document.getElementById("pledgeEthMonth");
+      const pledgeEthDaySelect = document.getElementById("pledgeEthDay");
+
+      function populateDays(maxDays) {
+        if (!pledgeEthDaySelect) return;
+        const currentVal = pledgeEthDaySelect.value;
+        pledgeEthDaySelect.innerHTML = '<option value="">Guyyaa / ቀን</option>';
+        for (let i = 1; i <= maxDays; i++) {
+          const opt = document.createElement("option");
+          opt.value = i;
+          opt.textContent = i;
+          if (i == currentVal) opt.selected = true;
+          pledgeEthDaySelect.appendChild(opt);
+        }
+      }
+      populateDays(30);
+
+      if (pledgeEthMonthSelect) {
+        pledgeEthMonthSelect.addEventListener("change", function () {
+          this.value === "Pagume / ጳጉሜ" ? populateDays(6) : populateDays(30);
+        });
+      }
+
+      // Toggle Bank selection dropdown for main donation form
+      const paymentMethodSelect = document.getElementById("paymentMethod");
+      if (paymentMethodSelect) {
+        paymentMethodSelect.addEventListener("change", function () {
+          const val = this.value;
+          const bankContainer = document.getElementById("bankNameContainer");
+          const bankInput = document.getElementById("donorBankName");
+          if (
+            val.includes("Baankii") ||
+            val === "Telebirr" ||
+            val === "M-Pesa"
+          ) {
+            bankContainer.classList.remove("hidden");
+            if (val.includes("Baankii")) {
+              bankInput.required = true;
+            } else {
+              bankInput.required = false;
+            }
+          } else {
+            bankContainer.classList.add("hidden");
+            bankInput.required = false;
+            bankInput.value = "";
+          }
+        });
+      }
+
+      // Toggle Bank selection dropdown for pledge payment form
+      function togglePledgeBankInput() {
+        const val = document.getElementById("pledgePaymentMethod").value;
+        const bankContainer = document.getElementById(
+          "pledgeBankNameContainer",
+        );
+        const bankInput = document.getElementById("pledgeBankName");
+        if (val.includes("Baankii") || val === "Telebirr" || val === "M-Pesa") {
+          bankContainer.classList.remove("hidden");
+          if (val.includes("Baankii")) {
+            bankInput.required = true;
+          } else {
+            bankInput.required = false;
+          }
+        } else {
+          bankContainer.classList.add("hidden");
+          bankInput.required = false;
+          bankInput.value = "";
+        }
+      }
+
+      function switchTab(tab) {
+        const payNowCont = document.getElementById("payNowContainer");
+        const makePledgeCont = document.getElementById("makePledgeContainer");
+        const payPledgeCont = document.getElementById("payPledgeContainer");
+
+        const btnPayNow = document.getElementById("btnPayNow");
+        const btnMakePledge = document.getElementById("btnMakePledge");
+        const btnPayPledge = document.getElementById("btnPayPledge");
+
+        const defaultStyle =
+          "py-4 px-3 text-sm font-bold rounded-xl bg-white text-slate-700 border-2 border-slate-200 hover:bg-emerald-50 hover:border-emerald-600 transition text-center shadow-sm";
+
+        payNowCont.classList.add("hidden");
+        makePledgeCont.classList.add("hidden");
+        payPledgeCont.classList.add("hidden");
+
+        btnPayNow.className = defaultStyle;
+        btnMakePledge.className = defaultStyle;
+        btnPayPledge.className = defaultStyle;
+
+        if (tab === "payNow") {
+          payNowCont.classList.remove("hidden");
+          btnPayNow.className =
+            "py-4 px-3 text-sm font-bold rounded-xl bg-emerald-800 text-white border-2 border-emerald-800 shadow transition text-center";
+        } else if (tab === "makePledge") {
+          makePledgeCont.classList.remove("hidden");
+          btnMakePledge.className =
+            "py-4 px-3 text-sm font-bold rounded-xl bg-emerald-800 text-white border-2 border-emerald-800 shadow transition text-center";
+        } else if (tab === "payPledge") {
+          payPledgeCont.classList.remove("hidden");
+          btnPayPledge.className =
+            "py-4 px-3 text-sm font-bold rounded-xl bg-amber-600 text-white border-2 border-amber-600 shadow transition text-center";
+        }
+      }
+
+      // Default tab view on open
+      switchTab("payNow");
+
+      // USSD Only Integration Function (Copies account number & launches USSD dialer)
+      function openBankingUSSD(accountNumber, ussdCode, element) {
+        // 1. Copy the account number automatically
+        navigator.clipboard
+          .writeText(accountNumber)
+          .then(() => {
+            const feedback = element.querySelector(".copy-feedback");
+            if (feedback) {
+              feedback.classList.remove("hidden");
+              setTimeout(() => {
+                feedback.classList.add("hidden");
+              }, 2000);
+            }
+          })
+          .catch((err) => {
+            console.error("Copy failed: ", err);
+          });
+
+        // 2. Directly trigger the USSD dialer
+        if (ussdCode) {
+          const formattedUssd = ussdCode.replace("#", "%23");
+          window.location.href = `tel:${formattedUssd}`;
+        }
+      }
+
+      // Donation Form Submission
+      document
+        .getElementById("donationForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("submitBtn");
+          btn.disabled = true;
+          btn.innerText = "Galmeessaa jira... / በማስመዝገብ ላይ...";
+
+          try {
+            const file = document.getElementById("receiptFile").files[0];
+            let receiptUrl = null;
+
+            if (file) {
+              const fileExt = file.name.split(".").pop();
+              const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+              const { error: uploadError } = await supabaseClient.storage
+                .from("receipts")
+                .upload(fileName, file);
+              if (uploadError) throw uploadError;
+              const { data: publicUrlData } = supabaseClient.storage
+                .from("receipts")
+                .getPublicUrl(fileName);
+              receiptUrl = publicUrlData.publicUrl;
+            }
+
+            let paymentMethodVal =
+              document.getElementById("paymentMethod").value;
+            const bankNameVal = document.getElementById("donorBankName").value;
+            if (bankNameVal) {
+              paymentMethodVal += ` - ${bankNameVal}`;
+            }
+
+            const { error } = await supabaseClient.from("donations").insert([
+              {
+                name: document.getElementById("donorName").value,
+                gender: document.getElementById("donorGender").value,
+                contact: document.getElementById("donorContact").value,
+                amount: parseFloat(
+                  document.getElementById("donationAmount").value,
+                ),
+                payment_method: paymentMethodVal,
+                message: document.getElementById("donorMessage").value,
+                receipt_url: receiptUrl,
+                status: "kaffalameera",
+              },
+            ]);
+
+            if (error) throw error;
+            alert(
+              "Jazaakumullaahu Khayran! / ጀዛኩሙላሁ ኸይረን!\nGumaachi keessan sirriitti galmeeffameera / እርዳታዎ በትክክል ተመዝግቧል",
+            );
+            document.getElementById("donationForm").reset();
+            document
+              .getElementById("bankNameContainer")
+              .classList.add("hidden");
+          } catch (err) {
+            alert("Dogoggorri uumameera / ስህተት ተፈጥሯል: " + err.message);
+          } finally {
+            btn.disabled = false;
+            btn.innerText = "Kaffaltii Galmeessi / ክፍያውን አስመዝግብ";
+          }
+        });
+
+      // Pledge Form Submission
+      document
+        .getElementById("pledgeForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("submitMakePledgeBtn");
+          btn.disabled = true;
+          btn.innerText = "Galmeessaa jira... / በማስመዝገብ ላይ...";
+
+          try {
+            const day = pledgeEthDaySelect.value;
+            const month = pledgeEthMonthSelect.value;
+            const year = document.getElementById("pledgeEthYear").value;
+            const plannedMethod = document.getElementById(
+              "pledgePlannedMethod",
+            ).value;
+            const frequencyVal =
+              document.getElementById("pledgeFrequency").value;
+
+            if (!day || !month)
+              throw new Error(
+                "Maaloo guyyaa fi ji'a kaffaltii sirriitti filadhaa / እባክዎን የክፍያውን ቀን እና ወር በትክክል ይምረጡ!",
+              );
+
+            const { error } = await supabaseClient.from("donations").insert([
+              {
+                name: document.getElementById("pledgeDonorName").value,
+                gender: document.getElementById("pledgeGender").value,
+                contact: document.getElementById("pledgeDonorPhone").value,
+                amount: parseFloat(
+                  document.getElementById("pledgeDonorAmount").value,
+                ),
+                payment_method: plannedMethod,
+                message: `${document.getElementById("pledgeDonorMessage").value} [Hordoffii Kaffaltii / Frequency: ${frequencyVal}] (Guyyaa Yaadame E.C: ${day} ${month} ${year} E.C)`,
+                status: "pledge",
+              },
+            ]);
+
+            if (error) throw error;
+            alert(
+              "Jazaakumullaahu Khayran! Niyyaan (Waadaan) keessan sirriitti galmeeffameera / ጃዛኩሙሏሁ ኸይራን! ኒያዎ (ቃልዎ) በትክክል ተመዝግቧል።",
+            );
+            document.getElementById("pledgeForm").reset();
+          } catch (err) {
+            alert("Dogoggorri uumameera / ስህተት ተፈጥሯል: " + err.message);
+          } finally {
+            btn.disabled = false;
+            btn.innerText = "Niyyaa Galmeessi / ኒያ አስመዝግብ";
+          }
+        });
+
+      async function searchPledge() {
+        const phone = document.getElementById("searchPhone").value.trim();
+        const resultText = document.getElementById("searchResult");
+        const pledgeForm = document.getElementById("payPledgeForm");
+
+        if (!phone)
+          return alert("Maaloo lakk. bilbilaa galchaa! / እባክዎን ስልክ ቁጥር ያስገቡ!");
+        resultText.className = "text-xs font-semibold text-slate-500 mt-1";
+        resultText.innerText = "Barbaadaa jira... / በመፈለግ ላይ ነው...";
+        pledgeForm.classList.add("hidden");
+
+        const { data, error } = await supabaseClient
+          .from("donations")
+          .select("*")
+          .eq("contact", phone)
+          .eq("status", "pledge");
+
+        if (error || !data || data.length === 0) {
+          resultText.className = "text-xs font-semibold text-red-600 mt-1";
+          resultText.innerText =
+            "❌ Lakk. bilbila kanaan niyyaan galmaa'e hin jiru! / በዚህ ስልክ ቁጥር የተመዘገበ ኒያ (ቃል) የለም!";
+          return;
+        }
+
+        const item = data[0];
+        document.getElementById("pledgeRecordId").value = item.id;
+        document.getElementById("pledgeName").innerText = item.name || "-";
+        document.getElementById("pledgeAmount").innerText =
+          (item.amount || 0).toLocaleString() + " ETB";
+        resultText.className = "text-xs font-semibold text-emerald-600 mt-1";
+        resultText.innerText =
+          "✓ Niyyaan keessan argameera! Maaloo nagahee upload godhaa. / ኒያዎ ተገኝቷል! እባክዎን ደረሰኝ ይጫኑ (Upload ያድርጉ)።";
+        pledgeForm.classList.remove("hidden");
+      }
+
+      async function submitPledgePayment(e) {
+        e.preventDefault();
+        const btn = document.getElementById("submitPledgeBtn");
+        btn.disabled = true;
+        btn.innerText = "Fe'amaa jira... / በመጫን ላይ ነው...";
+
+        try {
+          const recordId = document.getElementById("pledgeRecordId").value;
+          let selectedMethod = document.getElementById(
+            "pledgePaymentMethod",
+          ).value;
+          const pledgeBankNameVal =
+            document.getElementById("pledgeBankName").value;
+          if (pledgeBankNameVal) {
+            selectedMethod += ` - ${pledgeBankNameVal}`;
+          }
+
+          const file = document.getElementById("pledgeReceiptFile").files[0];
+
+          if (!selectedMethod) {
+            throw new Error(
+              "Maaloo karaa kaffaltii ittiin raawwattan filadhaa! / እባክዎን የክፍያ ዘዴ ይምረጡ!",
+            );
+          }
+          if (!file) {
+            throw new Error("Maaloo nagahee upload godhaa! / እባክዎን ደረሰኝ ያስገቡ!");
+          }
+
+          const fileExt = file.name.split(".").pop();
+          const fileName = `pledge_${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+          const { error: uploadErr } = await supabaseClient.storage
+            .from("receipts")
+            .upload(fileName, file, { upsert: true });
+          if (uploadErr) throw uploadErr;
+
+          const { data: urlData } = supabaseClient.storage
+            .from("receipts")
+            .getPublicUrl(fileName);
+
+          const { error: updateErr } = await supabaseClient
+            .from("donations")
+            .update({
+              status: "kaffalameera",
+              payment_method: selectedMethod,
+              receipt_url: urlData.publicUrl,
+            })
+            .eq("id", recordId);
+
+          if (updateErr) throw updateErr;
+          alert(
+            "🎉 Jazaakumullaahu Khayran! Niyyaan keessan kaffalameera! / ጃዛኩሙሏሁ ኸይራን! የገባርነው ቃል ክፍያ ተፈጽሟል (ተመዝግቧል)!",
+          );
+          document.getElementById("payPledgeForm").reset();
+          document.getElementById("payPledgeForm").classList.add("hidden");
+          document
+            .getElementById("pledgeBankNameContainer")
+            .classList.add("hidden");
+          document.getElementById("searchResult").innerText = "";
+          document.getElementById("searchPhone").value = "";
+        } catch (err) {
+          alert("Dogoggorri uumameera / ስህተት ተፈጥሯል: " + err.message);
+        } finally {
+          btn.disabled = false;
+          btn.innerText = "✓ Nagahee Ergadhu / ደረሰኙን ላክ";
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Mana Marii Malkaa Noonnoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- NAVIGEEHINII WALOO (SHARED NAVBAR) -->
+<nav style="background: #1b4332; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+    <h2 style="font-size: 1.1rem; margin: 0;">Managements System</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #2d6a4f;">Muummee (Home)</a>
+        <a href="donation-index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px;">Deeggarsa (User)</a>
+        <a href="donation-admin.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #6c757d;">Deeggarsa (Admin)</a>
+        <a href="finance-index.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px;">Galii/Baasii (User)</a>
+        <a href="finance-admin.html" style="color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; padding: 0.4rem 0.8rem; border-radius: 6px; background: #6c757d;">Galii/Baasii (Admin)</a>
+    </div>
+</nav>
+  </head>
+  <body
+    class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
+  >
+    <!-- PASSWORD MODAL (Yeroo jalqabaaf yoo banamu kan dhufu) -->
+    <div
+      id="loginModal"
+      class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center space-y-4"
+      >
+        <div class="text-4xl">🔐</div>
+        <h3 class="text-lg font-bold text-slate-800">
+          Eeyyama Admin Barbaachisa/የ አድሚን ፈቃድ ያስፈልጋል።
+        </h3>
+        <p class="text-xs text-slate-500">
+          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa/እባክዎን
+          ወደ አድሚን ገጽ ለመግባት የይለፍ ቃል (ፓስወርድ) ያስገቡ።
+        </p>
+
+        <form id="loginForm" class="space-y-3">
+          <input
+            type="password"
+            id="adminPasswordInput"
+            required
+            placeholder="Password galchaa..."
+            class="w-full p-3 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-500 text-center"
+          />
+          <button
+            type="submit"
+            class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-xl transition text-sm"
+          >
+            Seeni/ግባ/Log In 🚀
+          </button>
+        </form>
+        <a
+          href="index.html"
+          class="block text-xs text-slate-400 hover:underline pt-2"
+          >🏠 Gara Fuula Duraatti Deebi'i/ወደ መጀመሪያ ገጽ ተመለስ</a
+        >
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-emerald-900 text-white p-4 shadow-md px-6">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <div>
+          <h1 class="text-lg md:text-xl font-bold">
+            Admin Dashboard / የአደሚን ገጽ
+          </h1>
+          <p class="text-xs text-emerald-200">
+            Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
+          </p>
+          <p class="text-xs text-emerald-200">
+            መልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <a
+            href="index.html"
+            class="bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-emerald-700 transition"
+          >
+            🏠 Gara Fuula Duraa/ወደ መጀመሪያ ገጽ
+          </a>
+          <button
+            onclick="logout()"
+            class="bg-red-700 hover:bg-red-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition"
+          >
+            🚪Ba'i/ውጣ/Log Out
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto p-4 md:p-6 w-full space-y-6">
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div
+          class="bg-white p-6 rounded-2xl shadow border flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase">
+              Galii Waliigalaa / ጠቅላላ ገቢ
+            </p>
+            <h2
+              id="totalIncome"
+              class="text-2xl font-black text-emerald-600 mt-1"
+            >
+              0.00 ETB
+            </h2>
+          </div>
+          <span class="text-3xl">📈</span>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow border flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase">
+              Baasii Waliigalaa / ጠቅላላ ወጪ
+            </p>
+            <h2 id="totalExpense" class="text-2xl font-black text-red-600 mt-1">
+              0.00 ETB
+            </h2>
+          </div>
+          <span class="text-3xl">📉</span>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow border flex items-center justify-between"
+        >
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase">
+              Haftee/ቀሪ ገንዘብ/(Balance)
+            </p>
+            <h2 id="netBalance" class="text-2xl font-black text-blue-600 mt-1">
+              0.00 ETB
+            </h2>
+          </div>
+          <span class="text-3xl">💰</span>
+        </div>
+      </div>
+
+      <!-- Transactions Table Section -->
+      <div class="bg-white rounded-2xl shadow border overflow-hidden">
+        <div
+          class="p-4 border-b bg-slate-50 flex justify-between items-center flex-wrap gap-4"
+        >
+          <h3 class="font-bold text-slate-700">
+            Galmee Galii fi Baasii / የገቢ እና ወጪ መዝገብ
+          </h3>
+          <!-- <div class="flex gap-2">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Maqaa, Itti gaafatamaa ykn Madiin barbaadi..."
+              class="p-2 border rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500 w-64"
+            />
+          </div> -->
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="bg-slate-100 text-slate-600 border-b">
+                <th class="p-3">Guyyaa/ቀን</th>
+                <th class="p-3">Gosa/አይነት</th>
+                <th class="p-3">Madda/ምንጭ</th>
+                <th class="p-3">Maqaa Kaffalaa/Fudhataa/የከፋየ/ተቀባይ ስም</th>
+                <th class="p-3 text-emerald-900 font-bold">
+                  Maqaa fi bilbila itti gaafatamaa/ የተጠያቂ ስምና ስልክ
+                </th>
+                <th class="p-3 text-emerald-900 font-bold">
+                  Ga'ee Hojii/የስራ ድርሻ (Role)
+                </th>
+                <th class="p-3">Hamma/መጠን (Amount)</th>
+                <th class="p-3">Karaa itti kaffalame/የተከፈለበት መንገድ</th>
+                <th class="p-3">Nagahee/ደረሰኝ</th>
+                <th class="p-3">Ibsa/ማብራሪያ</th>
+              </tr>
+            </thead>
+            <tbody id="transactionTableBody" class="divide-y divide-slate-100">
+              <tr>
+                <td colspan="10" class="p-6 text-center text-slate-400">
+                  Fe'amaa jira... / በመጫን ላይ...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-white border-t py-4 text-center text-xs text-slate-500 mt-auto"
+    >
+      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo © 2026
+    </footer>
+
+    <!-- JavaScript logic -->
+    <script>
+      const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      // PASSWORD CONFIGURATION (Asitti password kee jijjiiruu dandeessa, fakkeenyaaf: malkaanonnoo2026)
+      const ADMIN_PASSWORD = "MelkaNono#1579";
+
+      // Check if already logged in during this session
+      window.addEventListener("DOMContentLoaded", () => {
+        const isLoggedIn = sessionStorage.getItem("isAdminLoggedIn");
+        if (isLoggedIn === "true") {
+          document.getElementById("loginModal").classList.add("hidden");
+          fetchTransactions();
+        } else {
+          document.getElementById("loginModal").classList.remove("hidden");
+        }
+      });
+
+      // Handle Login Form Submit
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const enteredPass = document.getElementById("adminPasswordInput").value;
+
+        if (enteredPass === ADMIN_PASSWORD) {
+          sessionStorage.setItem("isAdminLoggedIn", "true");
+          document.getElementById("loginModal").classList.add("hidden");
+          fetchTransactions();
+        } else {
+          alert("Jechi darbii (Password) sirrii miti! Irra deebi'ii yaali.");
+          document.getElementById("adminPasswordInput").value = "";
+        }
+      });
+
+      let allTransactions = [];
+
+      async function fetchTransactions() {
+        const { data, error } = await supabaseClient
+          .from("transaction")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          alert("Deetaa fiduu irratti dogoggora uumame: " + error.message);
+          return;
+        }
+
+        allTransactions = data || [];
+        renderTable(allTransactions);
+        calculateSummary(allTransactions);
+      }
+
+      function renderTable(data) {
+        const tbody = document.getElementById("transactionTableBody");
+        tbody.innerHTML = "";
+
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-slate-400">Galmeen tokkoyyuu hin jiru.</td></tr>`;
+          return;
+        }
+
+        data.forEach((item) => {
+          const tr = document.createElement("tr");
+          tr.className = "hover:bg-slate-50 transition";
+
+          const typeBadge =
+            item.type === "income"
+              ? `<span class="bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-bold">Galii / ገቢ</span>`
+              : `<span class="bg-red-100 text-red-700 px-2 py-1 rounded font-bold">Baasii / ወጪ</span>`;
+
+          let receiptDisplay = "-";
+          if (item.receipt_url) {
+            receiptDisplay = `<a href="${item.receipt_url}" target="_blank" class="text-blue-600 underline font-semibold flex items-center gap-1">📄 ${item.receipt_no || "Ilaali"}</a>`;
+          } else if (item.receipt_no) {
+            receiptDisplay = item.receipt_no;
+          }
+
+          tr.innerHTML = `
+            <td class="p-3">${item.date || "-"}</td>
+            <td class="p-3">${typeBadge}</td>
+            <td class="p-3 font-medium">${item.category || "-"}</td>
+            <td class="p-3">${item.name || "-"}</td>
+            <td class="p-3 font-semibold text-emerald-900 bg-emerald-50/30">
+              <div>${item.responsible_name || "-"}</div>
+              <div class="text-slate-500 font-normal text-[11px]">📞 ${item.responsible_phone || "-"}</div>
+            </td>
+            <td class="p-3 font-medium text-slate-700">${item.responsible_role || "-"}</td>
+            <td class="p-3 font-bold ${item.type === "income" ? "text-emerald-600" : "text-red-600"}">${item.amount.toLocaleString()} ETB</td>
+            <td class="p-3">${item.payment_method || "-"}</td>
+            <td class="p-3">${receiptDisplay}</td>
+            <td class="p-3 text-slate-500">${item.description || "-"}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      }
+
+      function calculateSummary(data) {
+        let income = 0;
+        let expense = 0;
+
+        data.forEach((item) => {
+          if (item.type === "income") {
+            income += item.amount || 0;
+          } else {
+            expense += item.amount || 0;
+          }
+        });
+
+        const net = income - expense;
+
+        document.getElementById("totalIncome").innerText =
+          income.toLocaleString() + " ETB";
+        document.getElementById("totalExpense").innerText =
+          expense.toLocaleString() + " ETB";
+        document.getElementById("netBalance").innerText =
+          net.toLocaleString() + " ETB";
+      }
+
+      // Search functionality
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        const query = e.target.value.toLowerCase();
+        const filtered = allTransactions.filter(
+          (item) =>
+            (item.name && item.name.toLowerCase().includes(query)) ||
+            (item.category && item.category.toLowerCase().includes(query)) ||
+            (item.responsible_name &&
+              item.responsible_name.toLowerCase().includes(query)) ||
+            (item.responsible_role &&
+              item.responsible_role.toLowerCase().includes(query)),
+        );
+        renderTable(filtered);
+      });
+
+      function logout() {
+        sessionStorage.removeItem("isAdminLoggedIn");
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

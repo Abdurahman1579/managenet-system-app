@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Mana Marii Malkaa Noonnoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- NAVIGEEHINII WALOO (SHARED NAVBAR) -->
+    <nav
+      style="
+        background: #1b4332;
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      "
+    >
+      <h2 style="font-size: 1.1rem; margin: 0">Managements System</h2>
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+        <a
+          href="index.html"
+          style="
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            background: #2d6a4f;
+          "
+          >Muummee (Home)</a
+        >
+        <a
+          href="donation-index.html"
+          style="
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+          "
+          >Deeggarsa (User)</a
+        >
+        <a
+          href="donation-admin.html"
+          style="
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            background: #6c757d;
+          "
+          >Deeggarsa (Admin)</a
+        >
+        <a
+          href="finance-index.html"
+          style="
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+          "
+          >Galii/Baasii (User)</a
+        >
+        <a
+          href="finance-admin.html"
+          style="
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            background: #6c757d;
+          "
+          >Galii/Baasii (Admin)</a
+        >
+      </div>
+    </nav>
+  </head>
+  <body class="bg-slate-100 min-h-screen text-slate-800">
+    <!-- Header -->
+    <header
+      class="bg-emerald-900 text-white p-4 shadow-md flex justify-between items-center px-6"
+    >
+      <div>
+        <h1 class="text-xl font-bold">Admin Panel / የአድሚን መቆጣጠሪያ</h1>
+        <p class="text-xs text-emerald-200">
+          Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
+        </p>
+        <p class="text-xs text-emerald-200">መልካ ኖኖ ክ/ከተማ እስልምና ጉዳዮች ምክር ቤት</p>
+      </div>
+      <button
+        id="logoutBtn"
+        onclick="logout()"
+        class="hidden bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition"
+      >
+        Log Out / ውጣ
+      </button>
+    </header>
+
+    <!-- LOGIN SECTION -->
+    <div
+      id="loginSection"
+      class="max-w-md mx-auto mt-20 p-6 bg-white rounded-2xl shadow-lg border"
+    >
+      <h2 class="text-lg font-bold text-center text-slate-800 mb-1">
+        Seensa Admin / የአድሚን መግቢያ
+      </h2>
+      <p class="text-xs text-center text-slate-500 mb-6">
+        Maaloo jecha iccitii Admin galchaa.
+      </p>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-sm font-semibold mb-1"
+            >Jecha Iccitii / ሚስጥር ቃል (Password)</label
+          >
+          <input
+            type="password"
+            id="passInput"
+            required
+            placeholder="••••••••"
+            class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded-lg transition shadow-md"
+        >
+          Seeni / ግባ
+        </button>
+      </form>
+    </div>
+
+    <!-- DASHBOARD SECTION -->
+    <div
+      id="dashboardSection"
+      class="hidden max-w-7xl mx-auto p-4 md:p-8 space-y-6"
+    >
+      <!-- Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-emerald-600 text-white p-5 rounded-2xl shadow-md">
+          <p class="text-xs uppercase font-bold tracking-wider opacity-90">
+            💰 QARSHII KAFFALAME
+          </p>
+          <h2 id="totalPaid" class="text-2xl font-extrabold mt-2">0 ETB</h2>
+          <p class="text-[11px] mt-1 opacity-80">የተከፈለ ገንዘብ / ገቢ የሆነ</p>
+        </div>
+
+        <div class="bg-emerald-800 text-white p-5 rounded-2xl shadow-md">
+          <p class="text-xs uppercase font-bold tracking-wider opacity-90">
+            💳 NAMOOTA KAFFALAN
+          </p>
+          <h2 id="paidUsersCount" class="text-2xl font-extrabold mt-2">
+            0 Namoota
+          </h2>
+          <p class="text-[11px] mt-1 opacity-80">የከፈሉ ሰዎች ብዛት</p>
+        </div>
+
+        <div class="bg-amber-500 text-white p-5 rounded-2xl shadow-md">
+          <p class="text-xs uppercase font-bold tracking-wider opacity-90">
+            🤲 QARSHII NIYYATAME
+          </p>
+          <h2 id="totalPledged" class="text-2xl font-extrabold mt-2">0 ETB</h2>
+          <p class="text-[11px] mt-1 opacity-80">የተነየተ ገንዘብ መጠን</p>
+        </div>
+
+        <div class="bg-amber-700 text-white p-5 rounded-2xl shadow-md">
+          <p class="text-xs uppercase font-bold tracking-wider opacity-90">
+            📜 NAMOOTA NIYYATAN
+          </p>
+          <h2 id="pledgedUsersCount" class="text-2xl font-extrabold mt-2">
+            0 Namoota
+          </h2>
+          <p class="text-[11px] mt-1 opacity-80">የነየቱ (ቃል የገቡ) ሰዎች ብዛት</p>
+        </div>
+      </div>
+
+      <!-- Data Table -->
+      <div class="bg-white rounded-2xl shadow-md border overflow-hidden">
+        <div class="p-4 bg-slate-50 border-b flex justify-between items-center">
+          <h3 class="font-bold text-slate-700 text-sm md:text-base">
+            Tarree Gumaachitoota Guutuu / ሙሉ የለጋሾች ዝርዝር
+          </h3>
+          <button
+            onclick="loadDashboardData()"
+            class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs px-3.5 py-2 rounded-lg font-semibold transition flex items-center gap-1.5 shadow-sm"
+          >
+            <span>🔄</span> Refresh
+          </button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-slate-100 text-slate-600 uppercase text-xs">
+              <tr>
+                <th class="p-3">Guyyaa / ቀን</th>
+                <th class="p-3">Maqaa / ስም</th>
+                <th class="p-3">Saala / ጾታ</th>
+                <th class="p-3">Bilbila/Email / ስልክ/ኢመይል</th>
+                <th class="p-3">Hamma / መጠን</th>
+                <th class="p-3">Haala kaffaltii / የክፍያ ሁኔታ</th>
+                <th class="p-3">Hordoffii (Frequency) / ድግግሞሽ</th>
+                <th class="p-3">Karaa Kaffaltii / የክፍያ መንገድ</th>
+                <th class="p-3">Nagahee / ደረሰኝ</th>
+                <th class="p-3">Ergaa / መልእክት</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y">
+              <tr>
+                <td colspan="10" class="p-6 text-center text-slate-400">
+                  Fe'amaa jira...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const SUPABASE_URL = "https://yjkgipivctdhezwvfwjx.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_wgNooZL5_9oxf_0Mg2RmGw_m78N-O5m";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      const ADMIN_PASSWORD = "MelkaNono#1579";
+
+      document.getElementById("loginForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const enteredPass = document.getElementById("passInput").value;
+
+        if (enteredPass === ADMIN_PASSWORD) {
+          document.getElementById("loginSection").classList.add("hidden");
+          document
+            .getElementById("dashboardSection")
+            .classList.remove("hidden");
+          document.getElementById("logoutBtn").classList.remove("hidden");
+          loadDashboardData();
+        } else {
+          alert("Jechi iccitii dogoggora! / የተሳሳተ ሚስጥር ቃል!");
+        }
+      });
+
+      async function loadDashboardData() {
+        const tableBody = document.getElementById("tableBody");
+        tableBody.innerHTML =
+          '<tr><td colspan="10" class="p-6 text-center text-slate-400">Loading data...</td></tr>';
+
+        const { data, error } = await supabaseClient
+          .from("donations")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          tableBody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-red-500">Dogoggora: ${error.message}</td></tr>`;
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          tableBody.innerHTML =
+            '<tr><td colspan="10" class="p-6 text-center text-slate-400">Gumaachi galmaa\'e hin jiru.</td></tr>';
+          document.getElementById("totalPaid").innerText = "0 ETB";
+          document.getElementById("paidUsersCount").innerText = "0 Namoota";
+          document.getElementById("totalPledged").innerText = "0 ETB";
+          document.getElementById("pledgedUsersCount").innerText = "0 Namoota";
+          return;
+        }
+
+        let paidTotal = 0;
+        let paidCount = 0;
+        let pledgedTotal = 0;
+        let pledgedCount = 0;
+
+        data.forEach((item) => {
+          const amt = parseFloat(item.amount) || 0;
+          const status = item.status ? item.status.toLowerCase() : "";
+
+          if (status === "kaffalameera") {
+            paidTotal += amt;
+            paidCount++;
+          } else {
+            pledgedTotal += amt;
+            pledgedCount++;
+          }
+        });
+
+        document.getElementById("totalPaid").innerText =
+          paidTotal.toLocaleString() + " ETB";
+        document.getElementById("paidUsersCount").innerText =
+          paidCount + " Namoota";
+        document.getElementById("totalPledged").innerText =
+          pledgedTotal.toLocaleString() + " ETB";
+        document.getElementById("pledgedUsersCount").innerText =
+          pledgedCount + " Namoota";
+
+        tableBody.innerHTML = "";
+        data.forEach((item) => {
+          const date = item.created_at
+            ? new Date(item.created_at).toLocaleDateString()
+            : "-";
+
+          // Dynamic Badge for Haala Kaffaltii (Status)
+          const isPaid = item.status === "kaffalameera";
+          const statusBadge = isPaid
+            ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-xs inline-block">Kaffalameera / ተከፍለዋል ✅</span>`
+            : `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full font-bold text-xs inline-block">Niyyaa / ተስፋ ተሰጥቷል ⏳</span>`;
+
+          // Format Gender display
+          let genderDisplay = "-";
+          if (item.gender) {
+            if (
+              item.gender.toLowerCase() === "dhiira" ||
+              item.gender.toLowerCase() === "male"
+            ) {
+              genderDisplay = `<span class="text-blue-700 font-semibold">Dhiira / ወንድ 👨</span>`;
+            } else if (
+              item.gender.toLowerCase() === "dubartii" ||
+              item.gender.toLowerCase() === "female"
+            ) {
+              genderDisplay = `<span class="text-pink-700 font-semibold">Dubartii / ሴት 👩</span>`;
+            } else {
+              genderDisplay = item.gender;
+            }
+          }
+
+          // Extract Frequency from message if available
+          let frequencyText = "-";
+          let cleanMessage = item.message || "-";
+          if (item.message && item.message.includes("Frequency:")) {
+            const parts = item.message.split(
+              "[Hordoffii Kaffaltii / Frequency:",
+            );
+            cleanMessage = parts[0].trim();
+            if (parts[1]) {
+              frequencyText = parts[1].replace("]", "").trim();
+            }
+          }
+
+          const frequencyBadge =
+            frequencyText !== "-"
+              ? `<span class="px-2 py-1 bg-blue-50 text-blue-800 border border-blue-200 rounded-md font-semibold text-xs inline-block">${frequencyText}</span>`
+              : `<span class="text-slate-400 font-medium">-</span>`;
+
+          const receiptButton = item.receipt_url
+            ? `<a href="${item.receipt_url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 px-2.5 py-1 text-xs bg-emerald-100 text-emerald-800 rounded-md hover:bg-emerald-200 font-semibold transition">🖼️ Ilaali / እይ</a>`
+            : `<span class="text-slate-400 font-medium">-</span>`;
+
+          tableBody.innerHTML += `
+          <tr class="hover:bg-slate-50 transition border-b border-slate-100">
+            <td class="p-3 text-slate-500 text-xs">${date}</td>
+            <td class="p-3 font-semibold text-slate-800">${item.name || "-"}</td>
+            <td class="p-3 text-xs">${genderDisplay}</td>
+            <td class="p-3 font-mono text-slate-600">${item.contact || "-"}</td>
+            <td class="p-3 font-bold text-emerald-700">+${(item.amount || 0).toLocaleString()} ETB</td>
+            <td class="p-3">${statusBadge}</td>
+            <td class="p-3">${frequencyBadge}</td>
+            <td class="p-3 text-slate-600 font-medium">${item.payment_method || "-"}</td>
+            <td class="p-3 text-xs">${receiptButton}</td>
+            <td class="p-3 text-slate-600 text-xs max-w-xs truncate">${cleanMessage}</td>
+          </tr>
+        `;
+        });
+      }
+
+      function logout() {
+        document.getElementById("loginSection").classList.remove("hidden");
+        document.getElementById("dashboardSection").classList.add("hidden");
+        document.getElementById("logoutBtn").classList.add("hidden");
+        document.getElementById("passInput").value = "";
+      }
+    </script>
+  </body>
+</html>

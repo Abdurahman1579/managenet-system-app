@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Managements System - Mana Marii Dhimmoota Islaamummaa</title>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      /* NAVIGATION BAR */
+      nav {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow);
+      }
+
+      nav h2 {
+        font-size: 1.1rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        transition: background 0.2s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        background: var(--primary-light);
+      }
+
+      /* CONTAINER & HERO */
+      .container {
+        max-width: 1100px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .hero h1 {
+        color: var(--primary);
+        font-size: 2rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .hero .am-sub {
+        color: var(--primary-light);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1.05rem;
+      }
+
+      /* MODULE CARDS GRID */
+      .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .module-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 2.5rem 2rem;
+        box-shadow: var(--shadow);
+        text-align: center;
+        border-top: 5px solid var(--accent);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .module-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .module-card h3 {
+        color: var(--primary);
+        font-size: 1.3rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .module-card .am-title {
+        color: var(--primary-light);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .module-card p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+      }
+
+      .btn-card {
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: background 0.2s;
+        display: inline-block;
+      }
+
+      .btn-card:hover {
+        background: var(--primary-light);
+      }
+
+      .btn-admin {
+        background: #6c757d;
+      }
+
+      .btn-admin:hover {
+        background: #5a6268;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 5rem;
+        padding: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border-color);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVIGATION -->
+    <nav>
+      <h2>Managements System / ማኔጅመንት ሲስተም</h2>
+      <div class="nav-links">
+        <a href="index.html" class="active">Muummee (ዋና)</a>
+        <a href="donation-index.html">Deeggarsa (ድጋፍ)</a>
+        <a href="finance-index.html">Galii & Baasii (ገቢ እና ወጪ)</a>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+      <div class="hero">
+        <h1>Baga Nagaan Dhuftan</h1>
+        <div class="am-sub">እንኳን በደህና መጡ</div>
+        <p>
+          Sirna qindaa'aa deeggarsa hawaasaa fi galii fi baasii bulchuuf
+          qophaa'e
+        </p>
+        <p style="font-size: 0.95rem; color: #6c757d; margin-top: 0.2rem">
+          የማህበረሰብ ድጋፍን እንዲሁም ገቢ እና ወጪን ለማስተዳደር የተዘጋጀ የተቀናጀ ስርዓት
+        </p>
+      </div>
+
+      <div class="modules-grid">
+        <!-- DONATION MODULE -->
+        <div class="module-card">
+          <div>
+            <h3>Kutaa Deeggarsaa (Donation)</h3>
+            <div class="am-title">የድጋፍ ክፍል</div>
+            <p>
+              Galmee deeggarsa hawaasaa, hirmaattotaa fi odeeffannoowwan
+              walqabatan itti hordoftu.
+            </p>
+            <p style="font-size: 0.85rem; color: #888; margin-top: 0.3rem">
+              የማህበረሰብ ድጋፍ ሰጪዎችን፣ ተሳታፊዎችን እና ተዛማጅ መረጃዎችን የሚከታተሉበት።
+            </p>
+          </div>
+          <div class="btn-group" style="margin-top: 1.5rem">
+            <a href="donation-index.html" class="btn-card"
+              >Fuula Duraa (ዋና ገጽ)</a
+            >
+            <a href="donation-admin.html" class="btn-card btn-admin"
+              >Admin (አስተዳደር)</a
+            >
+          </div>
+        </div>
+
+        <!-- FINANCE MODULE -->
+        <div class="module-card">
+          <div>
+            <h3>Kutaa Galii fi Baasii</h3>
+            <div class="am-title">የገቢ እና ወጪ ክፍል</div>
+            <p>
+              Herrega faayinaansii, galii galmaa'uu fi baasii baasu sirnaan itti
+              bulchitu.
+            </p>
+            <p style="font-size: 0.85rem; color: #888; margin-top: 0.3rem">
+              የፊናንስ ሂሳብ፣ ገቢ መመዝገብ እና ወጪን በስርዓት የሚያስተዳድሩበት።
+            </p>
+          </div>
+          <div class="btn-group" style="margin-top: 1.5rem">
+            <a href="finance-index.html" class="btn-card"
+              >Fuula Duraa (ዋና ገጽ)</a
+            >
+            <a href="finance-admin.html" class="btn-card btn-admin"
+              >Admin (አስተዳደር)</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 Mana Marii Dhimmoota Islaamummaa. Mirgi hunduu eegamaadha. /
+        መብቱ በህግ የተጠበቀ ነው።
+      </p>
+    </footer>
+  </body>
+</html>
