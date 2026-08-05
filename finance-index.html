@@ -6,85 +6,146 @@
     <title>Galii fi Baasii - Mana Marii Malkaa Noonnoo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- NAVIGEEHINII WALOO (SHARED NAVBAR) -->
-    <nav
-      style="
+    <!-- NAVIGEEHINII GUUTUU (RESPONSIVE NAVBAR & HAMBURGER MENU) -->
+<nav class="navbar">
+    <div class="nav-brand">
+        <h2>Managements System</h2>
+        <!-- Hamburger Menu Button (Mobile irratti qofa mul'ata) -->
+        <button class="menu-toggle" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Muummee (Home)</a>
+        <a href="donation-index.html">Deeggarsa (User)</a>
+        <a href="donation-admin.html">Deeggarsa (Admin)</a>
+        <a href="finance-index.html">Galii/Baasii (User)</a>
+        <a href="finance-admin.html">Galii/Baasii (Admin)</a>
+    </div>
+</nav>
+
+<style>
+    /* STYLING KUTAA NAVBAR */
+    .navbar {
         background: #1b4332;
         color: white;
         padding: 1rem 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      "
-    >
-      <h2 style="font-size: 1.1rem; margin: 0">Managements System</h2>
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap">
-        <a
-          href="index.html"
-          style="
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            background: #2d6a4f;
-          "
-          >Muummee (Home)</a
-        >
-        <a
-          href="donation-index.html"
-          style="
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-          "
-          >Deeggarsa (User)</a
-        >
-        <a
-          href="donation-admin.html"
-          style="
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            background: #6c757d;
-          "
-          >Deeggarsa (Admin)</a
-        >
-        <a
-          href="finance-index.html"
-          style="
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-          "
-          >Galii/Baasii (User)</a
-        >
-        <a
-          href="finance-admin.html"
-          style="
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            background: #6c757d;
-          "
-          >Galii/Baasii (Admin)</a
-        >
-      </div>
-    </nav>
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        position: relative;
+        z-index: 1000;
+    }
+
+    .nav-brand {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .nav-brand h2 {
+        font-size: 1.1rem;
+        margin: 0;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    /* FILANNOOWWAN HUNDAAF BACKGROUND DUWWAA FI BARKEE WAL-FAKKAATAA */
+    .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        background: transparent;
+        transition: background 0.2s;
+        white-space: nowrap;
+    }
+
+    /* Yeroo Mouse irra buusu (Hover) qofa bifa salphaa argisiisuuf */
+    .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) */
+    .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
+
+    .menu-toggle span {
+        width: 100%;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+    }
+
+    /* MOBILE SCREEN STYLING (Screen xiqqaa irratti) */
+    @media (max-width: 768px) {
+        .menu-toggle {
+            display: flex;
+        }
+
+        .nav-brand {
+            width: 100%;
+        }
+
+        .nav-links {
+            position: absolute;
+            top: 100%;
+            left: -100%; /* Jalqaba bitaatti dhokateera */
+            flex-direction: column;
+            background: #1b4332;
+            width: 75%;
+            height: 100vh;
+            padding: 2rem 1rem;
+            gap: 1.2rem;
+            transition: left 0.3s ease-in-out;
+            box-shadow: 4px 0 10px rgba(0,0,0,0.2);
+            align-items: flex-start;
+        }
+
+        /* Yeroo Menuun Click ta'u (Active yeroo ta'u) */
+        .nav-links.active {
+            left: 0; /* Gara bitaatii gadi baha */
+        }
+
+        .nav-links a {
+            width: 100%;
+            text-align: left;
+            padding: 0.6rem 1rem;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+    }
+</style>
+
+<script>
+    // JAVASCRIPT: Button click godhamnaan menuu bitaatii dhufu/deebi'u akka hojjetu godha
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('active');
+    }
+</script>
   </head>
   <body
     class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
