@@ -7,60 +7,60 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- NAVIGEEHINII GUUTUU (RESPONSIVE NAVBAR & HAMBURGER MENU) -->
-<nav class="navbar">
-    <div class="nav-brand">
+    <nav class="navbar">
+      <div class="nav-brand">
         <h2>Managements System</h2>
         <!-- Hamburger Menu Button (Mobile irratti qofa mul'ata) -->
         <button class="menu-toggle" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
-    </div>
+      </div>
 
-    <div class="nav-links" id="navLinks">
+      <div class="nav-links" id="navLinks">
         <a href="index.html">Muummee (Home)</a>
+        <a href="sector-index.html">Seektar/ሴክተር (ዋና)</a>
         <a href="donation-index.html">Deeggarsa (User)</a>
         <a href="donation-admin.html">Deeggarsa (Admin)</a>
-        <a href="finance-index.html">Galii/Baasii (User)</a>
         <a href="finance-admin.html">Galii/Baasii (Admin)</a>
-    </div>
-</nav>
+      </div>
+    </nav>
 
-<style>
-    /* STYLING KUTAA NAVBAR */
-    .navbar {
+    <style>
+      /* STYLING KUTAA NAVBAR */
+      .navbar {
         background: #1b4332;
         color: white;
         padding: 1rem 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         position: relative;
         z-index: 1000;
-    }
+      }
 
-    .nav-brand {
+      .nav-brand {
         display: flex;
         width: 100%;
         justify-content: space-between;
         align-items: center;
-    }
+      }
 
-    .nav-brand h2 {
+      .nav-brand h2 {
         font-size: 1.1rem;
         margin: 0;
-    }
+      }
 
-    .nav-links {
+      .nav-links {
         display: flex;
         gap: 1rem;
         align-items: center;
-    }
+      }
 
-    /* FILANNOOWWAN HUNDAAF BACKGROUND DUWWAA FI BARKEE WAL-FAKKAATAA */
-    .nav-links a {
+      /* FILANNOOWWAN HUNDAAF BACKGROUND DUWWAA FI BARKEE WAL-FAKKAATAA */
+      .nav-links a {
         color: white;
         text-decoration: none;
         font-weight: 600;
@@ -70,15 +70,15 @@
         background: transparent;
         transition: background 0.2s;
         white-space: nowrap;
-    }
+      }
 
-    /* Yeroo Mouse irra buusu (Hover) qofa bifa salphaa argisiisuuf */
-    .nav-links a:hover {
+      /* Yeroo Mouse irra buusu (Hover) qofa bifa salphaa argisiisuuf */
+      .nav-links a:hover {
         background: rgba(255, 255, 255, 0.1);
-    }
+      }
 
-    /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) */
-    .menu-toggle {
+      /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) */
+      .menu-toggle {
         display: none;
         flex-direction: column;
         justify-content: space-between;
@@ -88,64 +88,64 @@
         border: none;
         cursor: pointer;
         padding: 0;
-    }
+      }
 
-    .menu-toggle span {
+      .menu-toggle span {
         width: 100%;
         height: 3px;
         background: white;
         border-radius: 3px;
-    }
+      }
 
-    /* MOBILE SCREEN STYLING (Screen xiqqaa irratti) */
-    @media (max-width: 768px) {
+      /* MOBILE SCREEN STYLING (Screen xiqqaa irratti) */
+      @media (max-width: 768px) {
         .menu-toggle {
-            display: flex;
+          display: flex;
         }
 
         .nav-brand {
-            width: 100%;
+          width: 100%;
         }
 
         .nav-links {
-            position: absolute;
-            top: 100%;
-            left: -100%; /* Jalqaba bitaatti dhokateera */
-            flex-direction: column;
-            background: #1b4332;
-            width: 75%;
-            height: 100vh;
-            padding: 2rem 1rem;
-            gap: 1.2rem;
-            transition: left 0.3s ease-in-out;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.2);
-            align-items: flex-start;
+          position: absolute;
+          top: 100%;
+          left: -100%; /* Jalqaba bitaatti dhokateera */
+          flex-direction: column;
+          background: #1b4332;
+          width: 75%;
+          height: 100vh;
+          padding: 2rem 1rem;
+          gap: 1.2rem;
+          transition: left 0.3s ease-in-out;
+          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+          align-items: flex-start;
         }
 
         /* Yeroo Menuun Click ta'u (Active yeroo ta'u) */
         .nav-links.active {
-            left: 0; /* Gara bitaatii gadi baha */
+          left: 0; /* Gara bitaatii gadi baha */
         }
 
         .nav-links a {
-            width: 100%;
-            text-align: left;
-            padding: 0.6rem 1rem;
+          width: 100%;
+          text-align: left;
+          padding: 0.6rem 1rem;
         }
 
         .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.15);
         }
-    }
-</style>
+      }
+    </style>
 
-<script>
-    // JAVASCRIPT: Button click godhamnaan menuu bitaatii dhufu/deebi'u akka hojjetu godha
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('active');
-    }
-</script>
+    <script>
+      // JAVASCRIPT: Button click godhamnaan menuu bitaatii dhufu/deebi'u akka hojjetu godha
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+    </script>
   </head>
   <body
     class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
