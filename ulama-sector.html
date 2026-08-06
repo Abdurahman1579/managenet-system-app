@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Seektara Gumii Ulamaa'ii - M.M.D.I K/M. Noonnoo</title>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .navbar {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow);
+      }
+
+      .nav-brand h2 {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        background: transparent;
+        transition: background 0.2s;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .container {
+        max-width: 1000px;
+        margin: 2.5rem auto;
+        padding: 0 1rem;
+      }
+
+      .sector-header {
+        background: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border-left: 6px solid var(--accent);
+        margin-bottom: 2rem;
+      }
+
+      .sector-header h1 {
+        color: var(--primary);
+        font-size: 1.6rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .sector-header .am-title {
+        color: var(--primary-light);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .sector-header p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 0.4rem;
+      }
+
+      .section-box {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 2rem;
+      }
+
+      .section-box h2 {
+        color: var(--primary);
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .section-box .am-subtitle {
+        color: var(--primary-light);
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        border-bottom: 2px solid var(--border-color);
+        padding-bottom: 0.5rem;
+      }
+
+      .section-box ul {
+        padding-left: 1.5rem;
+        color: var(--text-muted);
+      }
+
+      .section-box li {
+        margin-bottom: 0.8rem;
+        font-size: 0.95rem;
+      }
+
+      .btn-register {
+        display: inline-block;
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 6px;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: background 0.2s;
+        font-size: 0.9rem;
+      }
+
+      .btn-register:hover {
+        background: var(--primary-light);
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border-color);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand">
+        <h2>Seektara Gumii Ulamaa'ii / የኡለማዎች ጉባኤ</h2>
+      </div>
+      <div class="nav-links">
+      <a href="sector-index.html">Muummee (ዋና ገጽ)</a>
+        <a href="ulama-register.html">Miseensa Ta'i (አባል ይሁኑ)</a>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="sector-header">
+        <h1>Seektara Gumii Ulamaa'ii</h1>
+        <div class="am-title">የኡለማዎች ጉባኤ ሴክተር</div>
+        <p>
+          Seektarri kun walitti-dhufeenya ulamaa'otaa cimsUU, qajeelfama diinii
+          kennuu fi barsiisa hawaasaa hordofuuf kan dhaabbatedha.
+        </p>
+        <p style="color: #555; font-size: 0.9rem">
+          ይህ ሴክተር የኡለማዎችን ግንኙነት ማጠናከር፣ የዲን መመሪያዎችን መስጠት እና ማህበረሰቡን ማስተማር የሚከታተል
+          ነው።
+        </p>
+      </div>
+
+      <div class="section-box">
+        <h2>Kaayyoo Seektarichaa</h2>
+        <div class="am-subtitle">የሴክተሩ ዓላማ</div>
+        <ul>
+          <li>
+            Ulamaa'ota naannichaa walitti fiduun tokkummaa fi marii diinii
+            cimsachuu.<br /><span style="color: #555; font-size: 0.85rem"
+              >የአካባቢውን ኡለማዎች በማሰባሰብ አንድነትን እና የዲን ውይይትን ማጠናከር።</span
+            >
+          </li>
+          <li>
+            Hawaasni hubannoo amantaa sirrii akka argatu leenjii fi dammaqina
+            uumuu.<br /><span style="color: #555; font-size: 0.85rem"
+              >ማህበረሰቡ ትክክለኛ የሃይማኖት ግንዛቤ እንዲያገኝ ስልጠናዎችን እና ግንዛቤ ማስጨበጫዎችን
+              መስጠት።</span
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div class="section-box">
+        <h2>Karoora Hojii</h2>
+        <div class="am-subtitle">የስራ እቅድ</div>
+        <ul>
+          <li>
+            Walga'iiwwan yeroo yeroo fi marii ulamaa'otaa qindeessuu.<br /><span
+              style="color: #555; font-size: 0.85rem"
+              >የኡለማዎችን ወቅታዊ ስብሰባዎች እና ውይይቶች ማስተባበር።</span
+            >
+          </li>
+          <li>
+            Fatwaa fi qajeelfamoota diinii hawaasni beekuu qabu tamsaasuu.<br /><span
+              style="color: #555; font-size: 0.85rem"
+              >ማህበረሰቡ ሊያውቋቸው የሚገቡ ፈትዋዎችን እና የዲን መመሪያዎችን ማሰራጨት።</span
+            >
+          </li>
+        </ul>
+        <a href="ulama-register.html" class="btn-register"
+          >Ulamaa'ii / Miseensa Ta'ee Galmaa'i (አባል በመሆን ይመዝገቡ)</a
+        >
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/M. Noonnoo. Mirgi hunduu
+        eegamaadha. / መብቱ በህግ የተጠበቀ ነው።
+      </p>
+    </footer>
+  </body>
+</html>

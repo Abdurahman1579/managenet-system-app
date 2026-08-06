@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mana Marii Dhimmoota Islaamummaa K/Malkaa Noonnoo</title>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      /* NAVIGATION BAR */
+      .navbar {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: var(--shadow);
+        position: relative;
+        z-index: 1000;
+      }
+
+      .nav-brand {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-brand h2 {
+        font-size: 0.95rem;
+        margin: 0;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.85rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        background: transparent;
+        transition: background 0.2s;
+        white-space: nowrap;
+      }
+
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* HAMBURGER TOGGLE */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+
+      .menu-toggle span {
+        width: 100%;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+      }
+
+      /* CONTAINER & HERO */
+      .container {
+        max-width: 1200px;
+        margin: 2.5rem auto;
+        padding: 0 1rem;
+      }
+
+      .hero {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .hero h1 {
+        color: var(--primary);
+        font-size: 1.8rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .hero .am-sub {
+        color: var(--primary-light);
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .hero p {
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      /* SECTORS GRID (6 SECTORS) */
+      .sectors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 1.8rem;
+      }
+
+      .sector-card {
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        border-top: 5px solid var(--accent);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .sector-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .sector-card h3 {
+        color: var(--primary);
+        font-size: 1.15rem;
+        margin-bottom: 0.1rem;
+      }
+
+      .sector-card .am-title {
+        color: var(--primary-light);
+        font-size: 0.95rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      .sector-card p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .sector-card .am-desc {
+        color: #555;
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .card-actions {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-action {
+        background: var(--primary);
+        color: white;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: background 0.2s;
+      }
+
+      .btn-action:hover {
+        background: var(--primary-light);
+      }
+
+      .btn-outline {
+        background: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      footer {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border-color);
+      }
+
+      /* MOBILE RESPONSIVE */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+
+        .nav-brand {
+          width: 100%;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          left: -100%;
+          flex-direction: column;
+          background: var(--primary);
+          width: 75%;
+          height: 100vh;
+          padding: 2rem 1rem;
+          gap: 1.2rem;
+          transition: left 0.3s ease-in-out;
+          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
+          align-items: flex-start;
+        }
+
+        .nav-links.active {
+          left: 0;
+        }
+
+        .nav-links a {
+          width: 100%;
+          text-align: left;
+          padding: 0.6rem 1rem;
+          background: transparent !important;
+        }
+
+        .nav-links a:hover {
+          background: rgba(255, 255, 255, 0.15) !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+      <div class="nav-brand">
+        <h2>M.M.D.I K/M. Noonnoo / እስልምና ጉዳዮች ምክር ቤት</h2>
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Muummee (ዋና ገጽ)</a>
+        <a href="donation-index.html">Deeggarsa (ድጋፍ)</a>
+        <a href="finance-index.html">Galii & Baasii (ገቢ እና ወጪ)</a>
+        <a href="register-sector-admin.html">Admin/አድሚን</a>
+      </div>
+    </nav>
+
+    <!-- MAIN HERO & SECTORS -->
+    <div class="container">
+      <div class="hero">
+        <h1>Mana Marii Dhimmoota Islaamummaa K/Malkaa Noonnoo</h1>
+        <div class="am-sub">የማልካ ኖንኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት</div>
+        <p>
+          Seektoroota jahan Qindaa'oo Ta'an - Kaayyoo, Karoora, Galmee Miseensaa
+          fi Madda Galii
+        </p>
+        <p style="font-size: 0.9rem; color: #6c757d; margin-top: 0.3rem">
+          የተቀናጁ 6 ሴክተሮች - ዓላማ፣ እቅድ፣ አባል ምዝገባ እና የገቢ ምንጭ
+        </p>
+      </div>
+
+      <div class="sectors-grid">
+        <!-- 1. Seektara Faayinaansii fi Misoomaa -->
+        <div class="sector-card">
+          <div>
+            <h3>1. Seektara Faayinaansii fi Misoomaa</h3>
+            <div class="am-title">የፋይናንስ እና ልማት ሴክተር</div>
+            <p>
+              Karoora misoomaa, bulchiinsa faayinaansii fi madda galii hawaasaa
+              gabbisuuf kan hojjetu.
+            </p>
+            <p class="am-desc">
+              የልማት እቅድን፣ የፋይናንስ አስተዳደርን እና የማህበረሰቡን የገቢ ምንጭ ለማሳደግ የሚሰራ።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="finance-sector.html" class="btn-action"
+              >Odeeffannoo (መረጃ)</a
+            >
+            <a href="finance-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+
+        <!-- 2. Seektara Gumii Ulamaa'ii -->
+        <div class="sector-card">
+          <div>
+            <h3>2. Seektara Gumii Ulamaa'ii</h3>
+            <div class="am-title">የኡለማዎች ጉባኤ ሴክተር</div>
+            <p>
+              Walitti-dhufeenya ulamaa'otaa, qajeelfama diinii fi barsiisa
+              hawaasaa hordofu.
+            </p>
+            <p class="am-desc">
+              የኡለማዎችን ግንኙነት፣ የዲን መመሪያዎች እና ማህበረሰቡን ማስተማር የሚከታተል።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="ulama-sector.html" class="btn-action">Odeeffannoo (መረጃ)</a>
+            <a href="ulama-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+
+        <!-- 3. Seektara Masjiidaa fi Awqaafaa -->
+        <div class="sector-card">
+          <div>
+            <h3>3. Seektara Masjiidaa fi Awqaafaa</h3>
+            <div class="am-title">የመስጂድ እና አውቃፍ ሴክተር</div>
+            <p>
+              Galmee masjiidotaa, qabeenya awqaafaa fi misooma mana amantaa
+              hordofuu.
+            </p>
+            <p class="am-desc">
+              የመስጂዶች ምዝገባ፣ የአውቃፍ ንብረት እና የሃይማኖት ተቋማት ልማትን የሚከታተል።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="masjid-sector.html" class="btn-action"
+              >Odeeffannoo (መረጃ)</a
+            >
+            <a href="masjid-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+
+        <!-- 4. Seektara Madrasaalee fi Qulqullina Barnootaa -->
+        <div class="sector-card">
+          <div>
+            <h3>4. Seektara Madrasaalee & Qulqullina Barnootaa</h3>
+            <div class="am-title">የመድረሳዎች እና የትምህርት ጥራት ሴክተር</div>
+            <p>
+              Sirna barnoota madrasaalee fooyyessuu, qulqullina hordofuu fi
+              barattoota galmeessuu.
+            </p>
+            <p class="am-desc">
+              የመድረሳ ትምህርት ስርዓትን ማሻሻል፣ ጥራትን መከታተል እና ተማሪዎችን መመዝገብ።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="madrasa-sector.html" class="btn-action"
+              >Odeeffannoo (መረጃ)</a
+            >
+            <a href="madrasa-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+
+        <!-- 5. Seektara Dargaggoo fi Miidiyaa -->
+        <div class="sector-card">
+          <div>
+            <h3>5. Seektara Dargaggoo fi Miidiyaa</h3>
+            <div class="am-title">የወጣቶች እና ሚዲያ ሴክተር</div>
+            <p>
+              Sagantaalee dargaggootaa, hojii miidiyaa hawaasaa fi tamsaasa
+              odeeffannoo.
+            </p>
+            <p class="am-desc">
+              የወጣቶች ፕሮግራሞች፣ የማህበራዊ ሚዲያ ስራዎች እና መረጃዎችን ማሰራጨት።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="youth-sector.html" class="btn-action">Odeeffannoo (መረጃ)</a>
+            <a href="youth-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+
+        <!-- 6. Seektara Dubartootaa -->
+        <div class="sector-card">
+          <div>
+            <h3>6. Seektara Dubartootaa</h3>
+            <div class="am-title">የሴቶች ሴክተር</div>
+            <p>
+              Hirmaannaa dubartootaa hawaasa keessatti jiru cims uu fi leenjii
+              addaddaa qopheessuu.
+            </p>
+            <p class="am-desc">
+              ማህበረሰቡ ውስጥ የሴቶችን ተሳትፎ ማጠናከር እና የተለያዩ ስልጠናዎችን ማዘጋጀት።
+            </p>
+          </div>
+          <div class="card-actions">
+            <a href="women-sector.html" class="btn-action">Odeeffannoo (መረጃ)</a>
+            <a href="women-register.html" class="btn-action btn-outline"
+              >Miseensa Ta'i (አባል ይሁኑ)</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>
+        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/M. Noonnoo. Mirgi hunduu
+        eegamaadha. / መብቱ በህግ የተጠበቀ ነው።
+      </p>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>

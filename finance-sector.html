@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="om" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Galmee Seektara Maallaqaa - M.M.D.I K/Malkaa Noonnoo</title>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --text-muted: #6c757d;
+        --border-color: #dee2e6;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+      .navbar {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav-brand h2 {
+        font-size: 1rem;
+        margin: 0;
+      }
+      .nav-links a {
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+      }
+      .nav-links a:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .container {
+        max-width: 700px;
+        margin: 2.5rem auto;
+        padding: 0 1rem;
+      }
+      .form-card {
+        background: var(--card-bg);
+        padding: 2.5rem;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        border-top: 5px solid var(--accent);
+      }
+      .form-card h1 {
+        color: var(--primary);
+        font-size: 1.5rem;
+        margin-bottom: 0.2rem;
+      }
+      .form-card .am-title {
+        color: var(--primary-light);
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+      }
+      .form-group {
+        margin-bottom: 1.2rem;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.4rem;
+        font-size: 0.95rem;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        font-size: 1rem;
+        outline: none;
+      }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--primary);
+      }
+      .submit-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        width: 100%;
+        padding: 0.85rem;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 1rem;
+      }
+      .submit-btn:hover {
+        background: var(--primary-light);
+      }
+      .back-link {
+        display: inline-block;
+        margin-top: 1.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.85rem;
+        border-top: 1px solid var(--border-color);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-brand"><h2>M.M.D.I K/Malkaa Noonnoo</h2></div>
+      <div class="nav-links">
+        <a href="sector-index.html">Muummee (ዋና ገፅ)</a>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="form-card">
+        <h1>Galmee Seektara Maallaqaa fi Misoomaa</h1>
+        <div class="am-title">የፋይናንስና ልማት ዘርፍ አባል ምዝገባ</div>
+        <form>
+          <div class="form-group">
+            <label>Maqaa Guutuu / ሙሉ ስም</label>
+            <input
+              type="text"
+              placeholder="Maqaa keessan guutuu / ሙሉ ስምዎን ያስገቡ"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Lakkoofsa Bilbilaa / ስልክ ቁጥር</label>
+            <input type="tel" placeholder="09xxxxxxxx" required />
+          </div>
+          <div class="form-group">
+            <label>Gosa Deeggarsa/Hirmaannaa / የዕውቀት/የስራ መስክ</label>
+            <input
+              type="text"
+              placeholder="Fkn: Herrega, Karoora Misoomaa... / ለምሳሌ፦ ሂሳብ, የዕቅድ ዝግጅት..."
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Ganda / ቀበሌ</label>
+            <input type="text" placeholder="Maqaa gandaa / የቀበሌ ስም" required />
+          </div>
+          <button type="submit" class="submit-btn">
+            Miseensa Seektara Maallaqaa Ta'i / የፋይናንስ ዘርፍ አባል ይሁኑ
+          </button>
+        </form>
+        <a href="sector-index.html" class="back-link"
+          >&larr; Gara Fuula Muummee Deebi'i / ወደ ዋናው ገፅ ይመለሱ</a
+        >
+      </div>
+    </div>
+    <footer>
+      <p>&copy; 2026 Mana Marii Dhimmoota Islaamummaa K/Malkaa Noonnoo.</p>
+    </footer>
+
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+      const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
+      const SUPABASE_ANON_KEY =
+        "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
+      const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+      document.querySelector("form").addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const inputs = e.target.querySelectorAll("input");
+
+        const { data, error } = await _supabase
+          .from("register-sector-app")
+          .insert([
+            {
+              full_name: inputs[0].value,
+              phone: inputs[1].value,
+              sector_name: "Finance",
+              ganda: inputs[3].value,
+            },
+          ]);
+
+        if (error) {
+          alert("Dogoggorri uumame / ስህተት ተፈጥሯል: " + error.message);
+        } else {
+          alert(
+            "Galmeen Seektara Maallaqaa milkaa'inaan galmeeffameera! / የፋይናንስ ዘርፍ ምዝገባ በጥሩ ሁኔታ ተከናውኗል!",
+          );
+          e.target.reset();
+        }
+      });
+    </script>
+  </body>
+</html>
+```[cite: 1]
