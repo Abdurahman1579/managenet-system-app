@@ -334,10 +334,10 @@
     </style>
   </head>
   <body>
-    <!-- Login Modal (Seektara filachuu fi Password guddicha sanduuqa keessatti qabate) -->
+    <!-- Login Modal (Seektara filachuu fi Password guddicha sanduuqa keessatti qabate / የዘርፍ ምርጫ እና የይለፍ ቃል ማረጋገጫ ሳጥን) -->
     <div id="loginModal">
       <div class="login-box">
-        <h2>Galmaa'i Admin Seensaa / የአስተዳዳሪ መግቢያ</h2>
+        <h2>Seensa Admin / የአስተዳዳሪ መግቢያ</h2>
         <div class="am-sub">የአስተዳዳሪ መግቢያ (Admin Login)</div>
         <div id="errorMsg" class="error-msg">
           Jechi darbii ykn Seektarri dogoggora dha / የተሳሳተ የይለፍ ቃል ወይም ዘርፍ
@@ -345,22 +345,22 @@
 
         <select id="loginSectorSelect">
           <option value="women_registers">
-            Seektara Dubartootaa / የሴቶች ዘርፍ (Women)
+            Seektara Dubartootaa / የሴቶች ዘርፍ (Women Sector)
           </option>
           <option value="youth_registers">
-            Seektara Dargaggoo / የወጣቶች ዘርፍ (Youth)
+            Seektara Dargaggoo / የወጣቶች ዘርፍ (Youth Sector)
           </option>
           <option value="finance_registers">
-            Seektara Maallaqaa / የፋይናንስ ዘርፍ (Finance)
+            Seektara Maallaqaa / የፋይናንስ ዘርፍ (Finance Sector)
           </option>
           <option value="madrasa_registers">
-            Seektara Madrasaa / የመድረሳ ዘርፍ (Madrasa)
+            Seektara Madrasaa / የመድረሳ ዘርፍ (Madrasa Sector)
           </option>
           <option value="masjid_registers">
-            Seektara Masjiidaa / የመስጂድ ዘርፍ (Masjid)
+            Seektara Masjiidaa / የመስጂድ ዘርፍ (Masjid Sector)
           </option>
           <option value="ulama_registers">
-            Seektara Ulamaa / የኡለማ ዘርፍ (Ulama)
+            Seektara Ulamaa / የኡለማ ዘርፍ (Ulama Sector)
           </option>
         </select>
 
@@ -371,7 +371,7 @@
         />
         <button onclick="checkPassword()">Seeni / ግባ</button>
 
-        <!-- Liinkii gara page jalqabaatti (muummichaatti) deebisu -->
+        <!-- Liinkii gara page jalqabaatti (muummichaatti) deebisu / ወደ ዋናው ገፅ መመለሻ ሊንክ -->
         <div>
           <a href="sector-index.html" class="back-home-link"
             >← Gara Muummee Deebi'i / ወደ ዋናው ገፅ ተመለስ</a
@@ -380,9 +380,9 @@
       </div>
     </div>
 
-    <!-- Main Dashboard Content -->
+    <!-- Main Dashboard Content / ዋናው የ ዳሽቦርድ ይዘት -->
     <div id="dashboardContent">
-      <!-- Navbar with Hamburger Menu -->
+      <!-- Navbar with Hamburger Menu / የ አሰሳ ገጽ ከሃምበርገር ሜኑ ጋር -->
       <nav class="navbar">
         <div class="nav-brand">
           <h1 id="pageTitle">
@@ -393,10 +393,10 @@
         <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
       </nav>
 
-      <!-- Overlay -->
+      <!-- Overlay / መደራረቢያ (ኦቨርሌይ) -->
       <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-      <!-- Comprehensive Sidebar Menu (Amharic/Afaan Oromoo Translations) -->
+      <!-- Comprehensive Sidebar Menu (Amharic/Afaan Oromoo Translations) / አጠቃላይ የጎን ምናሌ (የአማርኛ እና አፋን ኦሮሞ ትርጉም) -->
       <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
           <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
@@ -512,7 +512,7 @@
               style="background-color: #2d6a4f"
               onclick="exportToExcel()"
             >
-              📥 Excel Download
+              📥 Excel Download / ኤክሴል አውርድ
             </button>
           </div>
 
@@ -525,7 +525,7 @@
                 display: block;
                 font-size: 0.85rem;
               "
-              >Seektara / Tabilii Filadhu:</label
+              >Seektara / Tabilii Filadhu / ዘርፍ / ሰንጠረዥ ይምረጡ:</label
             >
             <select
               id="sectorSelect"
@@ -533,21 +533,23 @@
               onchange="verifyAndLoadSector()"
             >
               <option value="women_registers">
-                Seektara Dubartootaa (Women)
+                Seektara Dubartootaa / የሴቶች ዘርፍ (Women)
               </option>
               <option value="youth_registers">
-                Seektara Dargaggoo (Youth)
+                Seektara Dargaggoo / የወጣቶች ዘርፍ (Youth)
               </option>
               <option value="finance_registers">
-                Seektara Maallaqaa (Finance)
+                Seektara Maallaqaa / የፋይናንስ ዘርፍ (Finance)
               </option>
               <option value="madrasa_registers">
-                Seektara Madrasaa (Madrasa)
+                Seektara Madrasaa / የመድረሳ ዘርፍ (Madrasa)
               </option>
               <option value="masjid_registers">
-                Seektara Masjiidaa (Masjid)
+                Seektara Masjiidaa / የመስጂድ ዘርፍ (Masjid)
               </option>
-              <option value="ulama_registers">Seektara Ulamaa (Ulama)</option>
+              <option value="ulama_registers">
+                Seektara Ulamaa / የኡለማ ዘርፍ (Ulama)
+              </option>
             </select>
           </div>
         </div>
@@ -555,23 +557,23 @@
         <table id="membersTable">
           <thead>
             <tr id="tableHeader">
-              <!-- Header-riin akka table-ichaatti jijjiirama -->
+              <!-- Header-riin akka table-ichaatti jijjiirama / ራእሱ እንደ ሰንጠረዡ ይቀየራል -->
             </tr>
           </thead>
           <tbody id="tableBody">
-            <!-- Dataan Supabase irraa asitti dabalama -->
+            <!-- Dataan Supabase irraa asitti dabalama / መረጃ ከሱፓቤዝ እዚህ ይጨመራል -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- SheetJS CDN for Excel Export -->
+    <!-- SheetJS CDN for Excel Export / ለኤክሴል ማውረጃ የ ሼትጄኤስ ሲዲኤን -->
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-    <!-- Supabase JS CDN -->
+    <!-- Supabase JS CDN / የ ሱፓቤዝ ጃቫስክሪፕት ሲዲኤን -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // Sidebar Toggle Functionality
+      // Sidebar Toggle Functionality / የጎን ምናሌ ማመላለሻ ተግባር
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("overlay");
@@ -585,6 +587,7 @@
       const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       // Password "admin123" Seektara jalqabaaf (women_registers) qofa tajaajila, kaan immoo password mataasaanii qabu
+      // የይለፍ ቃል "admin123" ለ መጀመሪያው ዘርፍ (women_registers) ብቻ ያገለግላል፣ ሌሎቹ የራሳቸው የይለፍ ቃል አላቸው
       const sectorPasswords = {
         women_registers: "admin123",
         youth_registers: "youth123",
@@ -594,7 +597,7 @@
         ulama_registers: "ulama123",
       };
 
-      // Seektara amma bangee keessa jiru (Authenticated Sector) qabachuuf
+      // Seektara amma bangee keessa jiru (Authenticated Sector) qabachuuf / አሁን በስርዓቱ ውስጥ ያለውን ገቁ (የተረጋገጠ ዘርፍ) ለመያዝ
       let currentActiveSector = "women_registers";
 
       function checkPassword() {
@@ -603,7 +606,7 @@
         const inputPass = document.getElementById("adminPassword").value;
         const errorMsg = document.getElementById("errorMsg");
 
-        // Seektara filatameef password mataa isaa qofa akka gaafatu taasifameera
+        // Seektara filatameef password mataa isaa qofa akka gaafatu taasifameera / ለተመረጠው ዘርፍ የራሱን የይለፍ ቃል ብቻ እንዲጠይቅ ተደርጓል
         if (inputPass === sectorPasswords[selectedLoginSector]) {
           currentActiveSector = selectedLoginSector;
           document.getElementById("loginModal").style.display = "none";
@@ -617,6 +620,7 @@
       }
 
       // Dashboard keessaa dropdown yeroo jijjiiran bifa walfakkaatuun sanduuqa seensaa (modal) fayyadamuun password gaafachiisuuf
+      // በ ዳሽቦርዱ ውስጥ ድሮፕዳውን ሲቀይሩ በተመሳሳይ መልኩ የመግቢያ ሳጥን (ሞዳል) በመጠቀም የይለፍ ቃል ለማስጠየቅ
       function verifyAndLoadSector() {
         const selectBox = document.getElementById("sectorSelect");
         const targetSector = selectBox.value;
@@ -627,12 +631,13 @@
         }
 
         // Dropdown dashboard irraa jijjiirameef sanduuqa seensaa (modal) irra deebi'ee akka banamu gochuu
+        // ከ ዳሽቦርዱ ድሮፕዳውን በመቀየሩ የመግቢያ ሳጥኑ (ሞዳል) ተመልሶ እንዲከፈት ማድረግ
         document.getElementById("loginSectorSelect").value = targetSector;
         document.getElementById("adminPassword").value = "";
         document.getElementById("errorMsg").style.display = "none";
         document.getElementById("loginModal").style.display = "flex";
 
-        // Seektara duraaniitti deebisuu hanga password sirrii galchutti
+        // Seektara duraaniitti deebisuu hanga password sirrii galchutti / ትክክለኛውን የይለፍ ቃል እስከሚያስገቡ ድረስ ወደ ቀድሞው ዘርፍ መመለስ
         selectBox.value = currentActiveSector;
       }
 
@@ -647,7 +652,7 @@
       async function loadMembers() {
         const selectBox = document.getElementById("sectorSelect");
         const tableName = currentActiveSector;
-        selectBox.value = tableName; // Dropdown dashboard hundi akka walsimu gochuu
+        selectBox.value = tableName; // Dropdown dashboard hundi akka walsimu gochuu / የ ዳሽቦርዱ ድሮፕዳውን ሁሉ እንዲጣጣም ማድረግ
         const tableHeader = document.getElementById("tableHeader");
         const tbody = document.getElementById("tableBody");
 
@@ -769,7 +774,7 @@
         });
       }
 
-      // Gara Excel-tti jijjiiranii buusuuf koodii tajaajilu
+      // Gara Excel-tti jijjiiranii buusuuf koodii tajaajilu / ወደ ኤክሴል በመቀየር ለማውረድ የሚያገለግል ኮድ
       async function exportToExcel() {
         const tableName = currentActiveSector;
 
@@ -779,12 +784,17 @@
           .order("created_at", { ascending: false });
 
         if (error) {
-          alert("Deetaa fiduuf irratti dogoggorri uumameera: " + error.message);
+          alert(
+            "Deetaa fiduuf irratti dogoggorri uumameera / መረጃውን ለማምጣት ስህተት ተፈጥሯል: " +
+              error.message,
+          );
           return;
         }
 
         if (!data || data.length === 0) {
-          alert("Haala kana keessatti deetaan galmaa'e hin jiru!");
+          alert(
+            "Haala kana keessatti deetaan galmaa'e hin jiru / በዚህ ሁኔታ ውስጥ የተመዘገበ መረጃ የለም!",
+          );
           return;
         }
 
