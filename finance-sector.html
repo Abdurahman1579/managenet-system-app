@@ -30,40 +30,129 @@
         line-height: 1.6;
       }
 
-      .navbar {
+      /* Header & Hamburger Menu */
+      header {
         background: var(--primary);
         color: white;
-        padding: 1rem 2rem;
+        padding: 1rem 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
         box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 900;
       }
 
       .nav-brand h2 {
         font-size: 1rem;
         margin: 0;
       }
-
-      .nav-links {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
+      .nav-brand span {
+        font-size: 0.75rem;
+        color: var(--accent);
+        display: block;
       }
 
-      .nav-links a {
+      .menu-toggle {
+        background: none;
+        border: none;
         color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Sidebar Drawer */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 320px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+      .sidebar ul {
+        list-style: none;
+      }
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.8rem;
+        font-size: 0.88rem;
         border-radius: 6px;
-        background: transparent;
-        transition: background 0.2s;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .sidebar a span.am {
+        display: block;
+        font-size: 0.75rem;
+        color: #666;
+        font-weight: normal;
+      }
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .sidebar a:hover span.am {
+        color: #ddd;
+      }
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+      .sidebar a.admin-link span.am {
+        color: #f8f9fa;
       }
 
-      .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.1);
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 999;
+      }
+      .overlay.active {
+        display: block;
       }
 
       .container {
@@ -161,25 +250,166 @@
     </style>
   </head>
   <body>
-    <nav class="navbar">
+    <!-- Header with Hamburger Menu -->
+    <header>
       <div class="nav-brand">
-        <h2>Seektara Maallaqaa / የፋይናንስ ዘርፍ</h2>
+        <h2>Seektara Maallaqaa</h2>
+        <span>የፋይናንስ ዘርፍ / M.M.D.I K/M. Noonnoo</span>
       </div>
-      <div class="nav-links">
-        <a href="sector-index.html">Muummee (ዋና ገጽ)</a>
-        <a href="finance-register.html">Miseensa Ta'i (አባል ይሁኑ)</a>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Comprehensive Sidebar Menu with Amharic Translation -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
       </div>
-    </nav>
+
+      <ul>
+        <li>
+          <a href="index.html">
+            🏠 Fuula Muummee (Home)
+            <span class="am">ዋና ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html">
+            🤝 Fuula Deeggarsaa (Donation)
+            <span class="am">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="sector-header">
         <h1>Seektara Maallaqaa</h1>
         <div class="am-title">የፋይናንስ ዘርፍ ሴክተር</div>
         <p>
-          Seektarri kun qabeenya mana mariichaa sirnaan bulchuu, buusii fi deeggarsa hawaasaa sassaabuu, akkasumas bajata hojiilee garaagaraaf oolu qindeessuuf kan dhaabbatedha.
+          Seektarri kun qabeenya mana mariichaa sirnaan bulchuu, buusii fi
+          deeggarsa hawaasaa sassaabuu, akkasumas bajata hojiilee garaagaraaf
+          oolu qindeessuuf kan dhaabbatedha.
         </p>
         <p style="color: #555; font-size: 0.9rem">
-          ይህ ሴክተር የማህበሩን ሃብት በስርዓት ማስተዳደር፣ ወርሃዊ አስተዋጽኦዎችን እና ድጋፎችን መሰብሰብ እንዲሁም ለተለያዩ ስራዎች የሚውል በጀት ማቀናጀት የሚያከናውን ነው።
+          ይህ ሴክተር የማህበሩን ሃብት በስርዓት ማስተዳደር፣ ወርሃዊ አስተዋጽኦዎችን እና ድጋፎችን መሰብሰብ እንዲሁም
+          ለተለያዩ ስራዎች የሚውል በጀት ማቀናጀት የሚያከናውን ነው።
         </p>
       </div>
 
@@ -188,12 +418,14 @@
         <div class="am-subtitle">የሴክተሩ ዓላማ</div>
         <ul>
           <li>
-            Madda galii mana mariichaa bal'isuun misoomaa fi tajaajila hawaasaaf oolchuu.<br /><span style="color: #555; font-size: 0.85rem"
+            Madda galii mana mariichaa bal'isuun misoomaa fi tajaajila hawaasaaf
+            oolchuu.<br /><span style="color: #555; font-size: 0.85rem"
               >የማህበሩን የገቢ ምንጭ በማስፋት ለልማት እና ለህብረተሰብ አገልግሎት ማዋል።</span
             >
           </li>
           <li>
-            Sirna herregaa iftoomina qabu diriirsuun qabeenya hawaasaa eeguu.<br /><span style="color: #555; font-size: 0.85rem"
+            Sirna herregaa iftoomina qabu diriirsuun qabeenya hawaasaa eeguu.<br /><span
+              style="color: #555; font-size: 0.85rem"
               >ግልጽነት ያለው የሂሳብ አሰራር በመዘርጋት የማህበረሰቡን ሃብት መጠበቅ።</span
             >
           </li>
@@ -205,28 +437,41 @@
         <div class="am-subtitle">የስራ እቅድ</div>
         <ul>
           <li>
-            Buusii fi deeggarsa miseensota irraa argamu karoorumaan sassaabuu figalmee isaa qindeessuu.<br /><span
+            Buusii fi deeggarsa miseensota irraa argamu karoorumaan sassaabuu fi
+            galmee isaa qindeessuu.<br /><span
               style="color: #555; font-size: 0.85rem"
-              >ከአባላት የሚሰበሰበውን ወርሃዊ አስተዋጽኦ እና ድጋፍ በእቅድ መሰብሰብ እና መዝገቡን ማደራጀት።</span
+              >ከአባላት የሚሰበሰበውን ወርሃዊ አስተዋጽኦ እና ድጋፍ በእቅድ መሰብሰብ እና መዝገቡን
+              ማደራጀት።</span
             >
           </li>
           <li>
-            Gabaasa maallaqaa yeroo yeroon qopheessuudhaan qaama dhimmi ilaaluuf dhiheessuu.<br /><span
-              style="color: #555; font-size: 0.85rem"
+            Gabaasa maallaqaa yeroo yeroon qopheessuudhaan qaama dhimmi ilaaluuf
+            dhiheessuu.<br /><span style="color: #555; font-size: 0.85rem"
               >የፋይናንስ ሪፖርቶችን በወቅቱ በማዘጋጀት ለሚመለከተው አካል ማቅረብ።</span
             >
           </li>
         </ul>
         <a href="finance-register.html" class="btn-register"
-          >Seektara Maallaqaatiif Miseensa Ta'ii Galmaa'i (በፋይናንስ ዘርፍ አባል በመሆን ይመዝገቡ)</a
+          >Seektara Maallaqaatiif Miseensa Ta'ii Galmaa'i (በፋይናንስ ዘርፍ አባል በመሆን
+          ይመዝገቡ)</a
         >
       </div>
     </div>
 
     <footer>
       <p>
-        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/M M/Noonnoo. 
+        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/M M/Noonnoo. Mirgi hunduu
+        eegamaadha. / መብቱ በህግ የተጠበቀ ነው።
       </p>
     </footer>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+    </script>
   </body>
 </html>
