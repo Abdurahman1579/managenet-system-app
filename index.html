@@ -98,6 +98,102 @@
         border-radius: 3px;
       }
 
+      /* SIDEBAR DRAWER & OVERLAY */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1100;
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 1050;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
       /* CONTAINER & HERO */
       .container {
         max-width: 1100px;
@@ -220,39 +316,8 @@
           display: flex;
         }
 
-        .nav-brand {
-          width: 100%;
-        }
-
         .nav-links {
-          position: absolute;
-          top: 100%;
-          left: -100%; /* Bitaatti guutummaatti dhokata */
-          flex-direction: column;
-          background: var(--primary);
-          width: 75%;
-          height: 100vh;
-          padding: 2rem 1rem;
-          gap: 1.2rem;
-          transition: left 0.3s ease-in-out;
-          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-          align-items: flex-start;
-        }
-
-        /* Yeroo menuun tuqame gadi baha */
-        .nav-links.active {
-          left: 0;
-        }
-
-        .nav-links a {
-          width: 100%;
-          text-align: left;
-          padding: 0.6rem 1rem;
-          background: transparent !important;
-        }
-
-        .nav-links a:hover {
-          background: rgba(255, 255, 255, 0.15) !important;
+          display: none;
         }
       }
     </style>
@@ -264,10 +329,10 @@
         <h2>
           Managements System <br />Sirna Hooggansaa M/M/DH/I/K/M/M/N
           <br />
-          መ/ኖ/እ/ጉ/ም/ቤ/የአስተዳደር ስርዓት
+          መ/ኖ/እ/ጉ/ም/ቤ/የየአስተዳደር ስርዓት
         </h2>
         <!-- Hamburger Menu Button -->
-        <button class="menu-toggle" onclick="toggleMenu()">
+        <button class="menu-toggle" onclick="toggleSidebar()">
           <span></span>
           <span></span>
           <span></span>
@@ -275,7 +340,6 @@
       </div>
 
       <div class="nav-links" id="navLinks">
-        <!-- <a href="index.html">Muummee (ዋና)</a> -->
         <a href="sector-index.html">Seektara/ሴክተር (ዋና)</a>
         <a href="donation-index.html">Deeggarsa/ድጋፍ</a>
         <a href="donation-admin.html">Deeggarsa/ድጋፍ (Admin)</a>
@@ -283,6 +347,117 @@
         <a href="finance-admin.html">Galii & Baasii(ገቢና ወጪ) (Admin)</a>
       </div>
     </nav>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Comprehensive Sidebar Menu (Amharic & Afaan Oromoo Translations) -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li><a href="index.html">🏠 Fuula Muummee / ዋና ገጽ (Home)</a></li>
+        <li>
+          <a href="sector-index.html">📂 Muummee Seektarootaa / የሴክተሮች ማውጫ</a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html"
+            >💰 Seektara Maallaqaa (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="finance-register.html"
+            >📝 Galmee Seektara Maallaqaa / የፋይናንስ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="youth-sector.html"
+            >👥 Seektara Dargaggoo (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="youth-register.html"
+            >📝 Galmee Seektara Dargaggoo / የወጣቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="women-sector.html"
+            >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="women-register.html"
+            >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="ulama-sector.html"
+            >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="ulama-register.html"
+            >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="masjid-sector.html"
+            >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="masjid-register.html"
+            >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html"
+            >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="madrasa-register.html"
+            >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
+          >
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html"
+            >🤝 Fuula Deeggarsaa / የድጋፍ ገጽ (Donation)</a
+          >
+        </li>
+        <li>
+          <a href="donation-admin.html">⚙️ Donation Admin / የድጋፍ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="finance-admin.html">📊 Finance Admin / የፋይናንስ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link"
+            >📈 Register Sector Admin (Excel) / የሴክተር ምዝገባ አስተዳዳሪ</a
+          >
+        </li>
+      </ul>
+    </div>
 
     <!-- MAIN CONTENT -->
     <div class="container">
@@ -355,9 +530,11 @@
     </footer>
 
     <script>
-      function toggleMenu() {
-        const navLinks = document.getElementById("navLinks");
-        navLinks.classList.toggle("active");
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
       }
     </script>
   </body>

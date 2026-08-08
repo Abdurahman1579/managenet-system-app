@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Seektara Dubartootaa - M.M.D.I K/M. Noonnoo</title>
+    <title>Seektara Dubartootaa / የሴቶች ሴክተር - M.M.D.I K/M. Noonnoo</title>
     <style>
       :root {
         --primary: #1b4332;
@@ -38,6 +38,15 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: var(--shadow);
+        position: relative;
+        z-index: 1000;
+      }
+
+      .nav-brand {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
       }
 
       .nav-brand h2 {
@@ -64,6 +73,119 @@
 
       .nav-links a:hover {
         background: rgba(255, 255, 255, 0.1);
+      }
+
+      /* HAMBURGER TOGGLE */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+      .menu-toggle span {
+        width: 100%;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+      }
+
+      /* SIDEBAR / DRAWER MENU STYLES */
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 1100;
+      }
+      .sidebar-overlay.active {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 320px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+        z-index: 1200;
+        transition: left 0.3s ease-in-out;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .close-sidebar {
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
       }
 
       .container {
@@ -158,20 +280,146 @@
         font-size: 0.85rem;
         border-top: 1px solid var(--border-color);
       }
+
+      /* MOBILE RESPONSIVE */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-brand">
         <h2>Seektara Dubartootaa / የሴቶች ሴክተር</h2>
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
-      <div class="nav-links">
-       <a href="sector-index.html">Muummee (ዋና ገጽ)</a>
-        <a href="women-register.html">Miseensa Ta'i (አባል ይሁኑ)</a>
-         <a href="register-sector-admin.html">Sector-Admin
-        </a>
+      <div class="nav-links" id="navLinks">
+        <a href="sector-index.html">Muummee / ዋና ገጽ</a>
+        <a href="women-register.html">Miseensa Ta'i / አባል ይሁኑ</a>
+        <a href="register-sector-admin.html">Sector-Admin / ሴክተር-አድሚን</a>
       </div>
     </nav>
+
+    <!-- SIDEBAR / HAMBURGER MENU OVERLAY & DRAWER -->
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="toggleMenu()"
+    ></div>
+    <div class="sidebar" id="sidebarMenu">
+      <div class="sidebar-header">
+        <h3>Fuulota Hunda / ሁሉንም ፋይሎች</h3>
+        <button class="close-sidebar" onclick="toggleMenu()">✕</button>
+      </div>
+
+      <ul>
+        <li><a href="sector-index.html">🏠 Muummee / ዋና ገጽ (Home)</a></li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektarootaa fi Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html"
+            >💰 Seektara Faayinaansii (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="finance-register.html"
+            >📝 Galmee Seektara Faayinaansii / የፋይናንስ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="youth-sector.html"
+            >👥 Seektara Dargaggootaa (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="youth-register.html"
+            >📝 Galmee Seektara Dargaggootaa / የወጣቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="women-sector.html"
+            >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="women-register.html"
+            >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="ulama-sector.html"
+            >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="ulama-register.html"
+            >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="masjid-sector.html"
+            >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="masjid-register.html"
+            >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html"
+            >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="madrasa-register.html"
+            >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
+          >
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa fi Deggersa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html"
+            >🤝 Fuula Deggersaa (Donation) / የድጋፍ ገጽ</a
+          >
+        </li>
+        <li>
+          <a href="donation-admin.html">⚙️ Bulchaa Deggersaa / የድጋፍ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="finance-admin.html"
+            >📊 Bulchaa Faayinaansii / የፋይናንስ አስተዳዳሪ</a
+          >
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link"
+            >📈 Bulchaa Galmee Seektaraa (Excel) / የሴክተር ምዝገባ አስተዳዳሪ</a
+          >
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="sector-header">
@@ -239,5 +487,15 @@
         eegamaadha. / መብቱ በህግ የተጠበቀ ነው።
       </p>
     </footer>
+
+    <script>
+      // Hamburger Menu Toggle Function
+      function toggleMenu() {
+        const sidebar = document.getElementById("sidebarMenu");
+        const overlay = document.getElementById("sidebarOverlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+    </script>
   </body>
 </html>

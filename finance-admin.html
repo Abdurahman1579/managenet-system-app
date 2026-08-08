@@ -1,16 +1,194 @@
 <!doctype html>
-<html lang="om">
+<html lang="om" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - Mana Marii Malkaa Noonnoo</title>
+    <title>Admin Dashboard - Mana Marii Malkaa Noonnoo / አድሚን ዳሽቦርድ - መልካ ኖኖ ምክር ቤት</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --border-color: #dee2e6;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+      }
+      /* Header & Hamburger Menu */
+      header.main-header {
+        background: var(--primary);
+        color: white;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+      }
+      .brand h1 {
+        font-size: 1rem;
+      }
+      .brand span {
+        font-size: 0.8rem;
+        color: var(--accent);
+      }
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+      /* Sidebar Drawer */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0,0,0,0.1);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+      .sidebar ul {
+        list-style: none;
+      }
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        transition: background 0.2s, color 0.2s;
+      }
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.4);
+        display: none;
+        z-index: 999;
+      }
+      .overlay.active {
+        display: block;
+      }
+    </style>
   </head>
-  <body
-    class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
-  >
-    <!-- PASSWORD MODAL (Yeroo jalqabaaf yoo banamu kan dhufu) -->
+  <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between">
+
+    <!-- Header with Hamburger -->
+    <header class="main-header">
+      <div class="brand">
+        <h1>Admin Dashboard / የአድሚን ገጽ</h1>
+        <span>Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</span>
+      </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Comprehensive Sidebar Menu (Faayiloota Hunda Qabate) -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li><a href="index.html">🏠 Fuula Muummee / ዋና ገጽ (Home)</a></li>
+        <li><a href="sector-index.html">📂 Muummee Seektarootaa / የሴክተሮች ዋና ገጽ</a></li>
+      </ul>
+
+      <div class="sidebar-section-title">Seektaroota & Galmee / ሴክተሮች እና ምዝገባ</div>
+      <ul>
+        <li><a href="finance-sector.html">💰 Seektara Maallaqaa (Ibsa) / የገንዘብ ሴክተር (መግለጫ)</a></li>
+        <li><a href="finance-register.html">📝 Galmee Seektara Maallaqaa / የገንዘብ ሴክተር ምዝገባ</a></li>
+        
+        <li><a href="youth-sector.html">👥 Seektara Dargaggoo (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a></li>
+        <li><a href="youth-register.html">📝 Galmee Seektara Dargaggoo / የወጣቶች ሴክተር ምዝገባ</a></li>
+
+        <li><a href="women-sector.html">👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a></li>
+        <li><a href="women-register.html">📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a></li>
+
+        <li><a href="ulama-sector.html">📖 Seektara Ulamaa (Ibsa) / የኡላማዎች ሴክተር (መግለጫ)</a></li>
+        <li><a href="ulama-register.html">📝 Galmee Seektara Ulamaa / የኡላማዎች ሴክተር ምዝገባ</a></li>
+
+        <li><a href="masjid-sector.html">🕌 Seektara Masjiidaa (Ibsa) / የመስጂዶች ሴክተር (መግለጫ)</a></li>
+        <li><a href="masjid-register.html">📝 Galmee Seektara Masjiidaa / የመስጂዶች ሴክተር ምዝገባ</a></li>
+
+        <li><a href="madrasa-sector.html">📚 Seektara Madrasaa (Ibsa) / የመድረሳዎች ሴክተር (መግለጫ)</a></li>
+        <li><a href="madrasa-register.html">📝 Galmee Seektara Madrasaa / የመድረሳዎች ሴክተር ምዝገባ</a></li>
+      </ul>
+
+      <div class="sidebar-section-title">Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ</div>
+      <ul>
+        <li><a href="donation-index.html">🤝 Fuula Deeggarsaa (Donation) / የድጋፍ ገጽ</a></li>
+        <li><a href="donation-admin.html">⚙️ Donation Admin / የድጋፍ አስተዳደር</a></li>
+        <li><a href="finance-admin.html">📊 Finance Admin / የገንዘብ አስተዳደር</a></li>
+        <li><a href="register-sector-admin.html" class="admin-link">📈 Register Sector Admin (Excel) / የሴክተር ምዝገባ አስተዳደር</a></li>
+      </ul>
+    </div>
+
+    <!-- PASSWORD MODAL -->
     <div
       id="loginModal"
       class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
@@ -20,11 +198,10 @@
       >
         <div class="text-4xl">🔐</div>
         <h3 class="text-lg font-bold text-slate-800">
-          Eeyyama Admin Barbaachisa/የ አድሚን ፈቃድ ያስፈልጋል።
+          Eeyyama Admin Barbaachisa / የአድሚን ፈቃድ ያስፈልጋል።
         </h3>
         <p class="text-xs text-slate-500">
-          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa/እባክዎን
-          ወደ አድሚን ገጽ ለመግባት የይለፍ ቃል (ፓስወርድ) ያስገቡ።
+          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa / እባክዎን ወደ አድሚን ገጽ ለመግባት የይለፍ ቃል (ፓስወርድ) ያስገቡ።
         </p>
 
         <form id="loginForm" class="space-y-3">
@@ -32,31 +209,28 @@
             type="password"
             id="adminPasswordInput"
             required
-            placeholder="Password galchaa..."
+            placeholder="Password galchaa / የይለፍ ቃል ያስገቡ..."
             class="w-full p-3 border rounded-xl text-sm outline-none focus:ring-2 focus:ring-emerald-500 text-center"
           />
           <button
             type="submit"
             class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-3 rounded-xl transition text-sm"
           >
-            Seeni/ግባ/Log In 🚀
+            Seeni / ግባ / Log In 🚀
           </button>
         </form>
         <a
           href="index.html"
           class="block text-xs text-slate-400 hover:underline pt-2"
-          >🏠 Gara Fuula Duraatti Deebi'i/ወደ መጀመሪያ ገጽ ተመለስ</a
+          >🏠 Gara Fuula Duraatti Deebi'i / ወደ መጀመሪያ ገጽ ተመለስ</a
         >
       </div>
     </div>
 
-    <!-- Header -->
-    <header class="bg-emerald-900 text-white p-4 shadow-md px-6">
+    <!-- Sub-Header Actions -->
+    <div class="bg-emerald-900 text-white p-4 shadow-md px-6">
       <div class="max-w-7xl mx-auto flex justify-between items-center">
         <div>
-          <h1 class="text-lg md:text-xl font-bold">
-            Admin Dashboard / የአደሚን ገጽ
-          </h1>
           <p class="text-xs text-emerald-200">
             Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
           </p>
@@ -65,21 +239,15 @@
           </p>
         </div>
         <div class="flex gap-3">
-          <a
-            href="index.html"
-            class="bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-emerald-700 transition"
-          >
-            🏠 Gara Fuula Duraa/ወደ መጀመሪያ ገጽ
-          </a>
           <button
             onclick="logout()"
             class="bg-red-700 hover:bg-red-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition"
           >
-            🚪Ba'i/ውጣ/Log Out
+            🚪 Ba'i / ውጣ / Log Out
           </button>
         </div>
       </div>
-    </header>
+    </div>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-4 md:p-6 w-full space-y-6">
@@ -119,7 +287,7 @@
         >
           <div>
             <p class="text-xs text-slate-500 font-bold uppercase">
-              Haftee/ቀሪ ገንዘብ/(Balance)
+              Haftee / ቀሪ ገንዘብ (Balance)
             </p>
             <h2 id="netBalance" class="text-2xl font-black text-blue-600 mt-1">
               0.00 ETB
@@ -137,34 +305,26 @@
           <h3 class="font-bold text-slate-700">
             Galmee Galii fi Baasii / የገቢ እና ወጪ መዝገብ
           </h3>
-          <!-- <div class="flex gap-2">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Maqaa, Itti gaafatamaa ykn Madiin barbaadi..."
-              class="p-2 border rounded-lg text-xs outline-none focus:ring-2 focus:ring-emerald-500 w-64"
-            />
-          </div> -->
         </div>
 
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse text-xs">
             <thead>
               <tr class="bg-slate-100 text-slate-600 border-b">
-                <th class="p-3">Guyyaa/ቀን</th>
-                <th class="p-3">Gosa/አይነት</th>
-                <th class="p-3">Madda/ምንጭ</th>
-                <th class="p-3">Maqaa Kaffalaa/Fudhataa/የከፋየ/ተቀባይ ስም</th>
+                <th class="p-3">Guyyaa / ቀን</th>
+                <th class="p-3">Gosa / አይነት</th>
+                <th class="p-3">Madda / ምንጭ</th>
+                <th class="p-3">Maqaa Kaffalaa/Fudhataa / የከፋይ/ተቀባይ ስም</th>
                 <th class="p-3 text-emerald-900 font-bold">
-                  Maqaa fi bilbila itti gaafatamaa/ የተጠያቂ ስምና ስልክ
+                  Maqaa fi bilbila itti gaafatamaa / የተጠያቂ ስምና ስልክ
                 </th>
                 <th class="p-3 text-emerald-900 font-bold">
-                  Ga'ee Hojii/የስራ ድርሻ (Role)
+                  Ga'ee Hojii / የስራ ድርሻ (Role)
                 </th>
-                <th class="p-3">Hamma/መጠን (Amount)</th>
-                <th class="p-3">Karaa itti kaffalame/የተከፈለበት መንገድ</th>
-                <th class="p-3">Nagahee/ደረሰኝ</th>
-                <th class="p-3">Ibsa/ማብራሪያ</th>
+                <th class="p-3">Hamma / መጠን (Amount)</th>
+                <th class="p-3">Karaa itti kaffalame / የተከፈለበት መንገድ</th>
+                <th class="p-3">Nagahee / ደረሰኝ</th>
+                <th class="p-3">Ibsa / ማብራሪያ</th>
               </tr>
             </thead>
             <tbody id="transactionTableBody" class="divide-y divide-slate-100">
@@ -183,19 +343,24 @@
     <footer
       class="bg-white border-t py-4 text-center text-xs text-slate-500 mt-auto"
     >
-      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo © 2026
+      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo / መልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት © 2026
     </footer>
 
     <!-- JavaScript logic -->
     <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+
       const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
       const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      // PASSWORD CONFIGURATION (Asitti password kee jijjiiruu dandeessa, fakkeenyaaf: malkaanonnoo2026)
       const ADMIN_PASSWORD = "MelkaNono#1579";
 
-      // Check if already logged in during this session
       window.addEventListener("DOMContentLoaded", () => {
         const isLoggedIn = sessionStorage.getItem("isAdminLoggedIn");
         if (isLoggedIn === "true") {
@@ -206,7 +371,6 @@
         }
       });
 
-      // Handle Login Form Submit
       document.getElementById("loginForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const enteredPass = document.getElementById("adminPasswordInput").value;
@@ -216,7 +380,7 @@
           document.getElementById("loginModal").classList.add("hidden");
           fetchTransactions();
         } else {
-          alert("Jechi darbii (Password) sirrii miti! Irra deebi'ii yaali.");
+          alert("Jechi darbii (Password) sirrii miti! Irra deebi'ii yaali. / የይለፍ ቃሉ ትክክል አይደለም! እባክዎ እንደገና ይሞክሩ።");
           document.getElementById("adminPasswordInput").value = "";
         }
       });
@@ -244,7 +408,7 @@
         tbody.innerHTML = "";
 
         if (data.length === 0) {
-          tbody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-slate-400">Galmeen tokkoyyuu hin jiru.</td></tr>`;
+          tbody.innerHTML = `<tr><td colspan="10" class="p-6 text-center text-slate-400">Galmeen tokkoyyuu hin jiru. / ምንም ምዝገባ የለም።</td></tr>`;
           return;
         }
 
@@ -259,7 +423,7 @@
 
           let receiptDisplay = "-";
           if (item.receipt_url) {
-            receiptDisplay = `<a href="${item.receipt_url}" target="_blank" class="text-blue-600 underline font-semibold flex items-center gap-1">📄 ${item.receipt_no || "Ilaali"}</a>`;
+            receiptDisplay = `<a href="${item.receipt_url}" target="_blank" class="text-blue-600 underline font-semibold flex items-center gap-1">📄 ${item.receipt_no || "Ilaali / ይመልከቱ"}</a>`;
           } else if (item.receipt_no) {
             receiptDisplay = item.receipt_no;
           }
@@ -304,21 +468,6 @@
         document.getElementById("netBalance").innerText =
           net.toLocaleString() + " ETB";
       }
-
-      // Search functionality
-      document.getElementById("searchInput").addEventListener("input", (e) => {
-        const query = e.target.value.toLowerCase();
-        const filtered = allTransactions.filter(
-          (item) =>
-            (item.name && item.name.toLowerCase().includes(query)) ||
-            (item.category && item.category.toLowerCase().includes(query)) ||
-            (item.responsible_name &&
-              item.responsible_name.toLowerCase().includes(query)) ||
-            (item.responsible_role &&
-              item.responsible_role.toLowerCase().includes(query)),
-        );
-        renderTable(filtered);
-      });
 
       function logout() {
         sessionStorage.removeItem("isAdminLoggedIn");

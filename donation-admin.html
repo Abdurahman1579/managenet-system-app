@@ -6,168 +6,298 @@
     <title>Admin Dashboard - Mana Marii Malkaa Noonnoo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <!-- NAVIGEEHINII GUUTUU (RESPONSIVE NAVBAR & HAMBURGER MENU) -->
-<nav class="navbar">
-    <div class="nav-brand">
-        <h2>Managements System</h2>
-        <!-- Hamburger Menu Button (Mobile irratti qofa mul'ata) -->
-        <button class="menu-toggle" onclick="toggleMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-    </div>
 
-    <div class="nav-links" id="navLinks">
-        <a href="index.html">Muummee (Home)</a>
-         <a href="sector-index.html">Seektar/ሴክተር (ዋና)</a>
-        <a href="donation-index.html">Deeggarsa (User)</a>
-        <a href="donation-admin.html">Deeggarsa (Admin)</a>
-        <a href="finance-index.html">Galii/Baasii (User)</a>
-        <a href="finance-admin.html">Galii/Baasii (Admin)</a>
-    </div>
-</nav>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --border-color: #dee2e6;
+      }
 
-<style>
-    /* STYLING KUTAA NAVBAR */
-    .navbar {
-        background: #1b4332;
+      /* Header & Hamburger Menu */
+      header.main-header {
+        background: var(--primary);
         color: white;
-        padding: 1rem 2rem;
+        padding: 1rem 1.5rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+      }
+      .brand h1 {
+        font-size: 1rem;
+      }
+      .brand span {
+        font-size: 0.75rem;
+        color: var(--accent);
+        display: block;
+      }
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /* Sidebar Drawer */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 320px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
-    }
-
-    .nav-brand {
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .sidebar-header {
         display: flex;
-        width: 100%;
         justify-content: space-between;
         align-items: center;
-    }
-
-    .nav-brand h2 {
-        font-size: 1.1rem;
-        margin: 0;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    /* FILANNOOWWAN HUNDAAF BACKGROUND DUWWAA FI BARKEE WAL-FAKKAATAA */
-    .nav-links a {
-        color: white;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+      .sidebar ul {
+        list-style: none;
+      }
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
+        font-size: 0.88rem;
         border-radius: 6px;
-        background: transparent;
-        transition: background 0.2s;
-        white-space: nowrap;
-    }
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .sidebar a span.am {
+        display: block;
+        font-size: 0.75rem;
+        color: #666;
+        font-weight: normal;
+      }
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .sidebar a:hover span.am {
+        color: #ddd;
+      }
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+      .sidebar a.admin-link span.am {
+        color: #f8f9fa;
+      }
 
-    /* Yeroo Mouse irra buusu (Hover) qofa bifa salphaa argisiisuuf */
-    .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) */
-    .menu-toggle {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 21px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
-
-    .menu-toggle span {
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 3px;
-        background: white;
-        border-radius: 3px;
-    }
-
-    /* MOBILE SCREEN STYLING (Screen xiqqaa irratti) */
-    @media (max-width: 768px) {
-        .menu-toggle {
-            display: flex;
-        }
-
-        .nav-brand {
-            width: 100%;
-        }
-
-        .nav-links {
-            position: absolute;
-            top: 100%;
-            left: -100%; /* Jalqaba bitaatti dhokateera */
-            flex-direction: column;
-            background: #1b4332;
-            width: 75%;
-            height: 100vh;
-            padding: 2rem 1rem;
-            gap: 1.2rem;
-            transition: left 0.3s ease-in-out;
-            box-shadow: 4px 0 10px rgba(0,0,0,0.2);
-            align-items: flex-start;
-        }
-
-        /* Yeroo Menuun Click ta'u (Active yeroo ta'u) */
-        .nav-links.active {
-            left: 0; /* Gara bitaatii gadi baha */
-        }
-
-        .nav-links a {
-            width: 100%;
-            text-align: left;
-            padding: 0.6rem 1rem;
-        }
-
-        .nav-links a:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-    }
-</style>
-
-<script>
-    // JAVASCRIPT: Button click godhamnaan menuu bitaatii dhufu/deebi'u akka hojjetu godha
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('active');
-    }
-</script>
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 999;
+      }
+      .overlay.active {
+        display: block;
+      }
+    </style>
   </head>
   <body class="bg-slate-100 min-h-screen text-slate-800">
-    <!-- Header -->
-    <header
-      class="bg-emerald-900 text-white p-4 shadow-md flex justify-between items-center px-6"
-    >
-      <div>
-        <h1 class="text-xl font-bold">Admin Panel / የአድሚን መቆጣጠሪያ</h1>
-        <p class="text-xs text-emerald-200">
-          Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
-        </p>
-        <p class="text-xs text-emerald-200">መልካ ኖኖ ክ/ከተማ እስልምና ጉዳዮች ምክር ቤት</p>
+    <!-- Header with Hamburger Menu -->
+    <header class="main-header">
+      <div class="brand">
+        <h1>Admin Panel / የአድሚን መቆጣጠሪያ</h1>
+        <span>Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</span>
       </div>
-      <button
-        id="logoutBtn"
-        onclick="logout()"
-        class="hidden bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition"
-      >
-        Log Out / ውጣ
-      </button>
+      <div class="flex items-center gap-3">
+        <button
+          id="logoutBtn"
+          onclick="logout()"
+          class="hidden bg-red-600 hover:bg-red-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg transition"
+        >
+          Log Out / ውጣ
+        </button>
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      </div>
     </header>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Comprehensive Sidebar Menu with Amharic Translation -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li>
+          <a href="index.html">
+            🏠 Fuula Muummee (Home)
+            <span class="am">ዋና ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html">
+            🤝 Fuula Deeggarsaa (Donation)
+            <span class="am">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <!-- LOGIN SECTION -->
     <div
@@ -296,6 +426,13 @@
 
       const ADMIN_PASSWORD = "MelkaNono#1579";
 
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+
       document.getElementById("loginForm").addEventListener("submit", (e) => {
         e.preventDefault();
         const enteredPass = document.getElementById("passInput").value;
@@ -370,13 +507,11 @@
             ? new Date(item.created_at).toLocaleDateString()
             : "-";
 
-          // Dynamic Badge for Haala Kaffaltii (Status)
           const isPaid = item.status === "kaffalameera";
           const statusBadge = isPaid
             ? `<span class="px-2.5 py-1 bg-emerald-100 text-emerald-800 rounded-full font-bold text-xs inline-block">Kaffalameera / ተከፍለዋል ✅</span>`
             : `<span class="px-2.5 py-1 bg-amber-100 text-amber-800 rounded-full font-bold text-xs inline-block">Niyyaa / ተስፋ ተሰጥቷል ⏳</span>`;
 
-          // Format Gender display
           let genderDisplay = "-";
           if (item.gender) {
             if (
@@ -394,7 +529,6 @@
             }
           }
 
-          // Extract Frequency from message if available
           let frequencyText = "-";
           let cleanMessage = item.message || "-";
           if (item.message && item.message.includes("Frequency:")) {

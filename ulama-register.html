@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galmee Seektara Dubartootaa - M.M.D.I K/Malkaa Noonnoo</title>
+    <title>
+      Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ - M.M.D.I K/Malkaa Noonnoo
+    </title>
     <style>
       :root {
         --primary: #1b4332;
@@ -34,10 +36,23 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
+        z-index: 1000;
+      }
+      .nav-brand {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
       }
       .nav-brand h2 {
         font-size: 1rem;
         margin: 0;
+      }
+      .nav-links {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
       }
       .nav-links a {
         color: white;
@@ -47,6 +62,120 @@
         padding: 0.4rem 0.8rem;
         border-radius: 6px;
       }
+
+      /* HAMBURGER TOGGLE */
+      .menu-toggle {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 30px;
+        height: 21px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+      }
+      .menu-toggle span {
+        width: 100%;
+        height: 3px;
+        background: white;
+        border-radius: 3px;
+      }
+
+      /* SIDEBAR / DRAWER MENU STYLES */
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: none;
+        z-index: 1100;
+      }
+      .sidebar-overlay.active {
+        display: block;
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 320px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+        z-index: 1200;
+        transition: left 0.3s ease-in-out;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .close-sidebar {
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+
       .container {
         max-width: 700px;
         margin: 2.5rem auto;
@@ -88,6 +217,10 @@
         font-size: 1rem;
         outline: none;
       }
+      .form-group input:focus,
+      .form-group select:focus {
+        border-color: var(--primary);
+      }
       .submit-btn {
         background: var(--primary);
         color: white;
@@ -118,55 +251,230 @@
         font-size: 0.85rem;
         border-top: 1px solid var(--border-color);
       }
+
+      /* MOBILE RESPONSIVE */
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: flex;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
-      <div class="nav-brand"><h2>M.M.D.I K/Malkaa Noonnoo</h2></div>
-      <div class="nav-links">
-        <a href="sector-index.html">Muummee (ዋና ገፅ)</a>
+      <div class="nav-brand">
+        <h2>M.M.D.I K/Malkaa Noonnoo / የማልካ ኖንኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት</h2>
+        <button class="menu-toggle" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="sector-index.html">Muummee / ዋና ገጽ</a>
       </div>
     </nav>
+
+    <!-- SIDEBAR / HAMBURGER MENU OVERLAY & DRAWER -->
+    <div
+      class="sidebar-overlay"
+      id="sidebarOverlay"
+      onclick="toggleMenu()"
+    ></div>
+    <div class="sidebar" id="sidebarMenu">
+      <div class="sidebar-header">
+        <h3>Fuulota Hunda / ሁሉንም ፋይሎች</h3>
+        <button class="close-sidebar" onclick="toggleMenu()">✕</button>
+      </div>
+
+      <ul>
+        <li><a href="sector-index.html">🏠 Muummee / ዋና ገጽ (Home)</a></li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektarootaa fi Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html"
+            >💰 Seektara Faayinaansii (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="finance-register.html"
+            >📝 Galmee Seektara Faayinaansii / የፋይናንስ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="youth-sector.html"
+            >👥 Seektara Dargaggootaa (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="youth-register.html"
+            >📝 Galmee Seektara Dargaggootaa / የወጣቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="women-sector.html"
+            >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="women-register.html"
+            >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="ulama-sector.html"
+            >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="ulama-register.html"
+            >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="masjid-sector.html"
+            >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="masjid-register.html"
+            >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html"
+            >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="madrasa-register.html"
+            >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
+          >
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa fi Deggersa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html"
+            >🤝 Fuula Deggersaa (Donation) / የድጋፍ ገጽ</a
+          >
+        </li>
+        <li>
+          <a href="donation-admin.html">⚙️ Bulchaa Deggersaa / የድጋፍ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="finance-admin.html"
+            >📊 Bulchaa Faayinaansii / የፋይናንስ አስተዳዳሪ</a
+          >
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link"
+            >📈 Bulchaa Galmee Seektaraa (Excel) / የሴክተር ምዝገባ አስተዳዳሪ</a
+          >
+        </li>
+      </ul>
+    </div>
+
     <div class="container">
       <div class="form-card">
-        <h1>Galmee Seektara Dubartootaa</h1>
-        <div class="am-title">የሴቶች ጉዳይ ዘርፍ አባል ምዝገባ</div>
+        <h1>Galmee Seektara Ulamaa</h1>
+        <div class="am-title">የዑለማ ዘርፍ አባል መረጃ መሰብሰቢያ ቅጽ</div>
 
-        <!-- Form ID dabalameera -->
-        <form id="registrationForm">
+        <form id="ulamaRegisterForm">
           <div class="form-group">
             <label>Maqaa Guutuu / ሙሉ ስም</label>
             <input
               type="text"
-              id="fullName"
-              placeholder="Maqaa keessan guutuu"
+              id="full_name"
+              placeholder="Maqaa keessan guutuu / ሙሉ ስምዎን ያስገቡ"
               required
             />
           </div>
+
           <div class="form-group">
             <label>Lakkoofsa Bilbilaa / ስልክ ቁጥር</label>
             <input type="tel" id="phone" placeholder="09xxxxxxxx" required />
           </div>
+
           <div class="form-group">
-            <label>Hirmaannaa / Gumaacha / የድርሻ አስተዋጽኦ መስክ</label>
+            <label>Sadarkaa Barnoota Diinii / የዲን ትምህርት ደረጃ</label>
+            <select id="religious_education" required>
+              <option value="">Filadhu / ይምረጡ</option>
+              <option value="Hifzu Al-Qur'an / ሂፍዙል ቁርአን">
+                Hifzu Al-Qur'an / ሂፍዙል ቁርአን
+              </option>
+              <option value="Kitaba (Shamar/Guddichaa) / ኪታብ (ቀማም/ከፍተኛ)">
+                Kitaba (Shamar/Guddichaa) / ኪታብ (ቀማም/ከፍተኛ)
+              </option>
+              <option value="Ijaza / ኢጃዛ">Ijaza / ኢጃዛ</option>
+              <option value="Alimii / ዐሊም">Alimii / ዐሊም</option>
+              <option value="Digirii / ዲግሪ">Digirii / ዲግሪ</option>
+              <option value="Kanneen biroo / ሌሎች">Kanneen biroo / ሌሎች</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label
+              >Gita Hojii / Iddoo Hojii (Fkn: Imaama, Barsiisaa, Mufti...) / የስራ
+              ድርሻ / የሚሰሩበት ቦታ</label
+            >
             <input
               type="text"
-              id="contribution"
-              placeholder="Fkn: Barnoota hawaasaa, Leenjii..."
+              id="position_or_duty"
+              placeholder="Fkn: Imaama Masjiidaa, Barsiisaa Madrasaa... / ምሳሌ፦ የመስጂድ ኢማም፣ የመድረሳ አስተማሪ..."
               required
             />
           </div>
+
           <div class="form-group">
-            <label>Ganda / ቀበሌ</label>
-            <input type="text" id="ganda" placeholder="Maqaa gandaa" required />
+            <label>Aanaa Amma Keessa Jiraatan / የሚኖሩበት ወረዳ</label>
+            <input
+              type="text"
+              id="wereda"
+              placeholder="Maqaa aanaa barreessaa / የወረዳውን ስም ይጻፉ"
+              required
+            />
           </div>
-          <button type="submit" class="submit-btn">
-            Miseensa Seektara Dubartootaa Ta'i / አባል ይሁኑ
-          </button>
+
+          <div class="form-group">
+            <label>Ganda / Gooxii / ቀበሌ / ጎጥ</label>
+            <input
+              type="text"
+              id="gooxii"
+              placeholder="Ganda ykn Gooxii barreessaa / ቀበሌ ወይም ጎጥ ይጻፉ"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Masjiida Itti Tajaajilan / የሚያገለግሉት መስጂድ (如果有)</label>
+            <input
+              type="text"
+              id="masjid_name"
+              placeholder="Maqaa masjiidaa / የመስጂዱ ስም"
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">Galmeessi / ይመዝግቡ</button>
         </form>
 
         <a href="sector-index.html" class="back-link"
-          >&larr; Gara Fuula Muummee Deebi'i</a
+          >&larr; Gara Fuula Muummee Deebi'i / ወደ ዋናው ገጽ ይመለሱ</a
         >
       </div>
     </div>
@@ -179,7 +487,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
-      // URL fi Anon Key bakkan sirriitti qabaman
+      // Hamburger Menu Toggle Function
+      function toggleMenu() {
+        const sidebar = document.getElementById("sidebarMenu");
+        const overlay = document.getElementById("sidebarOverlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+
       const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
       const SUPABASE_ANON_KEY =
         "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
@@ -187,32 +502,32 @@
       const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
       document
-        .getElementById("registrationForm")
+        .getElementById("ulamaRegisterForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
 
-          const fullName = document.getElementById("fullName").value;
-          const phone = document.getElementById("phone").value;
-          const contribution = document.getElementById("contribution").value;
-          const ganda = document.getElementById("ganda").value;
+          const formData = {
+            full_name: document.getElementById("full_name").value,
+            phone: document.getElementById("phone").value,
+            religious_education: document.getElementById("religious_education")
+              .value,
+            position_or_duty: document.getElementById("position_or_duty").value,
+            wereda: document.getElementById("wereda").value,
+            gooxii: document.getElementById("gooxii").value,
+            masjid_name: document.getElementById("masjid_name").value,
+          };
 
-          // Seektara Dubartootaa waan ta'eef sector_name irratti ragaan kun ni kuufama
           const { data, error } = await _supabase
-            .from("register-sector-app")
-            .insert([
-              {
-                full_name: fullName,
-                phone: phone,
-                sector_name: "Dubartootaa: " + contribution,
-                ganda: ganda,
-              },
-            ]);
+            .from("ulama_registers")
+            .insert([formData]);
 
           if (error) {
-            alert("Dogoggorri uumame: " + error.message);
+            alert("Dogoggorri uumame / ስህተት ተፈጥሯል: " + error.message);
           } else {
-            alert("Galmeen Seektara Dubartootaa milkaa'inaan galmeeffameera!");
-            document.getElementById("registrationForm").reset();
+            alert(
+              "Galmeen Seektara Ulamaa milkaa'inaan galmeeffameera! / የዑለማ ሴክተር ምዝገባ በအောင်ኬት ተጠናቋል!",
+            );
+            document.getElementById("ulamaRegisterForm").reset();
           }
         });
     </script>

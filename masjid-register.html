@@ -33,6 +33,7 @@
         line-height: 1.6;
       }
 
+      /* Navbar & Hamburger Menu Styles */
       .navbar {
         background: var(--primary);
         color: white;
@@ -41,6 +42,15 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 900;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
 
       .nav-brand h2 {
@@ -48,24 +58,108 @@
         margin: 0;
       }
 
-      .nav-links {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
       }
 
-      .nav-links a {
-        color: white;
+      /* Sidebar Drawer Styles */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
         text-decoration: none;
         font-weight: 600;
         font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
         border-radius: 6px;
-        transition: background 0.2s;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
 
-      .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.1);
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 999;
+      }
+
+      .overlay.active {
+        display: block;
       }
 
       .container {
@@ -173,14 +267,124 @@
     </style>
   </head>
   <body>
+    <!-- Navbar with Hamburger Menu -->
     <nav class="navbar">
       <div class="nav-brand">
         <h2>M.M.D.I K/Malkaa Noonnoo</h2>
       </div>
-      <div class="nav-links">
-        <a href="sector-index.html">Muummee (ዋና ገፅ)</a>
-      </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
     </nav>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Comprehensive Sidebar Menu (Amharic/Afaan Oromoo Translations) -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li><a href="index.html">🏠 Fuula Muummee / ዋና ገጽ (Home)</a></li>
+        <li>
+          <a href="sector-index.html">📂 Muummee Seektarootaa / የሴክተሮች ማውጫ</a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html"
+            >💰 Seektara Maallaqaa (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="finance-register.html"
+            >📝 Galmee Seektara Maallaqaa / የፋይናንስ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="youth-sector.html"
+            >👥 Seektara Dargaggoo (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="youth-register.html"
+            >📝 Galmee Seektara Dargaggoo / የወጣቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="women-sector.html"
+            >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="women-register.html"
+            >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="ulama-sector.html"
+            >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="ulama-register.html"
+            >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="masjid-sector.html"
+            >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="masjid-register.html"
+            >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
+          >
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html"
+            >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
+          >
+        </li>
+        <li>
+          <a href="madrasa-register.html"
+            >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
+          >
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html"
+            >🤝 Fuula Deeggarsaa / የድጋፍ ገጽ (Donation)</a
+          >
+        </li>
+        <li>
+          <a href="donation-admin.html">⚙️ Donation Admin / የድጋፍ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="finance-admin.html">📊 Finance Admin / የፋይናንስ አስተዳዳሪ</a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link"
+            >📈 Register Sector Admin (Excel) / የሴክተር ምዝገባ አስተዳዳሪ</a
+          >
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="form-card">
@@ -359,6 +563,14 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <script>
+      // Sidebar Toggle Functionality
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+
       const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
       const SUPABASE_ANON_KEY =
         "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";

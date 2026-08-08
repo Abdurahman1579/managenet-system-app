@@ -44,10 +44,11 @@
         }
       }
     </style>
+
     <!-- NAVIGEEHINII GUUTUU (RESPONSIVE NAVBAR & HAMBURGER MENU) -->
     <nav class="navbar">
       <div class="nav-brand">
-        <h2>Managements System</h2>
+        <h2>Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</h2>
         <!-- Hamburger Menu Button (Mobile irratti qofa mul'ata) -->
         <button class="menu-toggle" onclick="toggleMenu()">
           <span></span>
@@ -57,12 +58,12 @@
       </div>
 
       <div class="nav-links" id="navLinks">
-        <a href="index.html">Muummee (Home)</a>
-        <a href="sector-index.html">Seektar/ሴክተር (ዋና)</a>
-        <a href="donation-index.html">Deeggarsa (User)</a>
-        <a href="donation-admin.html">Deeggarsa (Admin)</a>
-        <a href="finance-index.html">Galii/Baasii (User)</a>
-        <a href="finance-admin.html">Galii/Baasii (Admin)</a>
+        <a href="index.html">🏠 Muummee (Home)</a>
+        <a href="sector-index.html">📂 Seektaroota</a>
+        <a href="donation-index.html" class="active-link">🤝 Deeggarsa (User)</a>
+        <a href="donation-admin.html">⚙️ Deeggarsa (Admin)</a>
+        <a href="finance-index.html">📊 Galii/Baasii</a>
+        <a href="finance-admin.html">📈 Finance Admin</a>
       </div>
     </nav>
 
@@ -88,13 +89,14 @@
       }
 
       .nav-brand h2 {
-        font-size: 1.1rem;
+        font-size: 1rem;
         margin: 0;
+        font-weight: 700;
       }
 
       .nav-links {
         display: flex;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
       }
 
@@ -103,7 +105,7 @@
         color: white;
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         padding: 0.4rem 0.8rem;
         border-radius: 6px;
         background: transparent;
@@ -116,13 +118,18 @@
         background: rgba(255, 255, 255, 0.1);
       }
 
+      .nav-links a.active-link {
+        background: #d4a373;
+        color: #fff;
+      }
+
       /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) */
       .menu-toggle {
         display: none;
         flex-direction: column;
         justify-content: space-between;
-        width: 30px;
-        height: 21px;
+        width: 28px;
+        height: 20px;
         background: transparent;
         border: none;
         cursor: pointer;
@@ -155,7 +162,7 @@
           width: 75%;
           height: 100vh;
           padding: 2rem 1rem;
-          gap: 1.2rem;
+          gap: 0.8rem;
           transition: left 0.3s ease-in-out;
           box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
           align-items: flex-start;
@@ -220,8 +227,7 @@
             <strong>Madrasaalee fi Markazoota 90 ol</strong> kan of keessaa qabu
             yoo ta'u, kaayyoolee gurguddoo galmaan ga'uuf tattaaffii cimaa
             irratti argama. Rakkoolee isa harkaa qaban kanneen akka lojistikii,
-            kaffaltii kiraa fi kkf furmaata waaraa fiduuf tattaafataa jira[cite:
-            2].
+            kaffaltii kiraa fi kkf furmaata waaraa fiduuf tattaafataa jira[cite: 2].
           </p>
           <p
             class="text-slate-700 text-sm leading-relaxed text-justify mt-2 font-medium text-emerald-800"
@@ -754,7 +760,7 @@
             />
             <p class="text-xs text-slate-500 mt-1">
               *Lakk. bilbilaa kanaan booda kaffaltii xumuruuf fayyadamtu/ይህ ስልክ
-              ቁጥር ክፍያውን ለመክፈል (ለማጠናቀቅ) ይጠቀሙበታል።.[cite: 2]
+              ቁጥር ክፍያውን ለመክፈል (ለማጠናቀቅ) ይጠቀሙበታል።[cite: 2]
             </p>
           </div>
 
