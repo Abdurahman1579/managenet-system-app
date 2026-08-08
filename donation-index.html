@@ -163,6 +163,81 @@
       }
     </style>
 
+    <!-- SIDEBAR STYLING / የጎንዮሽ ሜኑ ስታይል -->
+    <style>
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100%;
+        background: #1b4332;
+        color: white;
+        transition: left 0.3s ease;
+        z-index: 1100;
+        overflow-y: auto;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+      }
+      .sidebar.open {
+        left: 0;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.25rem;
+        background: #132e22;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .sidebar-header h3 {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin: 0;
+      }
+      .close-btn {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.25rem;
+        cursor: pointer;
+      }
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        padding: 1rem 1.25rem 0.5rem;
+        color: #d4a373;
+        letter-spacing: 0.05em;
+      }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .sidebar ul li a {
+        display: flex;
+        flex-direction: column;
+        padding: 0.65rem 1.25rem;
+        color: #e2e8f0;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: background 0.2s;
+        border-left: 3px solid transparent;
+      }
+      .sidebar ul li a:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border-left-color: #d4a373;
+      }
+      .sidebar ul li a .am {
+        font-size: 0.75rem;
+        color: #cbd5e1;
+        font-weight: 400;
+        margin-top: 0.1rem;
+      }
+    </style>
+
     <script>
       // JAVASCRIPT: Button click godhamnaan menuu bitaatii dhufu/deebi'u akka hojjetu godha
       // ጃቫስክሪፕት፡ ቁልፍ ሲጫን የግራው ሜኑ እንዲመጣ/እንዲመለስ ያደርጋል
@@ -170,17 +245,169 @@
         const navLinks = document.getElementById("navLinks");
         navLinks.classList.toggle("active");
       }
+
+      // SIDEBAR TOGGLE FUNCTION / የጎንዮሽ ሜኑ መክፈቻና መዝጊያ ተግባር
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+      }
     </script>
   </head>
   <body
     class="bg-emerald-50 min-h-screen text-slate-800 flex flex-col justify-between"
   >
+    <!-- Comprehensive Sidebar Menu with Amharic Translation[cite: 4] -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li>
+          <a href="index.html">
+            🏠 Fuula Muummee (Home)
+            <span class="am">ዋና ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="donation-index.html">
+            🤝 Fuula Deeggarsaa (Donation)
+            <span class="am">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
     <!-- Header / ራስጌ -->
     <header class="bg-emerald-800 text-white shadow-lg">
       <!-- Navbar wajjin Hamberger Menu / ከሃምበርገር ሜኑ ጋር የተስተካከለ ናቭባር -->
       <nav class="navbar">
         <div class="nav-brand">
-          <h2>Malkaa Noonnoo</h2>
+          <div class="flex items-center gap-3">
+            <!-- Sidebar Toggle Button Added / የጎንዮሽ ሜኑ መክፈቻ ቁልፍ ተጨምሯል -->
+            <button
+              class="sidebar-toggle bg-emerald-900 hover:bg-emerald-950 px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 transition text-emerald-100"
+              onclick="toggleSidebar()"
+              aria-label="Toggle Sidebar"
+            >
+              <span>📂 Menu</span>
+            </button>
+            <h2>Malkaa Noonnoo</h2>
+          </div>
           <button
             class="menu-toggle"
             onclick="toggleMenu()"
