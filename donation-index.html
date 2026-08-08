@@ -101,64 +101,31 @@
         color: #fff;
       }
 
-      /* HAMBURGER BUTTON STYLING (Desktop irratti dhokata) / የሀምበርገር ቁልፍ ስታይል (በዴስክቶፕ ላይ ተደብቋል) */
-      .menu-toggle {
-        display: none;
+      /* HAMBURGER BUTTON STYLING / የሀምበርገር ቁልፍ ስታይል */
+      .menu-toggle-btn {
+        display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 28px;
-        height: 20px;
+        width: 24px;
+        height: 18px;
         background: transparent;
         border: none;
         cursor: pointer;
         padding: 0;
       }
 
-      .menu-toggle span {
+      .menu-toggle-btn span {
         width: 100%;
-        height: 3px;
+        height: 2.5px;
         background: white;
-        border-radius: 3px;
+        border-radius: 2px;
+        transition: all 0.3s ease;
       }
 
       /* MOBILE SCREEN STYLING (Screen xiqqaa irratti) / የሞባይል ስክሪን ስታይል (በትንሹ ስክሪን ላይ) */
       @media (max-width: 768px) {
-        .menu-toggle {
-          display: flex;
-        }
-
         .nav-brand {
           width: 100%;
-        }
-
-        .nav-links {
-          position: absolute;
-          top: 100%;
-          left: -100%; /* Jalqaba bitaatti dhokateera / መጀመሪያ በግራ በኩል ተደብቋል */
-          flex-direction: column;
-          background: #1b4332;
-          width: 75%;
-          height: 100vh;
-          padding: 2rem 1rem;
-          gap: 0.8rem;
-          transition: left 0.3s ease-in-out;
-          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-          align-items: flex-start;
-        }
-
-        /* Yeroo Menuun Click ta'u (Active yeroo ta'u) / ሜኑ ሲጫን (აქቲቭ ሲሆን) */
-        .nav-links.active {
-          left: 0; /* Gara bitaatii gadi baha / ከግራ በኩል ይወጣል */
-        }
-
-        .nav-links a {
-          width: 100%;
-          text-align: left;
-          padding: 0.6rem 1rem;
-        }
-
-        .nav-links a:hover {
-          background: rgba(255, 255, 255, 0.15);
         }
       }
     </style>
@@ -243,13 +210,17 @@
       // ጃቫስክሪፕት፡ ቁልፍ ሲጫን የግራው ሜኑ እንዲመጣ/እንዲመለስ ያደርጋል
       function toggleMenu() {
         const navLinks = document.getElementById("navLinks");
-        navLinks.classList.toggle("active");
+        if (navLinks) {
+          navLinks.classList.toggle("active");
+        }
       }
 
       // SIDEBAR TOGGLE FUNCTION / የጎንዮሽ ሜኑ መክፈቻና መዝጊያ ተግባር
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
-        sidebar.classList.toggle("open");
+        if (sidebar) {
+          sidebar.classList.toggle("open");
+        }
       }
 
       // RAKKOO BUTTON-OOTA HOJJEECHUUSUU DHIISANIIF KAN SIRREESSE (SWITCH TAB FUNCTION)
@@ -270,6 +241,79 @@
           if (payPledge) payPledge.classList.remove("hidden");
         }
       }
+
+      // USSD Function implementation for mobile direct dialing
+      function openBankingUSSD(accountNumber, ussdCode, element) {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(accountNumber).catch(() => {});
+        }
+
+        if (element) {
+          const feedback = element.querySelector(".copy-feedback");
+          if (feedback) {
+            feedback.classList.remove("hidden");
+            setTimeout(() => {
+              feedback.classList.add("hidden");
+            }, 3000);
+          }
+        }
+
+        // Trigger USSD dial intent
+        window.location.href = `tel:${encodeURIComponent(ussdCode)}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Toggle Bank Name input based on payment method selection
+        const paymentMethodSelect = document.getElementById("paymentMethod");
+        const bankNameContainer = document.getElementById("bankNameContainer");
+        const donorBankNameSelect = document.getElementById("donorBankName");
+
+        if (paymentMethodSelect && bankNameContainer) {
+          paymentMethodSelect.addEventListener("change", function () {
+            const selectedVal = this.value;
+            if (
+              selectedVal.includes("Baankii") ||
+              selectedVal.includes("CBE") ||
+              selectedVal.includes("AWASH") ||
+              selectedVal.includes("Abiisiiniya") ||
+              selectedVal.includes("Zamzam") ||
+              selectedVal.includes("Hijraa") ||
+              selectedVal.includes("Hibret")
+            ) {
+              bankNameContainer.classList.remove("hidden");
+              if (donorBankNameSelect)
+                donorBankNameSelect.setAttribute("required", "true");
+            } else {
+              bankNameContainer.classList.add("hidden");
+              if (donorBankNameSelect) {
+                donorBankNameSelect.removeAttribute("required");
+                donorBankNameSelect.value = "";
+              }
+            }
+          });
+        }
+
+        // Simple form validation styling logic
+        const forms = document.querySelectorAll("form");
+        forms.forEach((form) => {
+          form.addEventListener("submit", (e) => {
+            let isValid = true;
+            const requiredFields = form.querySelectorAll("[required]");
+            requiredFields.forEach((field) => {
+              if (!field.value.trim()) {
+                field.classList.add("input-error");
+                isValid = false;
+              } else {
+                field.classList.remove("input-error");
+              }
+            });
+
+            if (!isValid) {
+              e.preventDefault();
+            }
+          });
+        });
+      });
     </script>
   </head>
   <body
@@ -409,24 +453,18 @@
     <header class="bg-emerald-800 text-white shadow-lg">
       <nav class="navbar">
         <div class="nav-brand">
-          <div class="flex items-center gap-3">
-            <button
-              class="sidebar-toggle bg-emerald-900 hover:bg-emerald-950 px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 transition text-emerald-100"
-              onclick="toggleSidebar()"
-              aria-label="Toggle Sidebar"
-            >
-              <span>📂 Menu</span>
-            </button>
-            <h2>Malkaa Noonnoo</h2>
-          </div>
+          <h2>Malkaa Noonnoo</h2>
           <button
-            class="menu-toggle"
-            onclick="toggleMenu()"
-            aria-label="Toggle Menu"
+            class="sidebar-toggle bg-emerald-900 hover:bg-emerald-950 px-3 py-2 rounded-lg text-xs font-semibold flex items-center gap-2 transition text-emerald-100 shadow-sm border border-emerald-700/50"
+            onclick="toggleSidebar()"
+            aria-label="Toggle Sidebar"
           >
-            <span></span>
-            <span></span>
-            <span></span>
+            <span>Menu</span>
+            <div class="menu-toggle-btn">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
           </button>
         </div>
       </nav>
