@@ -24,7 +24,7 @@
       body {
         background-color: var(--bg-color);
         color: var(--text-color);
-        padding: 2rem;
+        padding: 0.5rem;
       }
       /* Login Modal Styles */
       #loginModal {
@@ -38,10 +38,11 @@
         justify-content: center;
         align-items: center;
         z-index: 1000;
+        padding: 1rem;
       }
       .login-box {
         background: var(--card-bg);
-        padding: 2.5rem;
+        padding: 2rem 1.5rem;
         border-radius: 10px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         width: 100%;
@@ -52,11 +53,11 @@
       .login-box h2 {
         color: var(--primary);
         margin-bottom: 0.5rem;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
       }
       .login-box .am-sub {
         color: var(--primary-light);
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin-bottom: 1.5rem;
       }
       .login-box input,
@@ -110,40 +111,43 @@
       /* Main Dashboard Styles */
       #dashboardContent {
         display: none;
+        width: 100%;
       }
 
       /* Navbar & Hamburger Styles */
       .navbar {
         background: var(--primary);
         color: white;
-        padding: 1rem 2rem;
+        padding: 0.75rem 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
         box-shadow: var(--shadow);
-        border-radius: 8px;
-        margin-bottom: 2rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
         position: relative;
         z-index: 900;
+        width: 100%;
       }
       .nav-brand {
         display: flex;
         flex-direction: column;
       }
       .nav-brand h1 {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         margin: 0;
       }
       .nav-brand .am-sub {
-        font-size: 0.9rem;
+        font-size: 0.75rem;
         color: var(--accent);
       }
       .menu-toggle {
         background: none;
         border: none;
         color: white;
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         cursor: pointer;
+        padding: 0.2rem 0.5rem;
       }
 
       /* Sidebar Drawer Styles */
@@ -151,13 +155,13 @@
         position: fixed;
         top: 0;
         left: -300px;
-        width: 300px;
+        width: 280px;
         height: 100%;
         background: var(--card-bg);
         box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
         z-index: 1000;
         transition: left 0.3s ease;
-        padding: 1.5rem 1rem;
+        padding: 1.2rem 0.8rem;
         overflow-y: auto;
       }
       .sidebar.active {
@@ -173,7 +177,7 @@
       }
       .sidebar-header h3 {
         color: var(--primary);
-        font-size: 1rem;
+        font-size: 0.95rem;
       }
       .close-btn {
         background: none;
@@ -183,7 +187,7 @@
         color: var(--text-color);
       }
       .sidebar-section-title {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         text-transform: uppercase;
         color: #888;
         margin: 1rem 0 0.4rem 0.5rem;
@@ -197,11 +201,11 @@
       }
       .sidebar a {
         display: block;
-        padding: 0.6rem 0.8rem;
+        padding: 0.5rem 0.6rem;
         color: var(--primary);
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         border-radius: 6px;
         background: #f8f9fa;
         transition:
@@ -233,15 +237,15 @@
 
       .controls-bar {
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+        align-items: stretch;
         margin-bottom: 1rem;
-        flex-wrap: wrap;
-        gap: 1rem;
+        gap: 0.75rem;
       }
       .sector-select {
-        padding: 0.5rem 1rem;
-        font-size: 0.95rem;
+        padding: 0.5rem;
+        font-size: 0.9rem;
         border-radius: 6px;
         border: 1px solid var(--border-color);
         outline: none;
@@ -249,26 +253,29 @@
         font-weight: 600;
         color: var(--primary);
         cursor: pointer;
+        width: 100%;
       }
       .table-container {
         background: var(--card-bg);
-        padding: 1.5rem;
+        padding: 0.75rem;
         border-radius: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         overflow-x: auto;
+        width: 100%;
+        margin-bottom: 1rem;
       }
       table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 1rem;
+        margin-top: 0.5rem;
         white-space: nowrap;
       }
       th,
       td {
-        padding: 0.75rem 1rem;
+        padding: 0.6rem 0.75rem;
         text-align: left;
         border-bottom: 1px solid var(--border-color);
-        font-size: 0.9rem;
+        font-size: 0.85rem;
       }
       th {
         background-color: #f1f3f5;
@@ -284,18 +291,44 @@
         background: var(--accent);
         color: white;
         border: none;
-        padding: 0.5rem 1rem;
+        padding: 0.6rem 1rem;
         font-weight: 600;
-        border-radius: 4px;
+        border-radius: 6px;
         cursor: pointer;
+        font-size: 0.9rem;
+        width: 100%;
+        text-align: center;
       }
       .refresh-btn:hover {
         background: #bc8a5f;
       }
 
-      @media (max-width: 768px) {
+      /* Desktop screens styling override */
+      @media (min-width: 768px) {
         body {
-          padding: 1rem;
+          padding: 1.5rem;
+        }
+        .navbar {
+          padding: 1rem 2rem;
+        }
+        .nav-brand h1 {
+          font-size: 1.1rem;
+        }
+        .nav-brand .am-sub {
+          font-size: 0.9rem;
+        }
+        .controls-bar {
+          flex-direction: row;
+          align-items: center;
+        }
+        .sector-select {
+          width: auto;
+        }
+        .refresh-btn {
+          width: auto;
+        }
+        .table-container {
+          padding: 1.5rem;
         }
       }
     </style>
@@ -470,24 +503,29 @@
 
       <div class="table-container">
         <div class="controls-bar">
-          <div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap">
             <button class="refresh-btn" onclick="loadMembers()">
-              Odeeffannoo Haaromsu / መረጃ አድስ (Refresh)
+              Odeeffannoo Haaromsu / መረጃ አድስ
             </button>
             <button
               class="refresh-btn"
-              style="background-color: #2d6a4f; margin-left: 0.5rem"
+              style="background-color: #2d6a4f"
               onclick="exportToExcel()"
             >
-              📥 Gara Excel-tti Buusi / Excel Download
+              📥 Excel Download
             </button>
           </div>
 
           <div>
             <label
               for="sectorSelect"
-              style="font-weight: 600; margin-right: 0.5rem; font-size: 0.9rem"
-              >Seektara / Tabilii Filadhu / ዘርፍ / ሰንጠረዥ ይምረጡ:</label
+              style="
+                font-weight: 600;
+                margin-bottom: 0.25rem;
+                display: block;
+                font-size: 0.85rem;
+              "
+              >Seektara / Tabilii Filadhu:</label
             >
             <select
               id="sectorSelect"
@@ -495,23 +533,21 @@
               onchange="verifyAndLoadSector()"
             >
               <option value="women_registers">
-                Seektara Dubartootaa / የሴቶች ዘርፍ (Women)
+                Seektara Dubartootaa (Women)
               </option>
               <option value="youth_registers">
-                Seektara Dargaggoo / የወጣቶች ዘርፍ (Youth)
+                Seektara Dargaggoo (Youth)
               </option>
               <option value="finance_registers">
-                Seektara Maallaqaa / የፋይናንስ ዘርፍ (Finance)
+                Seektara Maallaqaa (Finance)
               </option>
               <option value="madrasa_registers">
-                Seektara Madrasaa / የመድረሳ ዘርፍ (Madrasa)
+                Seektara Madrasaa (Madrasa)
               </option>
               <option value="masjid_registers">
-                Seektara Masjiidaa / የመስጂድ ዘርፍ (Masjid)
+                Seektara Masjiidaa (Masjid)
               </option>
-              <option value="ulama_registers">
-                Seektara Ulamaa / የኡለማ ዘርፍ (Ulama)
-              </option>
+              <option value="ulama_registers">Seektara Ulamaa (Ulama)</option>
             </select>
           </div>
         </div>
