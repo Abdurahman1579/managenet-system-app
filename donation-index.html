@@ -251,6 +251,25 @@
         const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("open");
       }
+
+      // RAKKOO BUTTON-OOTA HOJJEECHUUSUU DHIISANIIF KAN SIRREESSE (SWITCH TAB FUNCTION)
+      function switchTab(tabName) {
+        const payNow = document.getElementById("payNowContainer");
+        const makePledge = document.getElementById("makePledgeContainer");
+        const payPledge = document.getElementById("payPledgeContainer");
+
+        if (payNow) payNow.classList.add("hidden");
+        if (makePledge) makePledge.classList.add("hidden");
+        if (payPledge) payPledge.classList.add("hidden");
+
+        if (tabName === "payNow") {
+          if (payNow) payNow.classList.remove("hidden");
+        } else if (tabName === "makePledge") {
+          if (makePledge) makePledge.classList.remove("hidden");
+        } else if (tabName === "payPledge") {
+          if (payPledge) payPledge.classList.remove("hidden");
+        }
+      }
     </script>
   </head>
   <body
@@ -365,12 +384,6 @@
         Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
       </div>
       <ul>
-        <!-- <li>
-          <a href="donation-index.html">
-            🤝 Fuula Deeggarsaa (Donation)
-            <span class="am">የድጋፍ ገጽ</span>
-          </a>
-        </li> -->
         <li>
           <a href="donation-admin.html">
             ⚙️ Donation Admin
@@ -394,11 +407,9 @@
 
     <!-- Header / ራስጌ -->
     <header class="bg-emerald-800 text-white shadow-lg">
-      <!-- Navbar wajjin Hamberger Menu / ከሃምበርገር ሜኑ ጋር የተስተካከለ ናቭባር -->
       <nav class="navbar">
         <div class="nav-brand">
           <div class="flex items-center gap-3">
-            <!-- Sidebar Toggle Button Added / የጎንዮሽ ሜኑ መክፈቻ ቁልፍ ተጨምሯል -->
             <button
               class="sidebar-toggle bg-emerald-900 hover:bg-emerald-950 px-3 py-1.5 rounded text-xs font-semibold flex items-center gap-1.5 transition text-emerald-100"
               onclick="toggleSidebar()"
@@ -408,7 +419,7 @@
             </button>
             <h2>Malkaa Noonnoo</h2>
           </div>
-          <!-- <button
+          <button
             class="menu-toggle"
             onclick="toggleMenu()"
             aria-label="Toggle Menu"
@@ -416,13 +427,8 @@
             <span></span>
             <span></span>
             <span></span>
-          </button> -->
+          </button>
         </div>
-        <!-- <div class="nav-links" id="navLinks">
-          <a href="#" class="active-link">Gurgudoo / ዋና ገጽ</a>
-          <a href="#payNowContainer">Kaffaluu / መክፈል</a>
-          <a href="#makePledgeContainer">Niyyaachuu / ኒያ</a>
-        </div> -->
       </nav>
 
       <div class="p-6 text-center">
@@ -1063,6 +1069,38 @@
             class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-3 rounded-lg transition shadow-md mt-2"
           >
             Niyyaa Galmeessi / ኒያውን አስመዝግብ
+          </button>
+        </form>
+      </div>
+
+      <!-- SECTION 3: PAY PLEDGE (KUTAA NIYYAA KAFFALUU / ቃል የገቡትን መክፈል) -->
+      <div
+        id="payPledgeContainer"
+        class="hidden max-w-xl mx-auto bg-white p-6 md:p-8 rounded-2xl shadow-md border border-amber-200 space-y-4"
+      >
+        <h3 class="font-bold text-lg text-amber-900 border-b pb-3 mb-2">
+          🔍 Niyyaa Kaffaluu (Waadaa Galame Kaffaluu) / ቃል የገቡትን መክፈል
+        </h3>
+        <form id="payPledgeForm" class="space-y-4" novalidate>
+          <div>
+            <label class="block text-sm font-semibold mb-1"
+              >Lakkoofsa Bilbilaa Galmeessise / የተመዘገበበት ስልክ ቁጥር
+              <span class="text-red-500">*</span></label
+            >
+            <input
+              type="tel"
+              id="searchPledgePhone"
+              required
+              placeholder="09..."
+              class="input-field w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            id="searchPledgeBtn"
+            class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-3 rounded-lg transition shadow-md mt-2"
+          >
+            Niyyaa Barbaadi / ኒያ ፈልግ
           </button>
         </form>
       </div>
