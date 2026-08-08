@@ -470,9 +470,18 @@
 
       <div class="table-container">
         <div class="controls-bar">
-          <button class="refresh-btn" onclick="loadMembers()">
-            Odeeffannoo Haaromsu / መረጃ አድስ (Refresh)
-          </button>
+          <div>
+            <button class="refresh-btn" onclick="loadMembers()">
+              Odeeffannoo Haaromsu / መረጃ አድስ (Refresh)
+            </button>
+            <button
+              class="refresh-btn"
+              style="background-color: #2d6a4f; margin-left: 0.5rem"
+              onclick="exportToExcel()"
+            >
+              📥 Gara Excel-tti Buusi / Excel Download
+            </button>
+          </div>
 
           <div>
             <label
@@ -520,6 +529,8 @@
       </div>
     </div>
 
+    <!-- SheetJS CDN for Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <!-- Supabase JS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -720,6 +731,76 @@
           }
           tbody.appendChild(row);
         });
+      }
+
+      // Gara Excel-tti jijjiiranii buusuuf koodii tajaajilu
+      async function exportToExcel() {
+        const tableName = currentActiveSector;
+
+        const { data, error } = await _supabase
+          .from(tableName)
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          alert("Deetaa fiduuf irratti dogoggorri uumameera: " + error.message);
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          alert("Haala kana keessatti deetaan galmaa'e hin jiru!");
+          return;
+        }
+
+        let formattedData = data.map((member, index) => {
+          if (tableName === "women_registers") {
+            return {
+              Lakk: index + 1,
+              "Maqaa Guutuu": member.full_name || "",
+              Umrii: member.age ?? "",
+              Bilbila: member.phone || "",
+              Email: member.email || "",
+              "Iddoo Dhalootaa": member.birth_place || "",
+              "Bara Dhalootaa": member.birth_year || "",
+              "Haala Bultii": member.marital_status || "",
+              Woreda: member.wereda || "",
+              Ganda: member.gooxii || "",
+              Masjiida: member.masjid_name || "",
+              Idilee: member.modern_education || "",
+              Diinii: member.religious_education || "",
+              Hojii: member.employment || "",
+              Miseensa: member.membership_desire || "",
+              Buusii: member.monthly_contribution ?? "",
+            };
+          } else {
+            return {
+              Lakk: index + 1,
+              "Maqaa Guutuu": member.full_name || "",
+              Bilbila: member.phone || "",
+              "Bara Dhalootaa": member.birth_year || "",
+              "Iddoo Dhalootaa": member.birth_place || "",
+              "Haala Bultii": member.marital_status || "",
+              Aanaa: member.wereda || "",
+              Ganda: member.gooxii || "",
+              Masjiida: member.masjid_name || "",
+              "Barnoota Ammayyaa": member.modern_education || "",
+              "Barnoota Diinii": member.religious_education || "",
+              Hojii: member.employment || "",
+              Miseensa: member.membership_desire || "",
+              Buusii: member.monthly_contribution || "",
+              "Yeroo Galmee": member.created_at
+                ? new Date(member.created_at).toLocaleString()
+                : "",
+            };
+          }
+        });
+
+        const worksheet = XLSX.utils.json_to_sheet(formattedData);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Miseensota");
+
+        const fileName = `${tableName}_report.xlsx`;
+        XLSX.writeFile(workbook, fileName);
       }
     </script>
   </body>
