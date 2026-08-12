@@ -3,82 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Galii fi Baasii - Mana Marii Malkaa Noonnoo</title>
+    <title>Galii, Baasii fi Oduulee - Mana Marii Malkaa Noonnoo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-      /* Styles for Sidebar toggle and responsiveness */
       .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 280px;
-        background-color: #ffffff;
-        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
-        z-index: 100;
-        overflow-y: auto;
-        padding: 1rem;
       }
       .sidebar.open {
         transform: translateX(0);
-      }
-      .sidebar-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #e2e8f0;
-        padding-bottom: 0.75rem;
-        margin-bottom: 1rem;
-      }
-      .sidebar-header h3 {
-        font-size: 0.95rem;
-        font-weight: bold;
-        color: #065f46;
-      }
-      .close-btn {
-        background: none;
-        border: none;
-        font-size: 1.25rem;
-        cursor: pointer;
-        color: #64748b;
-      }
-      .sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-      .sidebar ul li {
-        margin-bottom: 0.5rem;
-      }
-      .sidebar ul li a {
-        display: flex;
-        flex-direction: column;
-        padding: 0.5rem 0.75rem;
-        border-radius: 0.375rem;
-        color: #334155;
-        font-size: 0.85rem;
-        text-decoration: none;
-        transition: background 0.2s;
-      }
-      .sidebar ul li a:hover {
-        background-color: #f1f5f9;
-      }
-      .sidebar ul li a .am {
-        font-size: 0.75rem;
-        color: #64748b;
-      }
-      .sidebar-section-title {
-        font-size: 0.75rem;
-        font-weight: bold;
-        color: #047857;
-        margin-top: 1.25rem;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-        border-bottom: 1px dashed #cbd5e1;
-        padding-bottom: 0.25rem;
       }
     </style>
   </head>
@@ -86,137 +20,223 @@
     class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
   >
     <!-- Comprehensive Sidebar Menu with Amharic Translation -->
-    <div class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
-        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+    <div
+      class="sidebar fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl flex flex-col overflow-y-auto"
+      id="sidebar"
+    >
+      <div
+        class="sidebar-header flex justify-between items-center p-4 bg-emerald-900 text-white"
+      >
+        <h3 class="font-bold text-sm">Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button
+          class="close-btn text-xl font-bold px-2 py-1 hover:bg-emerald-800 rounded transition"
+          onclick="toggleSidebar()"
+        >
+          ✕
+        </button>
       </div>
 
-      <ul>
+      <ul class="p-2 space-y-1 text-xs">
         <li>
-          <a href="index.html">
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>ODEEFFANNOO MANA MARICHAA</span>
-            <span class="am">የምክር ቤቱ መረጃ</span>
+            <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
           </a>
         </li>
+
         <li>
-          <a href="sector-index.html">
+          <a
+            href="sector-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📂 Muummee Seektarootaa</span>
-            <span class="am">የሴክተሮች ዋና ገጽ</span>
+            <span class="am text-slate-500">የሴክተሮች ዋና ገጽ</span>
           </a>
         </li>
       </ul>
 
-      <div class="sidebar-section-title">
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
         Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
       </div>
-      <ul>
+      <ul class="p-2 space-y-1 text-xs">
         <li>
-          <a href="finance-sector.html">
+          <a
+            href="finance-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>💰 Seektara Maallaqaa (Ibsa)</span>
-            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="finance-register.html">
+          <a
+            href="finance-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Maallaqaa</span>
-            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ ምዝገባ</span>
           </a>
         </li>
+
         <li>
-          <a href="youth-sector.html">
+          <a
+            href="youth-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>👥 Seektara Dargaggoo (Ibsa)</span>
-            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="youth-register.html">
+          <a
+            href="youth-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Dargaggoo</span>
-            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ ምዝገባ</span>
           </a>
         </li>
+
         <li>
-          <a href="women-sector.html">
+          <a
+            href="women-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>👩 Seektara Dubartootaa (Ibsa)</span>
-            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="women-register.html">
+          <a
+            href="women-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Dubartootaa</span>
-            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ ምዝገባ</span>
           </a>
         </li>
+
         <li>
-          <a href="ulama-sector.html">
+          <a
+            href="ulama-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📖 Seektara Ulamaa (Ibsa)</span>
-            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="ulama-register.html">
+          <a
+            href="ulama-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Ulamaa</span>
-            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ ምዝገባ</span>
           </a>
         </li>
+
         <li>
-          <a href="masjid-sector.html">
+          <a
+            href="masjid-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>🕌 Seektara Masjiidaa (Ibsa)</span>
-            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="masjid-register.html">
+          <a
+            href="masjid-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Masjiidaa</span>
-            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ ምዝገባ</span>
           </a>
         </li>
+
         <li>
-          <a href="madrasa-sector.html">
+          <a
+            href="madrasa-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📚 Seektara Madrasaa (Ibsa)</span>
-            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ (መግለጫ)</span>
           </a>
         </li>
         <li>
-          <a href="madrasa-register.html">
+          <a
+            href="madrasa-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📝 Galmee Seektara Madrasaa</span>
-            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ ምዝገባ</span>
           </a>
         </li>
       </ul>
 
-      <div class="sidebar-section-title">
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
         Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
       </div>
-      <ul>
+      <ul class="p-2 space-y-1 text-xs mb-6">
         <li>
-          <a href="gali-basi.html">
+          <a
+            href="gali-basi.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>Fuula Galii Fi Baasii</span>
-            <span class="am">የገቢ እና ወጪ ገጽ</span>
+            <span class="am text-slate-500">የገቢ እና ወጪ ገጽ</span>
           </a>
         </li>
         <li>
-          <a href="donation-index.html">
-            <span>Fuula Deeggarsaa</span>
-            <span class="am">የድጋፍ ገጽ</span>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>Fuula Grgaarsaa</span>
+            <span class="am text-slate-500">የድጋፍ ገጽ</span>
           </a>
         </li>
         <li>
-          <a href="donation-admin.html">
+          <a
+            href="donation-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>⚙️ Donation Admin</span>
-            <span class="am">የድጋፍ አስተዳደር</span>
+            <span class="am text-slate-500">የድጋፍ አስተዳደር</span>
           </a>
         </li>
         <li>
-          <a href="finance-admin.html">
+          <a
+            href="finance-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📊 Finance Admin</span>
-            <span class="am">የፋይናንስ አስተዳደር</span>
+            <span class="am text-slate-500">የፋይናንስ አስተዳደር</span>
           </a>
         </li>
         <li>
-          <a href="register-sector-admin.html">
+          <a
+            href="register-sector-admin.html"
+            class="admin-link flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
             <span>📈 Register Sector Admin (Excel)</span>
-            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+            <span class="am text-slate-500">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="news-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>---</span>
+            <span class="am text-slate-500"></span>
           </a>
         </li>
       </ul>
@@ -226,22 +246,13 @@
     <header class="bg-emerald-900 text-white p-4 shadow-md px-6">
       <div class="max-w-4xl mx-auto flex justify-between items-center">
         <div class="flex items-center gap-3">
-          <!-- Sidebar Toggle Button -->
+          <!-- Hamburger Menu Button -->
           <button
             onclick="toggleSidebar()"
             class="text-white text-xl p-1.5 rounded-lg hover:bg-emerald-800 transition focus:outline-none"
           >
             ☰
           </button>
-          <div>
-            <h1 class="text-lg md:text-xl font-bold">
-              Galii fi Baasii / ገቢ እና ወጪ
-            </h1>
-            <p class="text-xs text-emerald-200">
-              Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
-            </p>
-            <p class="text-xs text-emerald-200">መልካ ኖኖ ክ/ከተማ እስልምና ጉዳዮች ም/ቤት</p>
-          </div>
         </div>
         <a
           href="finance-admin.html"
@@ -279,7 +290,7 @@
         </h2>
         <p class="text-xs text-slate-500">
           Maaloo buttoon armaan gadii keessaa kan barbaaddan filadhaa/እባክዎን ከዚህ
-          በታች ካሉት በተኖች የሚፈልጉትን ይምረጡ።
+          በታች ካሉት የሚፈልጉትን ይምረጡ።
         </p>
 
         <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
@@ -312,12 +323,9 @@
       <div
         class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative max-h-[90vh] overflow-y-auto"
       >
-        <!-- Dynamic Title based on Type -->
         <h3 id="modalTitle" class="text-lg font-bold text-slate-800 mb-2">
           Mezgabuuf
         </h3>
-
-        <!-- Instruction Banner -->
         <p
           class="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 p-2 rounded-lg mb-4 flex items-center gap-1.5"
         >
@@ -377,27 +385,8 @@
                 <option value="">Guyyaa / ቀን</option>
               </select>
             </div>
-            <p
-              id="err_ethYear"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Waggaa filadhaa! / እባክዎን በመጀመሪያ ዓመት ይምረጡ!
-            </p>
-            <p
-              id="err_ethMonth"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Ji'a filadhaa! / እባክዎን በመጀመሪያ ወር ይምረጡ!
-            </p>
-            <p
-              id="err_ethDay"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Guyyaa filadhaa! / እባክዎን በመጀመሪያ ቀን ይምረጡ!
-            </p>
           </div>
 
-          <!-- Dynamic Category Label -->
           <div class="space-y-1">
             <label id="lblCategory" class="block text-xs font-semibold"
               >2. Madda galii/የገቢ ምንጭ</label
@@ -410,15 +399,8 @@
               placeholder="Fakkeenya: Deeggarsa ummataa / የህዝብ ድጋፍ"
               class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
             />
-            <p
-              id="err_transCategory"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Guyyaa guutaa! / እባክዎን በመጀመሪያ ቀኑን ይሙሉ!
-            </p>
           </div>
 
-          <!-- Dynamic Name Label -->
           <div class="space-y-1">
             <label id="lblPersonName" class="block text-xs font-semibold"
               >3. Maqaa Nama kaffalee / የከፋይ ስም</label
@@ -431,17 +413,10 @@
               placeholder="Maqaa guutuu / ሙሉ ስም"
               class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
             />
-            <p
-              id="err_transName"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Madda galii guutaa! / እባክዎን በመጀመሪያ የገቢ ምንጭ ይሙሉ!
-            </p>
           </div>
 
           <hr class="border-slate-200 my-2" />
 
-          <!-- Dynamic Responsible Header -->
           <p
             id="lblResponsibleHeader"
             class="text-xs font-bold text-emerald-900 bg-emerald-50 p-2 rounded"
@@ -449,7 +424,6 @@
             Odeeffannoo Nama galii fuudhuu/የገቢ ተቀባይ መረጃ
           </p>
 
-          <!-- Responsible Person Full Name -->
           <div class="space-y-1">
             <label id="lblRespName" class="block text-xs font-semibold"
               >4. Maqaa Guutuu Nama galii fuudhee / የገቢ ተቀባይ ሙሉ ስም</label
@@ -462,16 +436,8 @@
               placeholder="Fakkeenya: Obbo Ahmad Muhammed"
               class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
             />
-            <p
-              id="err_respName"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Maqaa guutuu Nama kaffalee guutaa! / እባክዎን በመጀመሪያ
-              የከፋዩ ስም ይሙሉ!
-            </p>
           </div>
 
-          <!-- Phone Number -->
           <div class="space-y-1">
             <label class="block text-xs font-semibold"
               >5. Lakkoofsa Bilbilaa / ስልክ ቁጥር</label
@@ -484,15 +450,8 @@
               placeholder="0911234567"
               class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
             />
-            <p
-              id="err_respPhone"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Maqaa guutuu Nama galchaa! / እባክዎን በመጀመሪያ ስም ይሙሉ!
-            </p>
           </div>
 
-          <!-- Role / Portfolio in the Council -->
           <div class="space-y-1">
             <label class="block text-xs font-semibold"
               >6. Ga'ee Hojii / የስራ ኃላፊነት (Portfolio)</label
@@ -511,48 +470,10 @@
                 I/A Walitti Qabaa / ምክትል ሰብሳቢ
               </option>
               <option value="ጸሃፊ/Barreessaa">ጸሃፊ/Barreessaa</option>
-              <option value="Walitti Qabaa Yaa'ii Ulamaa'ii / የዑለማ ጉባኤ ሰብሳቢ">
-                Walitti Qabaa Yaa'ii Ulamaa'ii / የዑለማ ጉባኤ ሰብሳቢ
-              </option>
-              <option
-                value="Itti Gaafatamaa Seektara Faayinaansii / የፋይናንስ ሴክተር ሀላፊ"
-              >
-                Itti Gaafatamaa Seektara Faayinaansii / የፋይናንስ ሴክተር ሀላፊ
-              </option>
-              <option
-                value="Itti Gaafatamaa Seektara Masjiidaa fiAwqaafaa / የመስጂድና አእውቃፍ ሴክተር ሀላፊ"
-              >
-                Itti Gaafatamaa Seektara Masjiidaa fiAwqaafaa / የመስጂድና አእውቃፍ
-                ሴክተር ሀላፊ
-              </option>
-              <option
-                value="Itti Gaafatamaa Seektara Madrasaa fi Qulqullina Barnootaa / የመድረሳና የትምህርት ጥራት  ሴክተር ሀላፊ"
-              >
-                Itti Gaafatamaa Seektara Madrasaa fi Qulqullina Barnootaa /
-                የመድረሳና የትምህርት ጥራት ሴክተር ሀላፊ
-              </option>
-              <option
-                value="Itti Gaafatamaa Seektara Dargaggoo fi Miidyaa / የወጣትና ሚዲያ ሴክተር ሀላፊ"
-              >
-                Itti Gaafatamaa Seektara Dargaggoo fi Miidyaa / የወጣትና ሚዲያ ሴክተር
-                ሀላፊ
-              </option>
-              <option
-                value="Itti Gaafatamtuu Seektara Dubartootaa / የሴቶች ሴክተር ሀላፊ"
-              >
-                Itti Gaafatamtuu Seektara Dubartootaa / የሴቶች ሴክተር ሀላፊ
-              </option>
               <option value="Hoji Geggeessaa / ስራ አስኪያጅ">
                 Hoji Geggeessaa / ስራ አስኪያጅ (Manager)
               </option>
             </select>
-            <p
-              id="err_respRole"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Lakkoofsa Bilbilaa guutaa! / እባክዎን በመጀመሪያ ስልክ ቁጥር
-              ይሙሉ!
-            </p>
           </div>
 
           <hr class="border-slate-200 my-2" />
@@ -570,13 +491,6 @@
               placeholder="0.00"
               class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm font-bold"
             />
-            <p
-              id="err_transAmount"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Ga'ee Hojii filadhaa! / እባክዎን በመጀመሪያ የስራ ኃላፊነት
-              ይምረጡ!
-            </p>
           </div>
 
           <div class="space-y-1">
@@ -596,105 +510,17 @@
               <option value="Bank / ባንክ">Bank / ባንክ</option>
               <option value="Check / ቼክ">Check / ቼክ</option>
             </select>
-            <p
-              id="err_transPaymentMethod"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Hamma Maallaqaa guutaa! / እባክዎን በመጀመሪያ የገንዘብ መጠን
-              ይሙሉ!
-            </p>
           </div>
 
-          <!-- Bank Name Selection Container -->
-          <div id="bankNameContainer" class="hidden space-y-1">
-            <label class="block text-xs font-semibold text-emerald-800"
-              >Maqaa Baankii / የባንክ ስም (Bank Name)</label
-            >
-            <select
-              id="transBankName"
-              class="w-full p-2.5 border border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-emerald-50/30"
-            >
-              <option value="">Baankii Filadhu / ባንክ ይምረጡ</option>
-              <option
-                value="Commercial Bank of Ethiopia (CBE) / የኢትዮጵያ ንግድ ባንክ"
-              >
-                Commercial Bank of Ethiopia (CBE) / የኢትዮጵያ ንግድ ባንክ
-              </option>
-              <option value="Awash Bank / አዋሽ ባንክ">Awash Bank / አዋሽ ባንክ</option>
-              <option value="Dashen Bank / ዳሽን ባንክ">
-                Dashen Bank / ዳሽን ባንክ
-              </option>
-              <option value="Abyssinia Bank / የአቢሲኒያ ባንክ">
-                Abyssinia Bank / የአቢሲኒያ ባንክ
-              </option>
-              <option value="Wegagen Bank / ወጋገን ባንክ">
-                Wegagen Bank / ወጋገን ባንክ
-              </option>
-              <option value="Nib International Bank / ንብ ኢንተርናሽናል ባንክ">
-                Nib International Bank / ንብ ኢንተርናሽናል ባንክ
-              </option>
-              <option
-                value="Cooperative Bank of Oromia (CBO) / የኦሮሚያ ህብረት ስራ ባንክ"
-              >
-                Cooperative Bank of Oromia (CBO) / የኦሮሚያ ህብረት ስራ ባንክ
-              </option>
-              <option value="Oromia International Bank (OIB) / ኦሮሚያ ባንክ">
-                Oromia International Bank (OIB) / ኦሮሚያ ባንክ
-              </option>
-              <option value="Zemen Bank / ዘመን ባንክ">Zemen Bank / ዘመን ባንክ</option>
-              <option value="Hijra Bank / ሂጅራ ባንክ">
-                Hijra Bank / ሂጅራ ባንክ (Islamic)
-              </option>
-              <option value="Other Bank / ሌሎች ባንኮች">
-                Other Bank / ሌሎች ባንኮች
-              </option>
-            </select>
-          </div>
-
-          <!-- Check Number Input -->
-          <div id="checkNumberContainer" class="hidden space-y-1">
-            <label class="block text-xs font-semibold text-emerald-800"
-              >Lakkoofsa Check-ii / የቼክ ቁጥር (Check Number)</label
-            >
-            <input
-              type="text"
-              id="transCheckNo"
-              placeholder="Fakkeenya: CHQ-987654"
-              class="w-full p-2.5 border border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm bg-emerald-50/30"
-            />
-          </div>
-
-          <div class="space-y-1">
-            <label class="block text-xs font-semibold"
-              >9. Lakkoofsa Nagahee / የደረሰኝ ቁጥር (Receipt No)</label
-            >
-            <input
-              type="text"
-              id="transReceiptNo"
-              placeholder="Fakkeenya: 00123"
-              oninput="validateStep(this, 'transPaymentMethod')"
-              class="w-full p-2.5 border rounded-lg focus:ring-2 focus:ring-emerald-500 outline-none text-sm"
-            />
-            <p
-              id="err_transReceiptNo"
-              class="text-[11px] text-red-500 hidden font-medium"
-            >
-              ⚠️ Maaloo dura Karaa Kaffaltii filadhaa! / እባክዎን በመጀመሪያ የክፍያ መንገድ
-              ይምረጡ!
-            </p>
-          </div>
-
-          <!-- File Upload -->
+          <!-- File Upload for Receipt/Media -->
           <div>
             <label class="block text-xs font-semibold mb-1"
-              >Suuraa Nagahee Upload / Kaameeraadhaan Kaasuuf
-              (Image/PDF/Camera)</label
+              >Suuraa Nagahee / Miidiyaa (Image/PDF/Video/Audio)</label
             >
             <input
               type="file"
               id="receiptFile"
-              accept="image/*,application/pdf"
-              capture="environment"
+              accept="image/*,application/pdf,video/*,audio/*"
               class="w-full p-2 border rounded-lg text-xs bg-slate-50"
             />
           </div>
@@ -737,7 +563,7 @@
       const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      // Toggle Sidebar function
+      // Toggle Sidebar Function (Hamburger Menu)
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("open");
@@ -765,7 +591,6 @@
       document.getElementById("ethMonth").value = "12";
       document.getElementById("ethDay").value = "03";
 
-      // Function to enforce sequential filling
       function validateStep(currentElement, prevId) {
         const errElement = document.getElementById("err_" + currentElement.id);
         if (!errElement) return;
@@ -783,69 +608,19 @@
       }
 
       function toggleCheckInput() {
-        const paymentMethod =
-          document.getElementById("transPaymentMethod").value;
-        const checkContainer = document.getElementById("checkNumberContainer");
-        const checkInput = document.getElementById("transCheckNo");
-        const bankContainer = document.getElementById("bankNameContainer");
-        const bankInput = document.getElementById("transBankName");
-
-        if (paymentMethod.includes("Bank")) {
-          bankContainer.classList.remove("hidden");
-          bankInput.required = true;
-        } else {
-          bankContainer.classList.add("hidden");
-          bankInput.required = false;
-          bankInput.value = "";
-        }
-
-        if (paymentMethod.includes("Check")) {
-          checkContainer.classList.remove("hidden");
-          checkInput.required = true;
-        } else {
-          checkContainer.classList.add("hidden");
-          checkInput.required = false;
-          checkInput.value = "";
-        }
+        // Handle dynamic inputs if needed
       }
 
       function openModal(type) {
         const modal = document.getElementById("transactionModal");
         const title = document.getElementById("modalTitle");
         const typeInput = document.getElementById("transType");
-
-        const lblDate = document.getElementById("lblDate");
-        const lblCategory = document.getElementById("lblCategory");
-        const lblPersonName = document.getElementById("lblPersonName");
-        const lblResponsibleHeader = document.getElementById(
-          "lblResponsibleHeader",
-        );
-        const lblRespName = document.getElementById("lblRespName");
-
         typeInput.value = type;
 
         if (type === "income") {
           title.innerText = "Galii galmeessuuf / ገቢ ለመመዝገብ";
-          lblDate.innerText = "1. Guyyaa galii itti godhame / ገቢ የተደረገበት ቀን";
-          lblCategory.innerText = "2. Madda Galii/የገቢ ምንጭ (Category)";
-          lblPersonName.innerText = "3. Maqaa Nama Kaffalee / የከፋይ ስም";
-          lblRespName.innerText =
-            "4. Maqaa Guutuu Nama galii fuudhee / የገቢ ተቀባይ ሙሉ ስም";
-          lblResponsibleHeader.innerText =
-            "Odeeffannoo nama galii fuudhuu / የገቢ ተቀባይ መረጃ";
-          lblResponsibleHeader.className =
-            "text-xs font-bold text-emerald-900 bg-emerald-50 p-2 rounded";
         } else {
           title.innerText = "Baasii Galmeessuuf / ወጪ ለመመዝገብ";
-          lblDate.innerText = "1. Guyyaa baasii itti godhame / ወጪ የተደረገበት ቀን";
-          lblCategory.innerText = "2. Sababa Baasii/የወጪ ምክንያት (Category)";
-          lblPersonName.innerText = "3. Maqaa Nama Fudhatee / ተቀባይ ስም";
-          lblRespName.innerText =
-            "4. Maqaa Guutuu Nama Baasii Baasee / የወጪ አውጪው ሙሉ ስም";
-          lblResponsibleHeader.innerText =
-            "Odeeffannoo nama Baasii Baasuu / የወጪ አውጪው መረጃ";
-          lblResponsibleHeader.className =
-            "text-xs font-bold text-red-900 bg-red-50 p-2 rounded";
         }
         modal.classList.remove("hidden");
       }
@@ -853,18 +628,12 @@
       function closeModal() {
         document.getElementById("transactionModal").classList.add("hidden");
         document.getElementById("transactionForm").reset();
-        document.getElementById("checkNumberContainer").classList.add("hidden");
-        document.getElementById("bankNameContainer").classList.add("hidden");
-        document
-          .querySelectorAll("[id^='err_']")
-          .forEach((el) => el.classList.add("hidden"));
       }
 
       document
         .getElementById("transactionForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const submitBtn = document.getElementById("submitBtn");
           submitBtn.innerText = "Uploading & Saving... / በመጫን ላይ...";
           submitBtn.disabled = true;
@@ -883,7 +652,7 @@
 
             if (uploadError) {
               alert(
-                "Nagahee fe'uu irratti dogoggorri uumamee jira / ደረሰኝ በመጫን ላይ ስህተት ተፈጥሯል: " +
+                "Miidiyaa fe'uu irratti dogoggorri uumamee jira / ፋይል በመጫን ላይ ስህተት ተፈጥሯል: " +
                   uploadError.message,
               );
               submitBtn.innerText = "galmeessuuf / ለመመዝግብ";
@@ -903,19 +672,6 @@
           const d = document.getElementById("ethDay").value;
           const formattedDate = `${y}/${m}/${d} (E.C)`;
 
-          let paymentMethodVal =
-            document.getElementById("transPaymentMethod").value;
-
-          const bankNameVal = document.getElementById("transBankName").value;
-          if (paymentMethodVal.includes("Bank") && bankNameVal) {
-            paymentMethodVal += ` - ${bankNameVal}`;
-          }
-
-          const checkNoVal = document.getElementById("transCheckNo").value;
-          if (paymentMethodVal.includes("Check") && checkNoVal) {
-            paymentMethodVal += ` (No: ${checkNoVal})`;
-          }
-
           const newData = {
             date: formattedDate,
             type: document.getElementById("transType").value,
@@ -926,8 +682,7 @@
             responsible_role: document.getElementById("respRole").value,
             amount:
               parseFloat(document.getElementById("transAmount").value) || 0,
-            payment_method: paymentMethodVal,
-            receipt_no: document.getElementById("transReceiptNo").value,
+            payment_method: document.getElementById("transPaymentMethod").value,
             receipt_url: receiptUrl,
             description: document.getElementById("transDescription").value,
           };

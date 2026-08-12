@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oduulee fi Miidiyaa - Mana Marii Malkaa Noonnoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between relative"
+  >
+    <!-- LOGIN OVERLAY / ADMIN MUDDEE (Yeroo jalqabaaf nama seensisuuf) -->
+    <div
+      id="loginOverlay"
+      class="fixed inset-0 bg-slate-900/90 z-50 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-md w-full p-8 shadow-2xl space-y-6 border"
+      >
+        <div class="text-center space-y-2">
+          <h2 class="text-xl font-bold text-slate-800">
+            Admin Login / አድሚን መግቢያ
+          </h2>
+          <p class="text-xs text-slate-500">
+            Oduu fi Miidiyaa fe'uuf maaloo Email fi Password kee galchaa.<br />
+            ዜና እና ሚዲያ ለመጫን እባክዎ ኢሜል እና የይለፍ ቃል ያስገቡ።
+          </p>
+        </div>
+
+        <form id="loginForm" class="space-y-4">
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold text-slate-700"
+              >Email Address / የኢሜል አድራሻ</label
+            >
+            <input
+              type="email"
+              id="adminEmail"
+              required
+              placeholder="admin@malkanoono.gov"
+              class="w-full p-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none"
+            />
+          </div>
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold text-slate-700"
+              >Password / የይለፍ ቃል</label
+            >
+            <input
+              type="password"
+              id="adminPassword"
+              required
+              placeholder="••••••••"
+              class="w-full p-3 border rounded-xl text-sm focus:ring-2 focus:ring-emerald-500 outline-none"
+            />
+          </div>
+          <button
+            type="submit"
+            id="loginBtn"
+            class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold p-3 rounded-xl text-sm transition shadow-md"
+          >
+            Seenuuf / ግባ 🔐
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Comprehensive Sidebar Menu with Amharic Translation -->
+    <div
+      class="sidebar fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl flex flex-col overflow-y-auto"
+      id="sidebar"
+    >
+      <div
+        class="sidebar-header flex justify-between items-center p-4 bg-emerald-900 text-white"
+      >
+        <h3 class="font-bold text-sm">Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button
+          class="close-btn text-xl font-bold px-2 py-1 hover:bg-emerald-800 rounded"
+          onclick="toggleSidebar()"
+        >
+          ✕
+        </button>
+      </div>
+
+      <ul class="p-2 space-y-1 text-xs">
+        <li>
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>ODEEFFANNOO MANA MARICHAA</span>
+            <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="sector-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📂 Muummee Seektarootaa</span>
+            <span class="am text-slate-500">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul class="p-2 space-y-1 text-xs">
+        <li>
+          <a
+            href="finance-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>💰 Seektara Maallaqaa (Ibsa)</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="finance-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Maallaqaa</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="youth-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>👥 Seektara Dargaggoo (Ibsa)</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="youth-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Dargaggoo</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="women-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>👩 Seektara Dubartootaa (Ibsa)</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="women-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Dubartootaa</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="ulama-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📖 Seektara Ulamaa (Ibsa)</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="ulama-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Ulamaa</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="masjid-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>🕌 Seektara Masjiidaa (Ibsa)</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="masjid-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Masjiidaa</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="madrasa-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📚 Seektara Madrasaa (Ibsa)</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="madrasa-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📝 Galmee Seektara Madrasaa</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul class="p-2 space-y-1 text-xs mb-6">
+        <li>
+          <a
+            href="gali-basi.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>Fuula Galii Fi Baasii</span>
+            <span class="am text-slate-500">የገቢ እና ወጪ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>Fuula Grgaarsaa</span>
+            <span class="am text-slate-500">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>⚙️ Donation Admin</span>
+            <span class="am text-slate-500">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="finance-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>📊 Finance Admin</span>
+            <span class="am text-slate-500">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="register-sector-admin.html"
+            class="admin-link flex items-center justify-between p-2 hover:bg-slate-100 rounded bg-amber-50 text-amber-900 font-semibold"
+          >
+            <span>📈 Register Sector Admin (Excel)</span>
+            <span class="am text-slate-500">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="news-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>---</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-emerald-900 text-white p-4 shadow-md px-6">
+      <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <!-- Hamburger Menu Button -->
+          <button
+            onclick="toggleSidebar()"
+            class="text-white text-xl p-1.5 rounded-lg hover:bg-emerald-800 transition focus:outline-none"
+          >
+            ☰
+          </button>
+        </div>
+        <a
+          href="finance-admin.html"
+          class="bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-semibold px-3 py-2 rounded-lg border border-emerald-700 transition"
+        >
+          Admin Login / አድሚን ግባ 🔐
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-xl mx-auto p-6 my-auto text-center space-y-6">
+      <div
+        class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl shadow-sm text-left space-y-2"
+      >
+        <p class="text-xs text-emerald-900 font-medium leading-relaxed">
+          Fuula kana irratti oduulee guyyaa guyyaa (barreeffamoota, suuraalee,
+          viidiyoolee fi sagalee) qopheessuun uummata biraan gahuu dandeessu.
+        </p>
+        <hr class="border-emerald-200 my-1" />
+        <p class="text-[11px] text-emerald-800 leading-relaxed font-normal">
+          በዚህ ገጽ ላይ የዕለት ተዕለት ዜናዎችን (ጽሁፎችን፣ ፎቶዎችን፣ ቪዲዮዎችን እና ድምጾችን) በማዘጋጀት
+          ማህበረሰቡን ማድረስ ይችላሉ።
+        </p>
+      </div>
+
+      <div class="bg-white p-8 rounded-2xl shadow-lg border space-y-4">
+        <h2 class="text-xl font-bold text-slate-800">
+          Oduu Haaraa Maxxansuuf / አዲስ ዜና መለጠፊያ
+        </h2>
+        <p class="text-xs text-slate-500">
+          Buttuni armaan gadii tuquun odeeffannoo haaraa fe'aa / ከታች ያለውን በተን
+          በመጫን አዲስ መረጃ ይጫኑ።
+        </p>
+
+        <div>
+          <button
+            onclick="openNewsModal()"
+            class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold p-3 rounded-xl shadow-md transition flex items-center justify-center gap-2 text-xs"
+          >
+            <span>📢</span> Oduu / Miidiyaa Haaraa Maxxansuuf (Daily News)
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t py-4 text-center text-xs text-slate-500">
+      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo © 2026
+    </footer>
+
+    <!-- MODAL FOR DAILY NEWS & MEDIA UPLOAD -->
+    <div
+      id="newsModal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50"
+    >
+      <div
+        class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl relative max-h-[90vh] overflow-y-auto text-left"
+      >
+        <h3 class="text-lg font-bold text-slate-800 mb-2">
+          Oduu fi Miidiyaa Maxxansuuf / ዜና እና ሚዲያ መጫኛ
+        </h3>
+        <form id="newsForm" class="space-y-4">
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold"
+              >Mata-duree Oduu / የዜና ርዕስ (Title)</label
+            >
+            <input
+              type="text"
+              id="newsTitle"
+              required
+              placeholder="Mata-duree gabaabaa / አጭር ርዕስ..."
+              class="w-full p-2.5 border rounded-lg text-sm"
+            />
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold"
+              >Gosa Qabiyyee / የይዘት ዓይነት (Category)</label
+            >
+            <select
+              id="newsCategory"
+              class="w-full p-2.5 border rounded-lg text-sm bg-white"
+            >
+              <option value="Barreeffama">Barreeffama / ጽሁፍ (Text)</option>
+              <option value="Suuraa">Suuraa / ፎቶ (Image)</option>
+              <option value="Viidiyoo">Viidiyoo / ቪዲዮ (Video)</option>
+              <option value="Sagalee">Sagalee / ድምጽ (Audio)</option>
+            </select>
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold"
+              >Faayila Miidiyaa (Suuraa/Viidiyoo/Sagalee) / የሚዲያ ፋይል
+              (Optional)</label
+            >
+            <input
+              type="file"
+              id="newsFile"
+              accept="image/*,video/*,audio/*"
+              class="w-full p-2 border rounded-lg text-xs bg-slate-50"
+            />
+          </div>
+
+          <div class="space-y-1">
+            <label class="block text-xs font-semibold"
+              >Ergaa Oduu / የዜናው ዝርዝር ማብራሪያ (Content)</label
+            >
+            <textarea
+              id="newsContent"
+              rows="4"
+              required
+              placeholder="Oduun kun ibsa guutuu qaba / ይህ ዜና ሙሉ ማብራሪያ ሊኖረው ይገባል..."
+              class="w-full p-2.5 border rounded-lg text-sm"
+            ></textarea>
+          </div>
+
+          <div class="flex justify-end gap-3 pt-2">
+            <button
+              type="button"
+              onclick="closeNewsModal()"
+              class="px-4 py-2 bg-slate-200 text-slate-700 text-xs font-bold rounded-lg"
+            >
+              Haquuf / ሰርዝ
+            </button>
+            <button
+              type="submit"
+              id="submitNewsBtn"
+              class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition"
+            >
+              Maxxansuuf / ፖስት ማድረግ
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- JavaScript logic -->
+    <script>
+      const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      // Check User Session on Page Load
+      async function checkUserSession() {
+        const {
+          data: { session },
+        } = await supabaseClient.auth.getSession();
+        const loginOverlay = document.getElementById("loginOverlay");
+        if (session) {
+          loginOverlay.style.display = "none";
+        } else {
+          loginOverlay.style.display = "flex";
+        }
+      }
+
+      // Handle Admin Login Submit
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("loginBtn");
+          btn.innerText = "Seenaa jira... / በመግባት ላይ...";
+          btn.disabled = true;
+
+          const email = document.getElementById("adminEmail").value;
+          const password = document.getElementById("adminPassword").value;
+
+          const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password,
+          });
+
+          if (error) {
+            alert(
+              "Dogoggorri Login: Email ykn Password sirrii miti. / የኢሜል ወይም የይለፍ ቃል ስህተት ነው። " +
+                error.message,
+            );
+            btn.innerText = "Seenuuf / ግባ 🔐";
+            btn.disabled = false;
+          } else {
+            alert("Milkaa'inaan seentee jirta! / ተሳክቶ ገብተዋል!");
+            document.getElementById("loginOverlay").style.display = "none";
+            btn.innerText = "Seenuuf / ግባ 🔐";
+            btn.disabled = false;
+          }
+        });
+
+      // Handle Logout
+      async function handleLogout() {
+        await supabaseClient.auth.signOut();
+        window.location.reload();
+      }
+
+      // Run session check on load
+      checkUserSession();
+
+      // Toggle Sidebar Function
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+      }
+
+      // News Modal Functions
+      function openNewsModal() {
+        document.getElementById("newsModal").classList.remove("hidden");
+      }
+
+      function closeNewsModal() {
+        document.getElementById("newsModal").classList.add("hidden");
+        document.getElementById("newsForm").reset();
+      }
+
+      // Handle News & Media Submit (Using 'news_media' bucket & 'daily_news' table)
+      document
+        .getElementById("newsForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("submitNewsBtn");
+          btn.innerText = "Maxxansaa jira... / በመጫን ላይ...";
+          btn.disabled = true;
+
+          let mediaUrl = "";
+          const fileInput = document.getElementById("newsFile");
+
+          if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            const fileName = `${Date.now()}_${file.name}`;
+
+            const { data: uploadData, error: uploadError } =
+              await supabaseClient.storage
+                .from("news_media")
+                .upload(fileName, file);
+
+            if (uploadError) {
+              alert(
+                "Miidiyaa fe'uu irratti dogoggorri uumame / ሚዲያ በመጫን ላይ ስህተት ተፈጥሯል: " +
+                  uploadError.message,
+              );
+              btn.innerText = "Maxxansuuf / ፖስት ማድረግ";
+              btn.disabled = false;
+              return;
+            }
+
+            const { data: publicUrlData } = supabaseClient.storage
+              .from("news_media")
+              .getPublicUrl(fileName);
+
+            mediaUrl = publicUrlData.publicUrl;
+          }
+
+          const newNewsData = {
+            title: document.getElementById("newsTitle").value,
+            category: document.getElementById("newsCategory").value,
+            content: document.getElementById("newsContent").value,
+            media_url: mediaUrl,
+          };
+
+          const { error } = await supabaseClient
+            .from("daily_news")
+            .insert([newNewsData]);
+
+          if (error) {
+            alert(
+              "Oduu galmeessuu irratti dogoggorri uumame / ዜና በመመዝገብ ላይ ስህተት ተፈጥሯል: " +
+                error.message,
+            );
+          } else {
+            alert(
+              "Oduun haaraan milkaa'inaan maxxanfameera! / ዜናው በተሳካ ሁኔታ ተለጥፏ!",
+            );
+            closeNewsModal();
+          }
+
+          btn.innerText = "Maxxansuuf / ፖስት ማድረግ";
+          btn.disabled = false;
+        });
+    </script>
+  </body>
+</html>

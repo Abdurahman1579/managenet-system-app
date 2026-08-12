@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - Mana Marii Malkaa Noonnoo / አድሚን ዳሽቦርድ - መልካ ኖኖ ምክር ቤት</title>
+    <title>
+      Admin Dashboard - Mana Marii Malkaa Noonnoo / አድሚን ዳሽቦርድ - መልካ ኖኖ ምክር ቤት
+    </title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
@@ -34,7 +36,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         position: sticky;
         top: 0;
         z-index: 900;
@@ -57,17 +59,22 @@
       .sidebar {
         position: fixed;
         top: 0;
-        left: -300px;
-        width: 300px;
+        left: -320px;
+        width: 320px;
         height: 100%;
         background: var(--card-bg);
-        box-shadow: 4px 0 10px rgba(0,0,0,0.1);
-        z-index: 1000;
-        transition: left 0.3s ease;
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+        z-index: 1200;
+        transition:
+          transform 0.3s ease-in-out,
+          left 0.3s ease-in-out;
+        transform: translateX(-100%);
         padding: 1.5rem 1rem;
         overflow-y: auto;
       }
+      .sidebar.open,
       .sidebar.active {
+        transform: translateX(0);
         left: 0;
       }
       .sidebar-header {
@@ -77,6 +84,10 @@
         margin-bottom: 1.2rem;
         border-bottom: 1px solid var(--border-color);
         padding-bottom: 0.8rem;
+      }
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
       }
       .close-btn {
         background: none;
@@ -107,7 +118,9 @@
         font-size: 0.9rem;
         border-radius: 6px;
         background: #f8f9fa;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
       .sidebar a:hover {
         background: var(--primary);
@@ -123,68 +136,176 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.4);
+        background: rgba(0, 0, 0, 0.4);
         display: none;
-        z-index: 999;
+        z-index: 1100;
       }
       .overlay.active {
         display: block;
       }
     </style>
   </head>
-  <body class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between">
-
-    <!-- Header with Hamburger -->
-    <header class="main-header">
-      <div class="brand">
-        <h1>Admin Dashboard / የአድሚን ገጽ</h1>
-        <span>Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</span>
-      </div>
-      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-    </header>
-
+  <body
+    class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between"
+  >
     <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Comprehensive Sidebar Menu (Faayiloota Hunda Qabate) -->
+    <!-- New Comprehensive Sidebar Menu -->
     <div class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
         <button class="close-btn" onclick="toggleSidebar()">✕</button>
       </div>
 
       <ul>
-        <li><a href="index.html">🏠 Fuula Muummee / ዋና ገጽ (Home)</a></li>
-        <li><a href="sector-index.html">📂 Muummee Seektarootaa / የሴክተሮች ዋና ገጽ</a></li>
+        <li>
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>ODEEFFANNOO MANA MARICHAA</span>
+            <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
       </ul>
 
-      <div class="sidebar-section-title">Seektaroota & Galmee / ሴክተሮች እና ምዝገባ</div>
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
       <ul>
-        <li><a href="finance-sector.html">💰 Seektara Maallaqaa (Ibsa) / የገንዘብ ሴክተር (መግለጫ)</a></li>
-        <li><a href="finance-register.html">📝 Galmee Seektara Maallaqaa / የገንዘብ ሴክተር ምዝገባ</a></li>
-        
-        <li><a href="youth-sector.html">👥 Seektara Dargaggoo (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a></li>
-        <li><a href="youth-register.html">📝 Galmee Seektara Dargaggoo / የወጣቶች ሴክተር ምዝገባ</a></li>
+        <li>
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
 
-        <li><a href="women-sector.html">👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a></li>
-        <li><a href="women-register.html">📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a></li>
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
 
-        <li><a href="ulama-sector.html">📖 Seektara Ulamaa (Ibsa) / የኡላማዎች ሴክተር (መግለጫ)</a></li>
-        <li><a href="ulama-register.html">📝 Galmee Seektara Ulamaa / የኡላማዎች ሴክተር ምዝገባ</a></li>
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
 
-        <li><a href="masjid-sector.html">🕌 Seektara Masjiidaa (Ibsa) / የመስጂዶች ሴክተር (መግለጫ)</a></li>
-        <li><a href="masjid-register.html">📝 Galmee Seektara Masjiidaa / የመስጂዶች ሴክተር ምዝገባ</a></li>
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
 
-        <li><a href="madrasa-sector.html">📚 Seektara Madrasaa (Ibsa) / የመድረሳዎች ሴክተር (መግለጫ)</a></li>
-        <li><a href="madrasa-register.html">📝 Galmee Seektara Madrasaa / የመድረሳዎች ሴክተር ምዝገባ</a></li>
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
       </ul>
 
-      <div class="sidebar-section-title">Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ</div>
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
       <ul>
-        <li><a href="donation-index.html">🤝 Fuula Deeggarsaa (Donation) / የድጋፍ ገጽ</a></li>
-        <li><a href="donation-admin.html">⚙️ Donation Admin / የድጋፍ አስተዳደር</a></li>
-        <li><a href="finance-admin.html">📊 Finance Admin / የገንዘብ አስተዳደር</a></li>
-        <li><a href="register-sector-admin.html" class="admin-link">📈 Register Sector Admin (Excel) / የሴክተር ምዝገባ አስተዳደር</a></li>
+        <li>
+          <a href="gali-basi.html">
+            Fuula Galii Fi Baasii
+            <span class="am">የገቢ እና ወጪ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>Fuula Grgaarsaa</span>
+            <span class="am text-slate-500">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="news-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>---</span>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -201,7 +322,8 @@
           Eeyyama Admin Barbaachisa / የአድሚን ፈቃድ ያስፈልጋል።
         </h3>
         <p class="text-xs text-slate-500">
-          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa / እባክዎን ወደ አድሚን ገጽ ለመግባት የይለፍ ቃል (ፓስወርድ) ያስገቡ።
+          Maaloo gara fuula admin seenuuf jecha darbii (Password) galchaa /
+          እባክዎን ወደ አድሚን ገጽ ለመግባት የይለፍ ቃል (ፓስወርድ) ያስገቡ።
         </p>
 
         <form id="loginForm" class="space-y-3">
@@ -228,26 +350,13 @@
     </div>
 
     <!-- Sub-Header Actions -->
-    <div class="bg-emerald-900 text-white p-4 shadow-md px-6">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <div>
-          <p class="text-xs text-emerald-200">
-            Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo
-          </p>
-          <p class="text-xs text-emerald-200">
-            መልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት
-          </p>
-        </div>
-        <div class="flex gap-3">
-          <button
-            onclick="logout()"
-            class="bg-red-700 hover:bg-red-800 text-white text-xs font-semibold px-3 py-2 rounded-lg transition"
-          >
-            🚪 Ba'i / ውጣ / Log Out
-          </button>
-        </div>
+    <header class="main-header">
+      <div class="brand">
+        <h1>Admin Dashboard / የአድሚን ገጽ</h1>
+        <span>Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</span>
       </div>
-    </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    </header>
 
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto p-4 md:p-6 w-full space-y-6">
@@ -343,16 +452,14 @@
     <footer
       class="bg-white border-t py-4 text-center text-xs text-slate-500 mt-auto"
     >
-      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo / መልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት © 2026
+      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo © 2026
     </footer>
 
     <!-- JavaScript logic -->
     <script>
       function toggleSidebar() {
-        const sidebar = document.getElementById('sidebar');
-        const overlay = document.getElementById('overlay');
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
       }
 
       const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
@@ -380,7 +487,9 @@
           document.getElementById("loginModal").classList.add("hidden");
           fetchTransactions();
         } else {
-          alert("Jechi darbii (Password) sirrii miti! Irra deebi'ii yaali. / የይለፍ ቃሉ ትክክል አይደለም! እባክዎ እንደገና ይሞክሩ።");
+          alert(
+            "Jechi darbii (Password) sirrii miti! Irra deebi'ii yaali. / የይለፍ ቃሉ ትክክል አይደለም! እባክዎ እንደገና ይሞክሩ።",
+          );
           document.getElementById("adminPasswordInput").value = "";
         }
       });

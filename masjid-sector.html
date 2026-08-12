@@ -33,6 +33,7 @@
         line-height: 1.6;
       }
 
+      /* Navbar & Hamburger Styles */
       .navbar {
         background: var(--primary);
         color: white;
@@ -41,15 +42,15 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: var(--shadow);
-        position: relative;
-        z-index: 1000;
+        position: sticky;
+        top: 0;
+        z-index: 900;
       }
 
       .nav-brand {
         display: flex;
-        width: 100%;
-        justify-content: space-between;
         align-items: center;
+        gap: 1rem;
       }
 
       .nav-brand h2 {
@@ -57,44 +58,111 @@
         margin: 0;
       }
 
-      .nav-links {
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
         display: flex;
-        gap: 1rem;
         align-items: center;
+        justify-content: center;
       }
 
-      .nav-links a {
-        color: white;
+      /* Sidebar Drawer Styles */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 300px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+        transition: left 0.3s ease;
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+
+      .sidebar ul {
+        list-style: none;
+      }
+
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
         text-decoration: none;
         font-weight: 600;
         font-size: 0.9rem;
-        padding: 0.4rem 0.8rem;
         border-radius: 6px;
-        transition: background 0.2s;
-        white-space: nowrap;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
 
-      .nav-links a:hover {
-        background: rgba(255, 255, 255, 0.1);
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
       }
 
-      .menu-toggle {
-        display: none;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 30px;
-        height: 21px;
-        background: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 0;
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
       }
 
-      .menu-toggle span {
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: 3px;
-        background: white;
-        border-radius: 3px;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 999;
+      }
+
+      .overlay.active {
+        display: block;
       }
 
       .container {
@@ -201,234 +269,204 @@
         font-size: 0.85rem;
         border-top: 1px solid var(--border-color);
       }
-
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: flex;
-        }
-
-        .nav-brand {
-          width: 100%;
-        }
-
-        .nav-links {
-          position: fixed;
-          top: 0;
-          left: -100%;
-          flex-direction: column;
-          background: var(--card-bg);
-          width: 280px;
-          height: 100vh;
-          padding: 1.5rem 1rem;
-          gap: 0.5rem;
-          transition: left 0.3s ease-in-out;
-          box-shadow: 4px 0 10px rgba(0, 0, 0, 0.2);
-          align-items: flex-start;
-          z-index: 1100;
-          overflow-y: auto;
-        }
-
-        .nav-links.active {
-          left: 0;
-        }
-
-        .nav-links .sidebar-header {
-          display: flex;
-          width: 100%;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 1rem;
-          border-bottom: 1px solid var(--border-color);
-          padding-bottom: 0.8rem;
-        }
-
-        .nav-links .sidebar-header h3 {
-          color: var(--primary);
-          font-size: 1rem;
-          margin: 0;
-        }
-
-        .nav-links .close-btn {
-          background: none;
-          border: none;
-          font-size: 1.3rem;
-          cursor: pointer;
-          color: var(--text-color);
-        }
-
-        .nav-links .sidebar-section-title {
-          font-size: 0.75rem;
-          text-transform: uppercase;
-          color: #888;
-          margin: 1rem 0 0.4rem 0.5rem;
-          font-weight: 700;
-          width: 100%;
-        }
-
-        .nav-links ul {
-          list-style: none;
-          width: 100%;
-          padding: 0;
-        }
-
-        .nav-links li {
-          margin-bottom: 0.4rem;
-          width: 100%;
-        }
-
-        .nav-links a {
-          display: block;
-          width: 100%;
-          text-align: left;
-          padding: 0.6rem 0.8rem;
-          color: var(--primary);
-          background: #f8f9fa;
-          border-radius: 6px;
-          font-weight: 600;
-          font-size: 0.9rem;
-        }
-
-        .nav-links a:hover {
-          background: var(--primary);
-          color: white;
-        }
-
-        .nav-links a.admin-link {
-          background: var(--accent);
-          color: white;
-        }
-
-        /* Overlay for Mobile Drawer */
-        .overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(0, 0, 0, 0.4);
-          display: none;
-          z-index: 1050;
-        }
-
-        .overlay.active {
-          display: block;
-        }
-      }
     </style>
   </head>
   <body>
-    <!-- Overlay for Mobile Menu -->
-    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
+    <!-- Navbar with Hamburger Menu Button -->
     <nav class="navbar">
       <div class="nav-brand">
         <h2>M.M.D.I K/Malkaa Noonnoo</h2>
-        <button class="menu-toggle" onclick="toggleMenu()">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
-
-      <div class="nav-links" id="navLinks">
-        <!-- Sidebar Header with Close Button for Mobile View -->
-        <div class="sidebar-header">
-          <h3>Faayiloota Hunda / ሁሉንም ፋይሎች</h3>
-          <button class="close-btn" onclick="toggleMenu()">✕</button>
-        </div>
-
-        <a href="sector-index.html">🏠 Muummee (Home) / ዋና ገጽ</a>
-        <a href="masjid-sector.html">🕌 Seektara Masjiidaa / የመስጂድ ሴክተር</a>
-
-        <div class="sidebar-section-title">
-          Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
-        </div>
-        <ul style="list-style: none; width: 100%">
-          <li>
-            <a href="finance-sector.html"
-              >💰 Seektara Maallaqaa (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="finance-register.html"
-              >📝 Galmee Seektara Maallaqaa / የፋይናንስ ሴክተር ምዝገባ</a
-            >
-          </li>
-          <li>
-            <a href="youth-sector.html"
-              >👥 Seektara Dargaggoo (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="youth-register.html"
-              >📝 Galmee Seektara Dargaggoo / የወጣቶች ሴክተር ምዝገባ</a
-            >
-          </li>
-          <li>
-            <a href="women-sector.html"
-              >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="women-register.html"
-              >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
-            >
-          </li>
-          <li>
-            <a href="ulama-sector.html"
-              >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="ulama-register.html"
-              >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
-            >
-          </li>
-          <li>
-            <a href="masjid-sector.html"
-              >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="masjid-register.html"
-              >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
-            >
-          </li>
-          <li>
-            <a href="madrasa-sector.html"
-              >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
-            >
-          </li>
-          <li>
-            <a href="madrasa-register.html"
-              >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
-            >
-          </li>
-        </ul>
-
-        <div class="sidebar-section-title">
-          Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
-        </div>
-        <ul style="list-style: none; width: 100%">
-          <li>
-            <a href="donation-index.html"
-              >🤝 Fuula Deeggarsaa / የድጋፍ ገጽ (Donation)</a
-            >
-          </li>
-          <li>
-            <a href="donation-admin.html">⚙️ Donation Admin / የድጋፍ አስተዳዳሪ</a>
-          </li>
-          <li>
-            <a href="finance-admin.html">📊 Finance Admin / የፋይናንስ አስተዳዳሪ</a>
-          </li>
-          <li>
-            <a href="register-sector-admin.html" class="admin-link"
-              >📈 Sector-Admin / የሴክተር አስተዳዳሪ</a
-            >
-          </li>
-        </ul>
-      </div>
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
     </nav>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Sidebar Drawer Menu -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleSidebar()">✕</button>
+      </div>
+
+      <ul>
+        <li>
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>ODEEFFANNOO MANA MARICHAA</span>
+            <span
+              class="am text-slate-500"
+              style="display: block; font-size: 0.8rem"
+              >የምክር ቤቱ መረጃ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የሴክተሮች ዋና ገጽ</span
+            >
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul>
+        <li>
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የፋይናንስ ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የፋይናንስ ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የወጣቶች ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የወጣቶች ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የሴቶች ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የሴቶች ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የኡለማዎች ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የኡለማዎች ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የመስጂዶች ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የመስጂዶች ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የመድረሳዎች ዘርፍ (መግለጫ)</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የመድረሳዎች ዘርፍ ምዝገባ</span
+            >
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="gali-basi.html">
+            Fuula Galii Fi Baasii
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የገቢ እና ወጪ ገጽ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>Fuula Grgaarsaa</span>
+            <span
+              class="am text-slate-500"
+              style="display: block; font-size: 0.8rem"
+              >የድጋፍ ገጽ</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የድጋፍ አስተዳደር</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የፋይናንስ አስተዳደር</span
+            >
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am" style="display: block; font-size: 0.8rem"
+              >የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span
+            >
+          </a>
+        </li>
+      </ul>
+    </div>
 
     <div class="container">
       <div class="sector-header">
@@ -436,11 +474,11 @@
         <div class="am-title">የመስጂድ እና አውቃፍ ዘርፍ</div>
         <p>
           Seektarri kun masjiidota naannichaa ijaaruu, suphaa godhuu, qabeenya
-          awqaafaa galmeessuu fi sirnaan eeguu irratti hojjeta.
+          awqaafaa galmeessuu fi sirnaan eeguu irratti hojjeta.[cite: 15]
         </p>
         <div class="am-desc">
           ይህ ዘርፍ የመስጂዶችን ግንባታና ጥገና፣ የአውቃፍ (የህቋፍ) ንብረቶችን መመዝገብና በአግባቡ መጠበቅ ላይ
-          ይሰራል።
+          ይሰራል።[cite: 15]
         </div>
       </div>
 
@@ -450,20 +488,21 @@
           <div class="am-subtitle">የዘርፉ ዓላማ</div>
           <ul>
             <li>
-              Masjiidota hawaasaaf mijatoo ta'an uumuu fi bulchuu. <br /><small
-                style="color: #555"
-                >ለህብረተሰቡ ምቹ የሆኑ መስጂዶችን ማቋቋምና ማስተዳደር።</small
+              Masjiidota hawaasaaf mijatoo ta'an uumuu fi bulchuu.[cite: 15]
+              <br /><small style="color: #555"
+                >ለህብረተሰቡ ምቹ የሆኑ መስጂዶችን ማቋቋምና ማስተዳደር።[cite: 15]</small
               >
             </li>
             <li style="margin-top: 8px">
-              Qabeenya Awqaafaa hunda galmeessanii eeguu. <br /><small
+              Qabeenya Awqaafaa hunda galmeessanii eeguu.[cite: 15] <br /><small
                 style="color: #555"
-                >የአውቃፍ ንብረቶችን ሁሉ መዝግቦ መጠበቅ።</small
+                >የአውቃፍ ንብረቶችን ሁሉ መዝግቦ መጠበቅ።[cite: 15]</small
               >
             </li>
             <li style="margin-top: 8px">
-              Tajaajila mana amantaa gabbisuu. <br /><small style="color: #555"
-                >የእምነት ቤቶችን አገልግሎት ማጎልበት።</small
+              Tajaajila mana amantaa gabbisuu.[cite: 15] <br /><small
+                style="color: #555"
+                >የእምነት ቤቶችን አገልግሎት ማጎልበት።[cite: 15]</small
               >
             </li>
           </ul>
@@ -474,21 +513,21 @@
           <div class="am-subtitle">የስራ እቅድ</div>
           <ul>
             <li>
-              Qorannoo haala qabeenya awqaafaa gaggeessuu. <br /><small
-                style="color: #555"
-                >የአውቃፍ ንብረት ሁኔታ ጥናት ማካሄድ።</small
+              Qorannoo haala qabeenya awqaafaa gaggeessuu.[cite: 15]
+              <br /><small style="color: #555"
+                >የአውቃፍ ንብረት ሁኔታ ጥናት ማካሄድ።[cite: 15]</small
               >
             </li>
             <li style="margin-top: 8px">
-              Duula deeggarsa suphaa masjiidotaa qopheessuu. <br /><small
-                style="color: #555"
-                >የመስጂዶች ጥገና ድጋፍ ዘመቻ ማዘጋጀት።</small
+              Duula deeggarsa suphaa masjiidotaa qopheessuu.[cite: 15]
+              <br /><small style="color: #555"
+                >የመስጂዶች ጥገና ድጋፍ ዘመቻ ማዘጋጀት።[cite: 15]</small
               >
             </li>
             <li style="margin-top: 8px">
-              Ragaalee masjiidotaa dijitaalaan qabachuu. <br /><small
+              Ragaalee masjiidotaa dijitaalaan qabachuu.[cite: 15] <br /><small
                 style="color: #555"
-                >የመስጂዶችን መረጃዎች በዲጂታል መያዝ።</small
+                >የመስጂዶችን መረጃዎች በዲጂታል መያዝ።[cite: 15]</small
               >
             </li>
           </ul>
@@ -502,19 +541,18 @@
 
     <footer>
       <p>
-        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/Malkaa Noonnoo[cite: 10].
-        / የልደታ/መልካ ኖኖ እስልምና ጉዳዮች ምክር ቤት[cite: 10].
+        &copy; 2026 Mana Marii Dhimmoota Islaamummaa K/Malkaa Noonnoo[cite: 15].
+        / የልደታ/መልካ ኖኖ እስልምና ጉዳዮች ምክር ቤት[cite: 15].
       </p>
     </footer>
 
+    <!-- JavaScript for Sidebar Toggle -->
     <script>
-      function toggleMenu() {
-        const navLinks = document.getElementById("navLinks");
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("overlay");
-        navLinks.classList.toggle("active");
-        if (overlay) {
-          overlay.classList.toggle("active");
-        }
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
       }
     </script>
   </body>

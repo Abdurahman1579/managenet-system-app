@@ -63,9 +63,9 @@
         border-radius: 6px;
       }
 
-      /* HAMBURGER TOGGLE */
+      /* HAMBURGER TOGGLE BUTTON */
       .menu-toggle {
-        display: none;
+        display: flex;
         flex-direction: column;
         justify-content: space-between;
         width: 30px;
@@ -128,7 +128,8 @@
         font-size: 1rem;
       }
 
-      .close-sidebar {
+      .close-sidebar,
+      .close-btn {
         background: none;
         border: none;
         font-size: 1.4rem;
@@ -247,30 +248,18 @@
         font-size: 0.85rem;
         border-top: 1px solid var(--border-color);
       }
-
-      /* MOBILE RESPONSIVE */
-      @media (max-width: 768px) {
-        .menu-toggle {
-          display: flex;
-        }
-        .nav-links {
-          display: none;
-        }
-      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-brand">
         <h2>M.M.D.I K/Malkaa Noonnoo / የማልካ ኖንኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት</h2>
+        <!-- Mallattoo humberger (Menu Toggle) asitti dabalameera -->
         <button class="menu-toggle" onclick="toggleMenu()">
           <span></span>
           <span></span>
           <span></span>
         </button>
-      </div>
-      <div class="nav-links" id="navLinks">
-        <a href="sector-index.html">Muummee / ዋና ገጽ</a>
       </div>
     </nav>
 
@@ -280,108 +269,160 @@
       id="sidebarOverlay"
       onclick="toggleMenu()"
     ></div>
-    <div class="sidebar" id="sidebarMenu">
+
+    <div class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <h3>Fuulota Hunda / ሁሉንም ፋይሎች</h3>
-        <button class="close-sidebar" onclick="toggleMenu()">✕</button>
+        <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button class="close-btn" onclick="toggleMenu()">✕</button>
       </div>
 
       <ul>
-        <li><a href="sector-index.html">🏠 Muummee / ዋና ገጽ (Home)</a></li>
-      </ul>
-
-      <div class="sidebar-section-title">
-        Seektarootaa fi Galmee / ሴክተሮች እና ምዝገባ
-      </div>
-      <ul>
         <li>
-          <a href="finance-sector.html"
-            >💰 Seektara Faayinaansii (Ibsa) / የፋይናንስ ሴክተር (መግለጫ)</a
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
           >
-        </li>
-        <li>
-          <a href="finance-register.html"
-            >📝 Galmee Seektara Faayinaansii / የፋይናንስ ሴክተር ምዝገባ</a
-          >
+            <span>ODEEFFANNOO MANA MARICHAA</span>
+            <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+          </a>
         </li>
 
         <li>
-          <a href="youth-sector.html"
-            >👥 Seektara Dargaggootaa (Ibsa) / የወጣቶች ሴክተር (መግለጫ)</a
-          >
-        </li>
-        <li>
-          <a href="youth-register.html"
-            >📝 Galmee Seektara Dargaggootaa / የወጣቶች ሴክተር ምዝገባ</a
-          >
-        </li>
-
-        <li>
-          <a href="women-sector.html"
-            >👩 Seektara Dubartootaa (Ibsa) / የሴቶች ሴክተር (መግለጫ)</a
-          >
-        </li>
-        <li>
-          <a href="women-register.html"
-            >📝 Galmee Seektara Dubartootaa / የሴቶች ሴክተር ምዝገባ</a
-          >
-        </li>
-
-        <li>
-          <a href="ulama-sector.html"
-            >📖 Seektara Ulamaa (Ibsa) / የዑለማ ሴክተር (መግለጫ)</a
-          >
-        </li>
-        <li>
-          <a href="ulama-register.html"
-            >📝 Galmee Seektara Ulamaa / የዑለማ ሴክተር ምዝገባ</a
-          >
-        </li>
-
-        <li>
-          <a href="masjid-sector.html"
-            >🕌 Seektara Masjiidaa (Ibsa) / የመስጂድ ሴክተር (መግለጫ)</a
-          >
-        </li>
-        <li>
-          <a href="masjid-register.html"
-            >📝 Galmee Seektara Masjiidaa / የመስጂድ ሴክተር ምዝገባ</a
-          >
-        </li>
-
-        <li>
-          <a href="madrasa-sector.html"
-            >📚 Seektara Madrasaa (Ibsa) / የመድረሳ ሴክተር (መግለጫ)</a
-          >
-        </li>
-        <li>
-          <a href="madrasa-register.html"
-            >📝 Galmee Seektara Madrasaa / የመድረሳ ሴክተር ምዝገባ</a
-          >
+          <a href="sector-index.html">
+            📂 Muummee Seektarootaa
+            <span class="am">የሴክተሮች ዋና ገጽ</span>
+          </a>
         </li>
       </ul>
 
       <div class="sidebar-section-title">
-        Bulchiinsa fi Deggersa / አስተዳደር እና ድጋፍ
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
       </div>
       <ul>
         <li>
-          <a href="donation-index.html"
-            >🤝 Fuula Deggersaa (Donation) / የድጋፍ ገጽ</a
-          >
+          <a href="finance-sector.html">
+            💰 Seektara Maallaqaa (Ibsa)
+            <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
         </li>
         <li>
-          <a href="donation-admin.html">⚙️ Bulchaa Deggersaa / የድጋፍ አስተዳዳሪ</a>
+          <a href="finance-register.html">
+            📝 Galmee Seektara Maallaqaa
+            <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="youth-sector.html">
+            👥 Seektara Dargaggoo (Ibsa)
+            <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
         </li>
         <li>
-          <a href="finance-admin.html"
-            >📊 Bulchaa Faayinaansii / የፋይናንስ አስተዳዳሪ</a
-          >
+          <a href="youth-register.html">
+            📝 Galmee Seektara Dargaggoo
+            <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="women-sector.html">
+            👩 Seektara Dubartootaa (Ibsa)
+            <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
         </li>
         <li>
-          <a href="register-sector-admin.html" class="admin-link"
-            >📈 Bulchaa Galmee Seektaraa (Excel) / የሴክተር ምዝገባ አስተዳዳሪ</a
+          <a href="women-register.html">
+            📝 Galmee Seektara Dubartootaa
+            <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="ulama-sector.html">
+            📖 Seektara Ulamaa (Ibsa)
+            <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="ulama-register.html">
+            📝 Galmee Seektara Ulamaa
+            <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="masjid-sector.html">
+            🕌 Seektara Masjiidaa (Ibsa)
+            <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="masjid-register.html">
+            📝 Galmee Seektara Masjiidaa
+            <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="madrasa-sector.html">
+            📚 Seektara Madrasaa (Ibsa)
+            <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a href="madrasa-register.html">
+            📝 Galmee Seektara Madrasaa
+            <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-section-title">
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul>
+        <li>
+          <a href="gali-basi.html">
+            Fuula Galii Fi Baasii
+            <span class="am">የገቢ እና ወጪ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
           >
+            <span>Fuula Grgaarsaa</span>
+            <span class="am text-slate-500">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a href="donation-admin.html">
+            ⚙️ Donation Admin
+            <span class="am">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="finance-admin.html">
+            📊 Finance Admin
+            <span class="am">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a href="register-sector-admin.html" class="admin-link">
+            📈 Register Sector Admin (Excel)
+            <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="news-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+          >
+            <span>---</span>
+          </a>
         </li>
       </ul>
     </div>
@@ -445,7 +486,7 @@
     <script>
       // Hamburger Menu Toggle Function
       function toggleMenu() {
-        const sidebar = document.getElementById("sidebarMenu");
+        const sidebar = document.getElementById("sidebar");
         const overlay = document.getElementById("sidebarOverlay");
         sidebar.classList.toggle("active");
         overlay.classList.toggle("active");
@@ -467,7 +508,6 @@
           const skill = document.getElementById("skill").value;
           const ganda = document.getElementById("ganda").value;
 
-          // Seektara Dargaggoo fi Miidiyaa ta'uu isaa agarsiisuuf sector_name irratti ni galmaa'a
           const { data, error } = await _supabase
             .from("register-sector-app")
             .insert([
