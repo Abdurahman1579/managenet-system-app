@@ -120,9 +120,7 @@
       async function handleLike(newsId, btnElement) {
         let likesKey = `news_liked_${newsId}`;
         if (localStorage.getItem(likesKey)) {
-          alert(
-            "Ati oduu kana duraanuu jaallatteetta! / ይህን ዜና ቀደም ብለው ወደውታል!",
-          );
+          alert("You have already liked this news!");
           return;
         }
 
@@ -152,9 +150,7 @@
       async function handleCommentLike(commentId, btnElement) {
         let commentLikeKey = `comment_liked_${commentId}`;
         if (localStorage.getItem(commentLikeKey)) {
-          alert(
-            "Komentii kana duraanuu jaallatteetta! / ይህን አስተያየት ቀደም ብለው ወደውታል!",
-          );
+          alert("You have already liked this comment!");
           return;
         }
 
@@ -208,7 +204,7 @@
             .catch(() => {});
         } else {
           navigator.clipboard.writeText(window.location.href);
-          alert("Geessi (Link) koppii ta'eera! / ሊንኩ ተኮርጇል!");
+          alert("Link copied to clipboard!");
         }
       }
 
@@ -234,7 +230,7 @@
           .single();
 
         if (insertError) {
-          alert("Dogoggorri uumame: " + insertError.message);
+          alert("Error: " + insertError.message);
           return;
         }
 
@@ -271,13 +267,13 @@
                 <p class="font-medium">💬 ${insertedData.comment_text}</p>
                 <div class="flex items-center gap-4 text-[11px] text-slate-500">
                   <button onclick="handleCommentLike(${insertedData.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${insertedData.id}">0</span>)</button>
-                  <button onclick="toggleReplyBox(${insertedData.id})" class="hover:text-emerald-700 font-medium">↩️ Reply / Deebii</button>
+                  <button onclick="toggleReplyBox(${insertedData.id})" class="hover:text-emerald-700 font-medium">↩️ Reply</button>
                 </div>
                 <div class="space-y-1 mt-1" id="replies-list-${insertedData.id}"></div>
                 <div id="reply-box-${insertedData.id}" class="hidden pt-2 mt-2 border-t">
                   <form onsubmit="handleCommentSubmit(event, ${newsId}, ${insertedData.id})" class="flex gap-2">
-                    <input type="text" id="reply-input-${insertedData.id}" placeholder="Deebii barreeessi... / ምላሽ ይጻፉ..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
-                    <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Ergi</button>
+                    <input type="text" id="reply-input-${insertedData.id}" placeholder="Write a reply..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                    <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Reply</button>
                   </form>
                 </div>
               </div>
@@ -322,12 +318,12 @@
           .order("id", { ascending: false });
 
         if (error) {
-          container.innerHTML = `<p class="text-red-500 text-center">Dogoggorri uumame: ${error.message} / ስህተት ተፈጥሯል</p>`;
+          container.innerHTML = `<p class="text-red-500 text-center">Error: ${error.message}</p>`;
           return;
         }
 
         if (!data || data.length === 0) {
-          container.innerHTML = `<p class="text-center text-slate-500 py-10">Oduun yeroo ammaa hin jiru. / በአሁኑ ጊዜ ምንም ዜና የለም።</p>`;
+          container.innerHTML = `<p class="text-center text-slate-500 py-10">No news available at the moment.</p>`;
           return;
         }
 
@@ -350,19 +346,20 @@
             const cat = (news.category || "").toLowerCase();
             const lowerUrl = finalMediaUrl.toLowerCase();
 
+            // Stabilized media dimensions and preload configurations to prevent layout shift (harkifuu/hollachuu)
             if (
               lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) ||
               cat.includes("viidiyoo")
             ) {
-              mediaElement = `<video controls src="${finalMediaUrl}" class="w-full max-h-96 rounded-xl mt-3 shadow-sm bg-black">Browser kee viidiyoo kana hin deeggaru.</video>`;
+              mediaElement = `<div class="w-full bg-black rounded-xl mt-3 overflow-hidden shadow-sm"><video controls preload="metadata" class="w-full h-auto max-h-96 block">Your browser does not support the video tag.</video></div>`;
             } else if (
               lowerUrl.match(/\.(mp3|wav|m4a|aac)(\?.*)?$/i) ||
               cat.includes("sagalee") ||
               cat.includes("music")
             ) {
-              mediaElement = `<audio controls src="${finalMediaUrl}" class="w-full mt-3">Browser kee sagalee kana hin deeggaru.</audio>`;
+              mediaElement = `<div class="w-full mt-3"><audio controls preload="metadata" class="w-full">Your browser does not support the audio element.</audio></div>`;
             } else {
-              mediaElement = `<img src="${finalMediaUrl}" class="w-full h-auto max-h-96 object-cover rounded-xl mt-3 shadow-sm" alt="News Image" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x300?text=Image+Load+Error';">`;
+              mediaElement = `<img src="${finalMediaUrl}" class="w-full h-auto max-h-96 object-cover rounded-xl mt-3 shadow-sm" alt="News Image" loading="lazy" onerror="this.onerror=null; this.src='https://via.placeholder.com/600x300?text=Image+Load+Error';">`;
             }
           }
 
@@ -407,22 +404,22 @@
                   <p class="font-medium">💬 ${c.comment_text}</p>
                   <div class="flex items-center gap-4 text-[11px] text-slate-500">
                     <button onclick="handleCommentLike(${c.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${c.id}">${c.likes_count || 0}</span>)</button>
-                    <button onclick="toggleReplyBox(${c.id})" class="hover:text-emerald-700 font-medium">↩️ Reply / Deebii</button>
+                    <button onclick="toggleReplyBox(${c.id})" class="hover:text-emerald-700 font-medium">↩️ Reply</button>
                   </div>
                   <div class="space-y-1 mt-1" id="replies-list-${c.id}">
                     ${repliesHTML}
                   </div>
                   <div id="reply-box-${c.id}" class="hidden pt-2 mt-2 border-t">
                     <form onsubmit="handleCommentSubmit(event, ${news.id}, ${c.id})" class="flex gap-2">
-                      <input type="text" id="reply-input-${c.id}" placeholder="Deebii barreeessi... / ምላሽ ይጻፉ..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
-                      <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Ergi</button>
+                      <input type="text" id="reply-input-${c.id}" placeholder="Write a reply..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                      <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Reply</button>
                     </form>
                   </div>
                 </div>
               `;
             });
           } else {
-            commentsListHTML = `<p class="text-[11px] text-slate-400 italic no-comments-notice">Yaadni kenname hin jiru / ምንም አስተያየት የለም</p>`;
+            commentsListHTML = `<p class="text-[11px] text-slate-400 italic no-comments-notice">No comments yet</p>`;
           }
 
           const likesCount = news.likes_count || 0;
@@ -431,9 +428,7 @@
 
           const card = `
             <div class="bg-white p-5 rounded-2xl shadow-md border space-y-3">
-              <!-- Mallattoon diimaadhaan marame (Category & Views) asirraa haquudhaaf cufameera -->
               <div class="flex justify-end items-center text-xs text-slate-400">
-                <!-- Category fi Views dandeessifachuuf yoo barbaadde asitti deebisuu dandeessa -->
               </div>
 
               <h2 class="text-lg font-bold text-slate-800">${news.title}</h2>
@@ -446,23 +441,23 @@
                   <span class="like-count-${news.id} font-medium">${likesCount}</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span class="font-medium"><span class="comment-count-${news.id}">${commentsCount}</span> comments / አስተያየቶች</span>
-                  <span class="font-medium"><span class="share-count-${news.id}">${sharesCount}</span> shares / ሼር</span>
+                  <span class="font-medium"><span class="comment-count-${news.id}">${commentsCount}</span> comments</span>
+                  <span class="font-medium"><span class="share-count-${news.id}">${sharesCount}</span> shares</span>
                 </div>
               </div>
 
               <div class="grid grid-cols-3 gap-1 pt-1 border-t text-xs font-semibold text-slate-600">
                 <button onclick="handleLike(${news.id}, this)" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
                   <span class="text-base">👍</span>
-                  <span>Like / ውደድ (<span class="like-count-${news.id}">${likesCount}</span>)</span>
+                  <span>Like (<span class="like-count-${news.id}">${likesCount}</span>)</span>
                 </button>
                 <button onclick="document.getElementById('comment-box-${news.id}').classList.toggle('hidden')" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
                   <span class="text-base">💬</span>
-                  <span>Comment / አስተያየት (<span class="comment-count-${news.id}">${commentsCount}</span>)</span>
+                  <span>Comment (<span class="comment-count-${news.id}">${commentsCount}</span>)</span>
                 </button>
                 <button onclick="handleShare(${news.id}, '${news.title.replace(/'/g, "\\'")}', this)" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
                   <span class="text-base">↗️</span>
-                  <span>Share / ሼር (<span class="share-count-${news.id}">${sharesCount}</span>)</span>
+                  <span>Share (<span class="share-count-${news.id}">${sharesCount}</span>)</span>
                 </button>
               </div>
 
@@ -471,8 +466,8 @@
                   ${commentsListHTML}
                 </div>
                 <form onsubmit="handleCommentSubmit(event, ${news.id})" class="flex gap-2 pt-2 border-t">
-                  <input type="text" id="comment-input-${news.id}" placeholder="Yaada kee barreeessi... / አስተያየትዎን ይጻፉ..." class="flex-1 p-2 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
-                  <button type="submit" class="bg-emerald-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Ergi / ላክ</button>
+                  <input type="text" id="comment-input-${news.id}" placeholder="Write a comment..." class="flex-1 p-2 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                  <button type="submit" class="bg-emerald-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Post</button>
                 </form>
               </div>
             </div>
