@@ -353,20 +353,18 @@
               ></button>
             </div>
 
-            <!-- Mata-duree Oduu (Title) -->
+            <!-- Mata-duree Oduu (Title) - required haqameera -->
             <input
               type="text"
               id="newsTitle"
-              required
               placeholder="Mata-duree Oduu (Title) / የዜና ርዕስ..."
               class="w-full bg-transparent placeholder-current/60 text-lg font-bold outline-none border-b border-current/20 pb-1"
             />
 
-            <!-- Ergaa Oduu (Content) -->
+            <!-- Ergaa Oduu (Content) - required haqameera -->
             <textarea
               id="newsContent"
               rows="3"
-              required
               placeholder="Share something you're grateful for... / Ergaa oduu kee guutuu..."
               class="w-full bg-transparent placeholder-current/60 text-sm outline-none resize-none"
             ></textarea>
@@ -546,7 +544,6 @@
           selectedFileObject = inputElement.files[0];
           document.getElementById("newsCategory").value = categoryType;
 
-          // Yoo Suuraa filatame Audio input qulqulleessi, yoo Audio filatame immoo Suuraa input qulqulleessi
           if (categoryType === "Suuraa") {
             document.getElementById("newsAudioFile").value = "";
           } else {
@@ -577,6 +574,17 @@
         .getElementById("newsForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
+
+          const titleVal = document.getElementById("newsTitle").value.trim();
+          const contentVal = document
+            .getElementById("newsContent")
+            .value.trim();
+
+          if (!titleVal && !contentVal && !selectedFileObject) {
+            alert("Maaloo barreeffama ykn miidiyaa tokko galchaa!");
+            return;
+          }
+
           const btn = document.getElementById("submitNewsBtn");
           btn.innerText = "Maxxansaa jira... / በመጫን ላይ...";
           btn.disabled = true;
@@ -608,9 +616,9 @@
           }
 
           const newNewsData = {
-            title: document.getElementById("newsTitle").value,
+            title: titleVal,
             category: document.getElementById("newsCategory").value,
-            content: document.getElementById("newsContent").value,
+            content: contentVal,
             media_url: mediaUrl,
           };
 
