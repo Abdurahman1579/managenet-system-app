@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lakkoofsa Muslimoota Malkaa Noonnoo | የሙስሊሞች ቆጠራ</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Jijjiirraa Afaanii (Dropdown Menu Style) -->
+      <div class="lang-dropdown">
+        <button class="lang-btn" onclick="toggleLangMenu()">
+          <span id="currentLangText">A/Oromoo</span> ▾
+        </button>
+        <div id="langMenu" class="lang-menu hidden">
+          <a href="#" onclick="selectLanguage('om', 'A/Oromoo')">A/Oromoo</a>
+          <a href="#" onclick="selectLanguage('am', 'አማርኛ')">አማርኛ</a>
+          <a href="#" onclick="selectLanguage('en', 'English')">English</a>
+        </div>
+      </div>
+
+      <!-- Barreeffama Barbaachisummaa Lakkoofsa Muslimaa -->
+      <div id="introSection" class="intro-box">
+        <h2 id="mainTitle">
+          Lakkoofsa Muslimoota Kutaa Magaalaa Malkaa Noonnoo
+        </h2>
+        <p id="introText">
+          Lakkoofsa muslimootaa beekuunn guddina hawaasa muslimaatiif, karoora
+          misoomaaf, gargaarsa waloo fi tokkummaa hawaasaa cimsuuf shoora
+          olaanaa qaba. Ragaa sirrii qabaachuun deeggarsa sirrii kennuuf nu
+          dandeessisa.
+        </p>
+      </div>
+
+      <!-- Buttoonni 6 -->
+      <div id="menuButtons" class="menu-grid">
+        <button class="menu-btn" onclick="openRegistration()" id="btn1">
+          Daataa lakkoofsa muslimtoota kutaa magaalaa malkaa noonnoo haaraa
+        </button>
+        <button
+          class="menu-btn"
+          onclick="showReport('malkaa_gafarsaa')"
+          id="btn2"
+        >
+          Baay'ina muslimtoota aanaa malkaa gafarsaatti galmaa'anii dhiiraa fi
+          dhalaa
+        </button>
+        <button class="menu-btn" onclick="showReport('beeroo')" id="btn3">
+          Baay'ina muslimtoota aanaa beerootti galmaa'anii dhiiraa fi dhalaa
+        </button>
+        <button class="menu-btn" onclick="showReport('noonnoo')" id="btn4">
+          Baay'ina muslimtoota aanaa Noonnootti galmaa'anii dhiiraa fi dhalaa
+        </button>
+        <button class="menu-btn" onclick="showReport('walii_galaa')" id="btn5">
+          Baay'ina muslimtoota K/M/M/N walii galaa dhiiraa fi dhalaa
+        </button>
+        <button class="menu-btn" onclick="showReport('iada_ama')" id="btn6">
+          Ida'ama Baayyina muslimtoota K/M/M/N walii galaa
+        </button>
+      </div>
+
+      <!-- Formii Galmee -->
+      <form id="registrationForm" class="hidden">
+        <button
+          type="button"
+          class="back-btn"
+          onclick="goBackToMenu()"
+          id="btnBack"
+        >
+          ← Deebi'i / Back
+        </button>
+        <h3 id="formTitle">Galmee Daataa Haaraa</h3>
+
+        <!-- Error Warning Message Area -->
+        <div id="formErrorMsg" class="error-msg hidden"></div>
+
+        <!-- 1. Aanaa Filachuu -->
+        <label id="lblAanaa" for="aanaa">Aanaa Filadhu:</label>
+        <select id="aanaa" name="aanaa" required onchange="validateField(this)">
+          <option value="">-- Aanaa Filadhu / ወረዳ ይምረጡ --</option>
+          <option value="malkaa_gafarsaa">
+            Aanaa Malkaa Gafarsaa /መልካ ገፋርሳ ወረዳ
+          </option>
+          <option value="beeroo">Aanaa Beeroo /ቤሮ ወረዳ</option>
+          <option value="noonnoo">Aanaa Noonnoo /ኖኖ ወረዳ</option>
+        </select>
+
+        <!-- 2. Bara Galmee (E.C) -->
+        <label id="lblBara" for="bara">Bara Galmee (E.C):</label>
+        <select id="bara" name="bara" required onchange="validateField(this)">
+          <option value="">-- Bara Filadhu / ዓመት ይምረጡ --</option>
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+          <option value="2020">2020</option>
+        </select>
+
+        <!-- Maqaa Guutuu -->
+        <label id="lblMaqaa" for="maqaa">Maqaa Guutuu:</label>
+        <input
+          type="text"
+          id="maqaa"
+          name="maqaa"
+          placeholder="Maqaa fi Maqaa Abbaa / ስም እና የአባት ስም"
+          required
+          oninput="validateField(this)"
+        />
+
+        <!-- Saala -->
+        <label id="lblSaala" for="saala">Saala:</label>
+        <select id="saala" name="saala" required onchange="validateField(this)">
+          <option value="">-- Saala Filadhu / ጾታ ይምረጡ --</option>
+          <option value="dhiira">Dhiira / ወንድ / Male</option>
+          <option value="dhalaa">Dhalaa / ሴት / Female</option>
+        </select>
+
+        <!-- Umrii -->
+        <label id="lblUmrii" for="umrii">Umrii:</label>
+        <input
+          type="number"
+          id="umrii"
+          name="umrii"
+          placeholder="Bara dhalootaa ykn umrii / ዕድሜ"
+          required
+          oninput="validateField(this)"
+        />
+
+        <!-- Lakkoofsa Bilbilaa -->
+        <label id="lblBilbila" for="bilbila">Lakkoofsa Bilbilaa:</label>
+        <input
+          type="tel"
+          id="bilbila"
+          name="bilbila"
+          placeholder="09xxxxxxxx"
+          oninput="validateField(this)"
+        />
+
+        <!-- Ganda / Gooxii -->
+        <label id="lblGooxii" for="gooxii">Ganda / Gooxii:</label>
+        <input
+          type="text"
+          id="gooxii"
+          name="gooxii"
+          placeholder="Maqaa Gandaa ykn Gooxii / ቀበሌ ወይም ጎጥ"
+          required
+          oninput="validateField(this)"
+        />
+
+        <!-- Masjida Itti Dhihaatu -->
+        <label id="lblMasjida" for="masjida"
+          >Masjida Itti Dhihaatu / Hordofan:</label
+        >
+        <input
+          type="text"
+          id="masjida"
+          name="masjida"
+          placeholder="Maqaa Masjidaa / የመስጂዱ ስም"
+          required
+          oninput="validateField(this)"
+        />
+
+        <!-- Baay'ina Miseensa Maatii: Dhiiraa fi Dhalaa -->
+        <label id="lblMaatiiDhiira" for="maatiiDhiira"
+          >Baay'ina Miseensa Maatii (Dhiira):</label
+        >
+        <select
+          id="maatiiDhiira"
+          name="maatiiDhiira"
+          required
+          onchange="validateField(this)"
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6ti ol / ከ 6 በላይ</option>
+        </select>
+
+        <label id="lblMaatiiDhalaa" for="maatiiDhalaa"
+          >Baay'ina Miseensa Maatii (Dhalaa):</label
+        >
+        <select
+          id="maatiiDhalaa"
+          name="maatiiDhalaa"
+          required
+          onchange="validateField(this)"
+        >
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6ti ol / ከ 6 በላይ</option>
+        </select>
+
+        <!-- Sadarkaa Barnootaa -->
+        <label id="lblBarnoota" for="barnoota"
+          >Sadarkaa Barnootaa (Ammayyaa / Diinii):</label
+        >
+        <select
+          id="barnoota"
+          name="barnoota"
+          required
+          onchange="validateField(this)"
+        >
+          <option value="">
+            -- Sadarkaa Barnootaa Filadhu / የትምህርት ደረጃ --
+          </option>
+          <option value="sadarkaa_1ffaa">
+            Sadarkaa 1ffaa (1-8) / 1ኛ ደረጃ (1-8)
+          </option>
+          <option value="sadarkaa_2ffaa">
+            Sadarkaa 2ffaa (9-12) / 2ኛ ደረጃ (9-12)
+          </option>
+          <option value="Sertifikeeti">Sertifikeeti / ሰርተፊኬት</option>
+          <option value="Diploma">Diploma / ዲፕሎማ</option>
+          <option value="Digirii">Digirii / ዲግሪ</option>
+          <option value="Mastarsii">Mastarsii / ማስተርስ</option>
+          <option value="PhD">PhD / ፒኤችዲ</option>
+          <option value="Quraana_Qara'e">
+            Quraana Qara'e / ሂፍዝ / ቁርአን የቀራ
+          </option>
+          <option value="Kitaba_Ammayyaa_Diinii">
+            Barnoota Kitabaa (Aalim) / የኪታብ ትምህርት
+          </option>
+          <option value="Kan_Hin_Baratin">
+            Kan Hin Baratin / የትምህርት ደረጃ የሌለው
+          </option>
+        </select>
+
+        <!-- Submit Button with Spinner Container -->
+        <button type="submit" id="btnSubmit">
+          <span id="btnText">Galmeessi</span>
+          <span id="loadingSpinner" class="spinner hidden"></span>
+        </button>
+      </form>
+
+      <!-- Iddoo Gabaasaa -->
+      <div id="reportSection" class="hidden">
+        <button
+          type="button"
+          class="back-btn"
+          onclick="goBackToMenu()"
+          id="btnBackReport"
+        >
+          ← Deebi'i / Back
+        </button>
+        <h3 id="reportTitle">Gabaasa</h3>
+        <div id="reportContent"></div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
