@@ -573,7 +573,6 @@
       const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      // Email Admin kee asitti galchi (Bakka kana jijjiiri)
       const ADMIN_EMAIL = "admin@gmail.com";
 
       function toggleSidebar() {
@@ -581,7 +580,6 @@
         sidebar.classList.toggle("open");
       }
 
-      // --- TIME AGO FORMATTER (1s, 2s, 1m, 2m, 1hr, 2hr, 1d, 1w...) ---
       function timeAgo(dateString) {
         const now = new Date();
         const past = new Date(dateString);
@@ -716,9 +714,7 @@
           authHeaderBtn.classList.remove("hidden");
           authHeaderBtn.textContent = "Bahuu / Log out";
 
-          // --- MAQAA FI PROVIILIIN NAMA SEENEE QOFA AKKA MUL'ATU GOCHUU ---
           await loadLoggedInUserProfile(session.user);
-
           fetchNews();
         } else {
           fullPageAuth.classList.remove("hidden");
@@ -727,7 +723,6 @@
         }
       }
 
-      // --- FUNCTION PROFAAYILII NAMA SEENEE FIDEE GUBBAA IRRATTI GEEDDARU ---
       async function loadLoggedInUserProfile(user) {
         const { data: profile, error } = await supabaseClient
           .from("profiles")
@@ -747,7 +742,6 @@
           displayName = user.email.split("@")[0];
         }
 
-        // Maqaa guutuu fuula gubbaa irratti jijjiiruu
         const nameElement = document.getElementById("profileDisplayName");
         if (nameElement) {
           const isUserAdmin =
@@ -758,7 +752,6 @@
           nameElement.innerHTML = `${displayName} ${verifiedBadge}`;
         }
 
-        // Suuraa/Avatar fuula gubbaa irratti jijjiiruu
         const avatarContainer = document.getElementById(
           "profileAvatarContainer",
         );
@@ -1136,6 +1129,7 @@
             let rawUrl = news.media_url.trim();
             let finalMediaUrl = rawUrl;
 
+            // URL sirrii Supabase Storage irraa fiduuf
             if (!rawUrl.startsWith("http")) {
               const { data: publicUrlData } = supabaseClient.storage
                 .from("news_media")
@@ -1150,7 +1144,7 @@
             const lowerUrl = finalMediaUrl.toLowerCase();
 
             const isVideo =
-              lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$ /i) ||
+              lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) ||
               cat.includes("viidiyoo");
 
             if (isVideo) {
