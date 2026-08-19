@@ -270,11 +270,167 @@
             </p>
           </div>
         </div>
+        <div>
+          <button
+            onclick="handleHeaderAuthAction()"
+            id="authHeaderBtn"
+            class="bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow hidden"
+          >
+            Bahuu / Log out
+          </button>
+        </div>
       </div>
     </header>
 
-    <!-- Main Content / News Feed -->
-    <main class="max-w-4xl w-full mx-auto p-6 space-y-6 my-auto">
+    <!-- MAIN APP VIEW -->
+    <main
+      id="mainAppContent"
+      class="max-w-4xl w-full mx-auto p-6 space-y-6 my-auto hidden"
+    >
+      <!-- FACEBOOK STANDARD PROFILE HEADER -->
+      <div class="bg-white rounded-2xl shadow-md border overflow-hidden">
+        <!-- Cover Photo -->
+        <div class="h-48 md:h-64 bg-slate-300 relative">
+          <img
+            id="profileCoverImg"
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80"
+            alt="Cover Photo"
+            class="w-full h-full object-cover"
+          />
+          <button
+            onclick="alert('Cover photo jijjiiruuf fakkii filadhu')"
+            class="absolute bottom-4 right-4 bg-black/60 hover:bg-black/80 text-white text-xs font-semibold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5 shadow"
+          >
+            📷 Cover Jijjiiri
+          </button>
+        </div>
+
+        <!-- Profile Info Section -->
+        <div class="px-6 pb-6 relative">
+          <div
+            class="flex flex-col md:flex-row items-center md:items-end justify-between -mt-16 md:-mt-20 mb-4 gap-4"
+          >
+            <div
+              class="flex flex-col md:flex-row items-center md:items-end gap-4 text-center md:text-left"
+            >
+              <!-- Avatar -->
+              <div class="relative">
+                <div
+                  id="profileAvatarContainer"
+                  class="w-32 h-32 rounded-full border-4 border-white bg-emerald-800 text-white flex items-center justify-center font-bold text-4xl shadow-lg overflow-hidden"
+                >
+                  A
+                </div>
+                <button
+                  onclick="openEditProfileModal()"
+                  class="absolute bottom-1 right-1 bg-slate-800 hover:bg-slate-900 text-white p-2 rounded-full text-xs shadow transition"
+                  title="Proovayilii jijjiiri"
+                >
+                  ✏️
+                </button>
+              </div>
+              <!-- Name & Details -->
+              <div class="mb-1">
+                <h2
+                  id="profileDisplayName"
+                  class="text-xl md:text-2xl font-bold text-slate-800 flex items-center justify-center md:justify-start gap-1"
+                >
+                  Abdurrahmaan
+                  <span class="text-blue-500" title="Verified">✔</span>
+                </h2>
+                <p class="text-xs text-slate-500 font-medium mt-0.5">
+                  Mana Marii Dhimmoota Islaamummaa Malkaa Noonnoo
+                </p>
+                <p class="text-[11px] text-slate-400 mt-1">
+                  Gareewwan fi Hordoftoota 1.2K • Hiriyoota 480
+                </p>
+              </div>
+            </div>
+
+            <!-- Profile Action Buttons -->
+            <div class="flex items-center gap-2">
+              <button
+                onclick="openEditProfileModal()"
+                class="bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow"
+              >
+                ✏️ Proovayilii Gulaali
+              </button>
+              <button
+                onclick="alert('Story haaraan dhihaateera!')"
+                class="bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm"
+              >
+                ➕ Story Dabali
+              </button>
+            </div>
+          </div>
+
+          <!-- Profile Nav Tabs -->
+          <div
+            class="flex border-t text-xs font-semibold text-slate-600 overflow-x-auto pt-2 gap-6"
+          >
+            <button
+              class="pb-2 border-b-2 border-emerald-700 text-emerald-800 font-bold px-1"
+            >
+              Posts (Oduu)
+            </button>
+            <button class="pb-2 hover:text-slate-900 px-1">
+              About (Waa'ee)
+            </button>
+            <button class="pb-2 hover:text-slate-900 px-1">
+              Friends (Hiriyoota)
+            </button>
+            <button class="pb-2 hover:text-slate-900 px-1">
+              Photos (Suuraalee)
+            </button>
+            <button class="pb-2 hover:text-slate-900 px-1">
+              Videos (Viidiyoowwan)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST CREATION BOX -->
+      <div class="bg-white p-5 rounded-2xl shadow-md border space-y-3">
+        <h3 class="text-xs font-bold text-slate-700">
+          Waan haaraa qoodi / Post Share Godhi
+        </h3>
+        <form id="createPostForm" class="space-y-3">
+          <textarea
+            id="postContent"
+            placeholder="Maal yaadaa jirta? (What's on your mind?)"
+            class="w-full p-3 border rounded-xl text-xs outline-none focus:ring-1 focus:ring-emerald-600 resize-none h-20"
+            required
+          ></textarea>
+
+          <div class="flex justify-between items-center">
+            <div>
+              <label
+                class="cursor-pointer text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-2 rounded-lg transition inline-flex items-center gap-1.5 font-medium"
+              >
+                📷 Suuraa / Viidiyoo Filadhu
+                <input
+                  type="file"
+                  id="postMedia"
+                  accept="image/*,video/*"
+                  class="hidden"
+                />
+              </label>
+              <span
+                id="fileNameDisplay"
+                class="text-[11px] text-slate-400 ml-2"
+              ></span>
+            </div>
+            <button
+              type="submit"
+              id="postSubmitBtn"
+              class="bg-emerald-800 text-white px-5 py-2 rounded-xl text-xs font-bold hover:bg-emerald-900 transition"
+            >
+              Post Gadi Lakkisi
+            </button>
+          </div>
+        </form>
+      </div>
+
       <div id="newsContainer" class="space-y-4">
         <div
           class="flex flex-col items-center justify-center py-16 space-y-3"
@@ -289,6 +445,94 @@
         </div>
       </div>
     </main>
+
+    <!-- FULL PAGE LOGIN / SIGN UP VIEW -->
+    <div
+      id="fullPageAuth"
+      class="max-w-md w-full mx-auto p-6 my-auto flex flex-col items-center justify-center"
+    >
+      <div class="bg-white rounded-2xl w-full p-8 shadow-xl border space-y-5">
+        <div class="text-center space-y-1">
+          <h2 id="authViewTitle" class="text-xl font-bold text-slate-800">
+            Seeni (Log In)
+          </h2>
+          <p class="text-xs text-slate-500">
+            Mana Marii Dhimmoota Islaamummaa Malkaa Noonnoo
+          </p>
+        </div>
+
+        <form id="authForm" class="space-y-4">
+          <div id="signUpExtraFields" class="space-y-4 hidden">
+            <div>
+              <label class="text-xs font-bold text-slate-600"
+                >Maqaa Guutuu (Full Name)</label
+              >
+              <input
+                type="text"
+                id="authFullName"
+                placeholder="Abdurrahmaan Ahmed"
+                class="w-full p-3 border rounded-xl text-xs outline-none focus:ring-1 focus:ring-emerald-600 mt-1"
+              />
+            </div>
+            <div>
+              <label class="text-xs font-bold text-slate-600"
+                >Lakkoofsa Bilbilaa (Phone Number)</label
+              >
+              <input
+                type="tel"
+                id="authPhone"
+                placeholder="0911223344"
+                class="w-full p-3 border rounded-xl text-xs outline-none focus:ring-1 focus:ring-emerald-600 mt-1"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label class="text-xs font-bold text-slate-600"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              id="authEmail"
+              placeholder="example@gmail.com"
+              class="w-full p-3 border rounded-xl text-xs outline-none focus:ring-1 focus:ring-emerald-600 mt-1"
+              required
+            />
+          </div>
+          <div>
+            <label class="text-xs font-bold text-slate-600">Password</label>
+            <input
+              type="password"
+              id="authPassword"
+              placeholder="••••••••"
+              class="w-full p-3 border rounded-xl text-xs outline-none focus:ring-1 focus:ring-emerald-600 mt-1"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="authSubmitBtn"
+            class="w-full bg-emerald-800 text-white py-3 rounded-xl text-xs font-bold hover:bg-emerald-900 transition shadow"
+          >
+            Seeni (Log In)
+          </button>
+        </form>
+
+        <div class="text-center pt-2 border-t text-xs">
+          <span id="authToggleText" class="text-slate-500"
+            >Account hin qabdu?</span
+          >
+          <button
+            onclick="toggleAuthMode()"
+            id="authToggleBtn"
+            class="text-emerald-700 font-bold ml-1 hover:underline"
+          >
+            Asitti Uumi (Sign up)
+          </button>
+        </div>
+      </div>
+    </div>
 
     <!-- IMAGE LIGHTBOX / MODAL CONTAINER -->
     <div
@@ -329,18 +573,171 @@
       const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
       const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+      // Email Admin kee asitti galchi (Bakka kana jijjiiri)
+      const ADMIN_EMAIL = "admin@gmail.com";
+
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("open");
       }
 
-      // Functions for Opening and Closing the Image Modal
+      // --- TIME AGO FORMATTER (1s, 2s, 1m, 2m, 1hr, 2hr, 1d, 1w...) ---
+      function timeAgo(dateString) {
+        const now = new Date();
+        const past = new Date(dateString);
+        const secondsAgo = Math.floor((now - past) / 1000);
+
+        if (secondsAgo < 60) {
+          return `${Math.max(1, secondsAgo)}s`;
+        }
+        const minutesAgo = Math.floor(secondsAgo / 60);
+        if (minutesAgo < 60) {
+          return `${minutesAgo}m`;
+        }
+        const hoursAgo = Math.floor(minutesAgo / 60);
+        if (hoursAgo < 24) {
+          return `${hoursAgo}hr`;
+        }
+        const daysAgo = Math.floor(hoursAgo / 24);
+        if (daysAgo < 7) {
+          return `${daysAgo}d`;
+        }
+        const weeksAgo = Math.floor(daysAgo / 7);
+        if (weeksAgo < 4) {
+          return `${weeksAgo}w`;
+        }
+        const monthsAgo = Math.floor(daysAgo / 30);
+        if (monthsAgo < 12) {
+          return `${monthsAgo}mo`;
+        }
+        const yearsAgo = Math.floor(daysAgo / 365);
+        return `${yearsAgo}y`;
+      }
+
+      let isSignUpMode = false;
+
+      function toggleAuthMode() {
+        isSignUpMode = !isSignUpMode;
+        const title = document.getElementById("authViewTitle");
+        const submitBtn = document.getElementById("authSubmitBtn");
+        const toggleText = document.getElementById("authToggleText");
+        const toggleBtn = document.getElementById("authToggleBtn");
+        const signUpExtraFields = document.getElementById("signUpExtraFields");
+
+        if (isSignUpMode) {
+          title.textContent = "Account Uumi (Sign Up)";
+          submitBtn.textContent = "Account Uumi";
+          toggleText.textContent = "Account qabda?";
+          toggleBtn.textContent = "Seeni (Log in)";
+          signUpExtraFields.classList.remove("hidden");
+          document.getElementById("authFullName").required = true;
+          document.getElementById("authPhone").required = true;
+        } else {
+          title.textContent = "Seeni (Log In)";
+          submitBtn.textContent = "Seeni (Log In)";
+          toggleText.textContent = "Account hin qabdu?";
+          toggleBtn.textContent = "Asitti Uumi (Sign up)";
+          signUpExtraFields.classList.add("hidden");
+          document.getElementById("authFullName").required = false;
+          document.getElementById("authPhone").required = false;
+        }
+      }
+
+      document
+        .getElementById("authForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const email = document.getElementById("authEmail").value;
+          const password = document.getElementById("authPassword").value;
+          const btn = document.getElementById("authSubmitBtn");
+
+          btn.disabled = true;
+          btn.textContent = "Eegaa... / Processing...";
+
+          if (isSignUpMode) {
+            const fullName = document.getElementById("authFullName").value;
+            const phone = document.getElementById("authPhone").value;
+
+            const { data, error } = await supabaseClient.auth.signUp({
+              email,
+              password,
+              options: {
+                data: {
+                  full_name: fullName,
+                  phone: phone,
+                },
+              },
+            });
+
+            if (error) {
+              alert("Dogoggorri uumame: " + error.message);
+              btn.disabled = false;
+              btn.textContent = "Account Uumi";
+            } else {
+              if (data.user) {
+                await supabaseClient.from("profiles").upsert([
+                  {
+                    id: data.user.id,
+                    full_name: fullName,
+                    phone: phone,
+                  },
+                ]);
+              }
+              alert(
+                "Account kee milkaa'inaan uumameera! Amma seentee tajaajiluu dandeessa.",
+              );
+              location.reload();
+            }
+          } else {
+            const { data, error } =
+              await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) {
+              alert("Seensatu dhabame: " + error.message);
+              btn.disabled = false;
+              btn.textContent = "Seeni (Log In)";
+            } else {
+              alert("Milkaa'inaan seenteetta!");
+              location.reload();
+            }
+          }
+        });
+
+      async function checkUserSession() {
+        const {
+          data: { session },
+        } = await supabaseClient.auth.getSession();
+        const fullPageAuth = document.getElementById("fullPageAuth");
+        const mainAppContent = document.getElementById("mainAppContent");
+        const authHeaderBtn = document.getElementById("authHeaderBtn");
+
+        if (session) {
+          fullPageAuth.classList.add("hidden");
+          mainAppContent.classList.remove("hidden");
+          authHeaderBtn.classList.remove("hidden");
+          authHeaderBtn.textContent = "Bahuu / Log out";
+
+          fetchNews();
+        } else {
+          fullPageAuth.classList.remove("hidden");
+          mainAppContent.classList.add("hidden");
+          authHeaderBtn.classList.add("hidden");
+        }
+      }
+
+      async function handleHeaderAuthAction() {
+        await supabaseClient.auth.signOut();
+        alert("Milkaa'inaan baateetta!");
+        location.reload();
+      }
+
+      checkUserSession();
+
       function openImageModal(imgSrc) {
         const modal = document.getElementById("imageModal");
         const modalImg = document.getElementById("modalImage");
         modalImg.src = imgSrc;
         modal.classList.remove("hidden");
-        document.body.style.overflow = "hidden"; // Scroll duuba akka dhaabbatu godha
+        document.body.style.overflow = "hidden";
       }
 
       function closeImageModal() {
@@ -348,6 +745,83 @@
         modal.classList.add("hidden");
         document.body.style.overflow = "auto";
       }
+
+      document.getElementById("postMedia").addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          document.getElementById("fileNameDisplay").textContent = file.name;
+        }
+      });
+
+      document
+        .getElementById("createPostForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const {
+            data: { session },
+          } = await supabaseClient.auth.getSession();
+          if (!session) {
+            alert("Mee dura account keetiin seeni!");
+            location.reload();
+            return;
+          }
+
+          const submitBtn = document.getElementById("postSubmitBtn");
+          submitBtn.textContent = "Fe'amaa jira... / Uploading...";
+          submitBtn.disabled = true;
+
+          const content = document.getElementById("postContent").value;
+          const mediaFile = document.getElementById("postMedia").files[0];
+          let mediaUrl = null;
+
+          try {
+            if (mediaFile) {
+              const fileExt = mediaFile.name.split(".").pop();
+              const fileName = `${Date.now()}.${fileExt}`;
+              const filePath = `${fileName}`;
+
+              const { error: uploadError } = await supabaseClient.storage
+                .from("news_media")
+                .upload(filePath, mediaFile);
+
+              if (uploadError) {
+                throw new Error(
+                  "Faayiliin fe'amuu hin danda'e: " + uploadError.message,
+                );
+              }
+              mediaUrl = filePath;
+            }
+
+            const { error: insertError } = await supabaseClient
+              .from("daily_news")
+              .insert([
+                {
+                  title: content.substring(0, 40) + "...",
+                  content: content,
+                  category: mediaFile ? "Suuraa" : "Barreeffama",
+                  media_url: mediaUrl,
+                  likes_count: 0,
+                  comments_count: 0,
+                  shares_count: 0,
+                  user_id: session.user.id,
+                },
+              ]);
+
+            if (insertError) {
+              throw new Error(
+                "Post godhuu hin danda'amne: " + insertError.message,
+              );
+            }
+
+            alert("Postin kee milkaa'inaan gadi lakkifameera!");
+            location.reload();
+          } catch (err) {
+            alert(err.message);
+            submitBtn.textContent = "Post Gadi Lakkisi";
+            submitBtn.disabled = false;
+          }
+        });
 
       async function handleLike(newsId, btnElement) {
         let likesKey = `news_liked_${newsId}`;
@@ -541,27 +1015,67 @@
         if (box) box.classList.toggle("hidden");
       }
 
+      async function openEditProfileModal(userId, currentName) {
+        const {
+          data: { session },
+        } = await supabaseClient.auth.getSession();
+
+        if (!session) {
+          alert("Mee dura account keetiin seeni!");
+          return;
+        }
+
+        const newName = prompt(
+          "Maqaa jijjiiruu barbaaddu galchi (Enter your new full name):",
+          currentName,
+        );
+        if (!newName || newName.trim() === "") return;
+
+        const { error } = await supabaseClient
+          .from("profiles")
+          .update({ full_name: newName.trim() })
+          .eq("id", session.user.id);
+
+        if (error) {
+          alert("Dogoggorri uumame: " + error.message);
+        } else {
+          alert("Maqaankee milkaa'inaan jijjiirameera!");
+          location.reload();
+        }
+      }
+
       async function fetchNews() {
         const container = document.getElementById("newsContainer");
 
-        const { data, error } = await supabaseClient
+        const { data: newsData, error: newsError } = await supabaseClient
           .from("daily_news")
           .select("*")
           .order("id", { ascending: false });
 
-        if (error) {
-          container.innerHTML = `<p class="text-red-500 text-center">Dogoggorri uumame: ${error.message} / ስህተት ተፈጥሯል</p>`;
+        if (newsError) {
+          container.innerHTML = `<p class="text-red-500 text-center">Dogoggorri uumame: ${newsError.message}</p>`;
           return;
         }
 
-        if (!data || data.length === 0) {
-          container.innerHTML = `<p class="text-center text-slate-500 py-10">Oduun yeroo ammaa hin jiru. / በአሁኑ ጊዜ ምንም ዜና የለም።</p>`;
+        if (!newsData || newsData.length === 0) {
+          container.innerHTML = `<p class="text-center text-slate-500 py-10">Oduun yeroo ammaa hin jiru.</p>`;
           return;
+        }
+
+        const { data: profilesData } = await supabaseClient
+          .from("profiles")
+          .select("*");
+
+        const profilesMap = {};
+        if (profilesData) {
+          profilesData.forEach((p) => {
+            profilesMap[p.id] = p;
+          });
         }
 
         container.innerHTML = "";
 
-        for (let news of data) {
+        for (let news of newsData) {
           let mediaElement = "";
 
           if (news.media_url) {
@@ -581,20 +1095,14 @@
             const cat = (news.category || "").toLowerCase();
             const lowerUrl = finalMediaUrl.toLowerCase();
 
-            if (
-              lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) ||
-              cat.includes("viidiyoo")
-            ) {
+            const isVideo =
+              lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$ /i) ||
+              cat.includes("viidiyoo");
+
+            if (isVideo) {
               mediaElement = `<div class="w-full bg-black rounded-xl mt-3 overflow-hidden shadow-sm aspect-video"><video src="${finalMediaUrl}" controls preload="metadata" class="w-full h-full object-contain block">Your browser does not support the video tag.</video></div>`;
-            } else if (
-              lowerUrl.match(/\.(mp3|wav|m4a|aac)(\?.*)?$/i) ||
-              cat.includes("sagalee") ||
-              cat.includes("music")
-            ) {
-              mediaElement = `<div class="w-full mt-3"><audio src="${finalMediaUrl}" controls preload="metadata" class="w-full">Your browser does not support the audio element.</audio></div>`;
             } else {
-              // As irratti suuraan dandeettii 'cursor-pointer' fi 'onclick' argateera akka inni tuqamuun guddatu
-              mediaElement = `<div class="w-full bg-slate-100 rounded-xl mt-3 overflow-hidden shadow-sm flex items-center justify-center"><img src="${finalMediaUrl}" onclick="openImageModal('${finalMediaUrl}')" class="w-full h-auto max-h-[400px] object-contain block mx-auto cursor-pointer hover:opacity-95 transition" alt="News Image" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<p class=\'text-xs text-red-500 p-4 text-center\'>Fakkichi fe\'amuu hin danda\'e / ፎቶው መጫን አልቻለም</p>';"></div>`;
+              mediaElement = `<div class="w-full bg-slate-100 rounded-xl mt-3 overflow-hidden shadow-sm flex items-center justify-center"><img src="${finalMediaUrl}" onclick="openImageModal('${finalMediaUrl}')" class="w-full h-auto max-h-[400px] object-contain block mx-auto cursor-pointer hover:opacity-95 transition" alt="News Image" loading="lazy"></div>`;
             }
           }
 
@@ -661,9 +1169,44 @@
           const commentsCount = news.comments_count || 0;
           const sharesCount = news.shares_count || 0;
 
+          const userProfile = profilesMap[news.user_id];
+          const authorName =
+            (userProfile && userProfile.full_name) || "Abdurrahmaan";
+          const authorEmail =
+            userProfile && userProfile.email ? userProfile.email : "";
+
+          const isUserAdmin =
+            authorEmail === ADMIN_EMAIL ||
+            (userProfile && userProfile.is_admin);
+          const verifiedBadge = isUserAdmin
+            ? `<span class="text-blue-500 text-xs" title="Admin Verified">✔</span>`
+            : "";
+
+          const authorInitial = authorName.charAt(0).toUpperCase();
+          const avatarHtml =
+            userProfile && userProfile.avatar_url
+              ? `<img src="${userProfile.avatar_url}" class="w-10 h-10 rounded-full object-cover shadow" />`
+              : `<div class="w-10 h-10 rounded-full bg-emerald-800 text-white flex items-center justify-center font-bold text-sm shadow">${authorInitial}</div>`;
+
+          const postTimeFormatted = news.created_at
+            ? timeAgo(news.created_at)
+            : "";
+
           const card = `
             <div class="bg-white p-5 rounded-2xl shadow-md border space-y-3">
-              <h2 class="text-lg font-bold text-slate-800">${news.title || ""}</h2>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  ${avatarHtml}
+                  <div>
+                    <h3 onclick="openEditProfileModal('${news.user_id}', '${authorName}')" class="font-bold text-sm text-slate-800 flex items-center gap-1 cursor-pointer hover:underline" title="Maqaa jijjiiruf tuqi">
+                      ${authorName}
+                      ${verifiedBadge}
+                    </h3>
+                    <p class="text-[11px] text-slate-400">${postTimeFormatted} • 🌍</p>
+                  </div>
+                </div>
+              </div>
+
               <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">${news.content || ""}</p>
               ${mediaElement}
 
@@ -707,8 +1250,6 @@
           container.innerHTML += card;
         }
       }
-
-      fetchNews();
     </script>
   </body>
 </html>
