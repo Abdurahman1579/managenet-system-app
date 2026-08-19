@@ -31,7 +31,6 @@
         color: var(--text-color);
         min-height: 100vh;
       }
-      /* Page Wrapper to unify Header and Content seamlessly with one color */
       .page-wrapper {
         max-width: 80rem;
         margin: 0 auto;
@@ -40,11 +39,12 @@
         display: flex;
         flex-direction: column;
       }
-      /* Header & Hamburger Menu */
+
+      /* Header Modern & Mobile-Friendly */
       header.main-header {
         background: var(--primary);
         color: white;
-        padding: 1.2rem 1.5rem;
+        padding: 0.8rem 1rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -52,32 +52,42 @@
         top: 0;
         z-index: 900;
         width: 100%;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      .brand {
+        display: flex;
+        flex-direction: column;
+        max-width: 65%; /* Akka walitti hin buune mobile irratti */
       }
       .brand h1 {
-        font-size: 1.1rem;
+        font-size: 0.95rem;
         font-weight: bold;
+        line-height: 1.2;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .brand span {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
         color: var(--accent);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-
-      /* Header Right Actions (Language Dropdown & Hamburger) */
       .header-actions {
         display: flex;
         align-items: center;
-        gap: 1rem;
+        gap: 0.5rem;
       }
-
       .menu-toggle {
-        background: none;
-        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         color: white;
-        font-size: 1.6rem;
+        font-size: 1.3rem;
         cursor: pointer;
+        padding: 0.3rem 0.6rem;
+        border-radius: 6px;
       }
-
-      /* Language Dropdown Styling inside Header */
       .lang-dropdown {
         position: relative;
         display: inline-block;
@@ -86,13 +96,13 @@
         background: rgba(255, 255, 255, 0.15);
         color: white;
         border: 1px solid rgba(255, 255, 255, 0.3);
-        padding: 0.4rem 0.8rem;
+        padding: 0.35rem 0.6rem;
         border-radius: 6px;
         cursor: pointer;
-        font-size: 0.85rem;
+        font-size: 0.75rem;
         display: flex;
         align-items: center;
-        gap: 0.4rem;
+        gap: 0.3rem;
         transition: background 0.2s;
       }
       .lang-btn:hover {
@@ -103,7 +113,7 @@
         right: 0;
         top: 115%;
         background: white;
-        min-width: 130px;
+        min-width: 120px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         border-radius: 6px;
         overflow: hidden;
@@ -114,10 +124,10 @@
       }
       .lang-menu a {
         display: block;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.8rem;
         color: var(--text-color);
         text-decoration: none;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         transition: background 0.2s;
       }
       .lang-menu a:hover {
@@ -125,12 +135,12 @@
         color: var(--primary);
       }
 
-      /* Sidebar Drawer */
+      /* Sidebar & Drawer */
       .sidebar {
         position: fixed;
         top: 0;
         left: -320px;
-        width: 320px;
+        width: 290px;
         height: 100%;
         background: var(--card-bg);
         box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
@@ -139,7 +149,7 @@
           transform 0.3s ease-in-out,
           left 0.3s ease-in-out;
         transform: translateX(-100%);
-        padding: 1.5rem 1rem;
+        padding: 1.2rem 0.8rem;
         overflow-y: auto;
       }
       .sidebar.open,
@@ -151,41 +161,41 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 1.2rem;
+        margin-bottom: 1rem;
         border-bottom: 1px solid var(--border-color);
-        padding-bottom: 0.8rem;
+        padding-bottom: 0.6rem;
       }
       .sidebar-header h3 {
         color: var(--primary);
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
       .close-btn {
         background: none;
         border: none;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         cursor: pointer;
         color: var(--text-color);
       }
       .sidebar-section-title {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
         text-transform: uppercase;
         color: #888;
-        margin: 1rem 0 0.4rem 0.5rem;
+        margin: 0.8rem 0 0.3rem 0.4rem;
         font-weight: 700;
       }
       .sidebar ul {
         list-style: none;
       }
       .sidebar li {
-        margin-bottom: 0.4rem;
+        margin-bottom: 0.3rem;
       }
       .sidebar a {
         display: block;
-        padding: 0.6rem 0.8rem;
+        padding: 0.5rem 0.7rem;
         color: var(--primary);
         text-decoration: none;
         font-weight: 600;
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         border-radius: 6px;
         background: #f8f9fa;
         transition:
@@ -213,15 +223,37 @@
       .overlay.active {
         display: block;
       }
+
+      /* Screen gurguddoo irratti akkamitti akka mul'atu (Desktop Optimization) */
+      @media (min-width: 640px) {
+        header.main-header {
+          padding: 1.2rem 1.5rem;
+        }
+        .brand h1 {
+          font-size: 1.15rem;
+          white-space: normal;
+        }
+        .brand span {
+          font-size: 0.8rem;
+          white-space: normal;
+        }
+        .brand {
+          max-width: 75%;
+        }
+        .lang-btn {
+          padding: 0.4rem 0.8rem;
+          font-size: 0.85rem;
+        }
+        .sidebar {
+          width: 320px;
+        }
+      }
     </style>
   </head>
   <body class="min-h-screen text-slate-800">
-    <!-- Overlay -->
     <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- Page Wrapper to unify Header and Content with One Color -->
     <div class="page-wrapper">
-      <!-- Header with Brand, Language Dropdown, and Hamburger Menu -->
       <header class="main-header">
         <div class="brand">
           <h1 id="headerMainTitle">Lakkoofsa Muslimoota Malkaa Noonnoo</h1>
@@ -231,7 +263,6 @@
         </div>
 
         <div class="header-actions">
-          <!-- Jijjiirraa Afaanii (Dropdown Menu Style moved to Header) -->
           <div class="lang-dropdown">
             <button class="lang-btn" onclick="toggleLangMenu()">
               <span id="currentLangText">A/Oromoo</span> ▾
@@ -245,7 +276,6 @@
             </div>
           </div>
 
-          <!-- Hamburger Menu Toggle Button -->
           <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
         </div>
       </header>
@@ -253,7 +283,7 @@
       <!-- Sidebar Menu Drawer -->
       <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-          <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+          <h3 id="sidebarHeaderTitle">Faayiloota Hunda / ሁሉም ፋይሎች</h3>
           <button class="close-btn" onclick="toggleSidebar()">✕</button>
         </div>
 
@@ -264,13 +294,13 @@
               class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
             >
               <span>ODEEFFANNOO MANA MARICHAA</span>
-              <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+              <span class="am text-slate-500 text-xs">የምክር ቤቱ መረጃ</span>
             </a>
           </li>
           <li>
             <a href="sector-index.html">
               📂 Muummee Seektarootaa
-              <span class="am">የሴክተሮች ዋና ገጽ</span>
+              <span class="am text-xs block text-slate-500">የሴክተሮች ዋና ገጽ</span>
             </a>
           </li>
         </ul>
@@ -280,76 +310,100 @@
         </div>
         <ul>
           <li>
-            <a href="finance-sector.html">
-              💰 Seektara Maallaqaa (Ibsa)
-              <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="finance-sector.html"
+              >💰 Seektara Maallaqaa (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የፋይናንስ ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="finance-register.html">
-              📝 Galmee Seektara Maallaqaa
-              <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="finance-register.html"
+              >📝 Galmee Seektara Maallaqaa
+              <span class="am block text-xs text-slate-500"
+                >የፋይናንስ ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
           <li>
-            <a href="youth-sector.html">
-              👥 Seektara Dargaggoo (Ibsa)
-              <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="youth-sector.html"
+              >👥 Seektara Dargaggoo (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የወጣቶች ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="youth-register.html">
-              📝 Galmee Seektara Dargaggoo
-              <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="youth-register.html"
+              >📝 Galmee Seektara Dargaggoo
+              <span class="am block text-xs text-slate-500"
+                >የወጣቶች ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
           <li>
-            <a href="women-sector.html">
-              👩 Seektara Dubartootaa (Ibsa)
-              <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="women-sector.html"
+              >👩 Seektara Dubartootaa (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የሴቶች ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="women-register.html">
-              📝 Galmee Seektara Dubartootaa
-              <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="women-register.html"
+              >📝 Galmee Seektara Dubartootaa
+              <span class="am block text-xs text-slate-500"
+                >የሴቶች ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
           <li>
-            <a href="ulama-sector.html">
-              📖 Seektara Ulamaa (Ibsa)
-              <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="ulama-sector.html"
+              >📖 Seektara Ulamaa (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የኡለማዎች ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="ulama-register.html">
-              📝 Galmee Seektara Ulamaa
-              <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="ulama-register.html"
+              >📝 Galmee Seektara Ulamaa
+              <span class="am block text-xs text-slate-500"
+                >የኡለማዎች ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
           <li>
-            <a href="masjid-sector.html">
-              🕌 Seektara Masjiidaa (Ibsa)
-              <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="masjid-sector.html"
+              >🕌 Seektara Masjiidaa (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የመስጂዶች ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="masjid-register.html">
-              📝 Galmee Seektara Masjiidaa
-              <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="masjid-register.html"
+              >📝 Galmee Seektara Masjiidaa
+              <span class="am block text-xs text-slate-500"
+                >የመስጂዶች ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
           <li>
-            <a href="madrasa-sector.html">
-              📚 Seektara Madrasaa (Ibsa)
-              <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
-            </a>
+            <a href="madrasa-sector.html"
+              >📚 Seektara Madrasaa (Ibsa)
+              <span class="am block text-xs text-slate-500"
+                >የመድረሳዎች ዘርፍ (መግለጫ)</span
+              ></a
+            >
           </li>
           <li>
-            <a href="madrasa-register.html">
-              📝 Galmee Seektara Madrasaa
-              <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
-            </a>
+            <a href="madrasa-register.html"
+              >📝 Galmee Seektara Madrasaa
+              <span class="am block text-xs text-slate-500"
+                >የመድረሳዎች ዘርፍ ምዝገባ</span
+              ></a
+            >
           </li>
         </ul>
 
@@ -358,54 +412,52 @@
         </div>
         <ul>
           <li>
-            <a href="gali-basi.html">
-              Fuula Galii Fi Baasii
-              <span class="am">የገቢ እና ወጪ ገጽ</span>
-            </a>
+            <a href="gali-basi.html"
+              >Fuula Galii Fi Baasii
+              <span class="am block text-xs text-slate-500"
+                >የገቢ እና ወጪ ገጽ</span
+              ></a
+            >
           </li>
           <li>
             <a
               href="donation-index.html"
               class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+              ><span>Fuula Grgaarsaa</span
+              ><span class="am text-slate-500 text-xs">የድጋፍ ገጽ</span></a
             >
-              <span>Fuula Grgaarsaa</span>
-              <span class="am text-slate-500">የድጋፍ ገጽ</span>
-            </a>
           </li>
           <li>
-            <a href="donation-admin.html">
-              ⚙️ Donation Admin
-              <span class="am">የድጋፍ አስተዳደር</span>
-            </a>
-          </li>
-          <li>
-            <a href="finance-admin.html">
-              📊 Finance Admin
-              <span class="am">የፋይናንስ አስተዳደር</span>
-            </a>
-          </li>
-          <li>
-            <a href="register-sector-admin.html" class="admin-link">
-              📈 Register Sector Admin (Excel)
-              <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
-            </a>
-          </li>
-          <li>
-            <a
-              href="news-admin.html"
-              class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+            <a href="donation-admin.html"
+              >⚙️ Donation Admin
+              <span class="am block text-xs text-slate-500"
+                >የድጋፍ አስተዳደር</span
+              ></a
             >
-              <span>---</span>
-            </a>
+          </li>
+          <li>
+            <a href="finance-admin.html"
+              >📊 Finance Admin
+              <span class="am block text-xs text-slate-500"
+                >የፋይናንስ አስተዳደር</span
+              ></a
+            >
+          </li>
+          <li>
+            <a href="register-sector-admin.html" class="admin-link"
+              >📈 Register Sector Admin (Excel)
+              <span class="am block text-xs text-slate-500"
+                >የዘርፍ ምዝገባ አስተዳደር</span
+              ></a
+            >
           </li>
         </ul>
       </div>
 
-      <!-- Main Container Content -->
       <div
         class="container max-w-7xl mx-auto p-4 md:p-6 w-full space-y-6 flex-grow"
       >
-        <!-- Barreeffama Barbaachisummaa Lakkoofsa Muslimaa -->
+        <!-- Content Sections -->
         <div id="introSection" class="intro-box">
           <h2 id="mainTitle">
             Lakkoofsa Muslimoota Kutaa Magaalaa Malkaa Noonnoo
@@ -418,7 +470,6 @@
           </p>
         </div>
 
-        <!-- Buttoonni 6 -->
         <div id="menuButtons" class="menu-grid">
           <button class="menu-btn" onclick="openRegistration()" id="btn1">
             Daataa lakkoofsa muslimtoota kutaa magaalaa malkaa noonnoo haaraa
@@ -449,7 +500,6 @@
           </button>
         </div>
 
-        <!-- Formii Galmee -->
         <form id="registrationForm" class="hidden">
           <button
             type="button"
@@ -460,11 +510,8 @@
             ← Deebi'i / Back
           </button>
           <h3 id="formTitle">Galmee Daataa Haaraa</h3>
-
-          <!-- Error Warning Message Area -->
           <div id="formErrorMsg" class="error-msg hidden"></div>
 
-          <!-- 1. Aanaa Filachuu -->
           <label id="lblAanaa" for="aanaa">Aanaa Filadhu:</label>
           <select
             id="aanaa"
@@ -480,7 +527,6 @@
             <option value="noonnoo">Aanaa Noonnoo /ኖኖ ወረዳ</option>
           </select>
 
-          <!-- 2. Bara Galmee (E.C) -->
           <label id="lblBara" for="bara">Bara Galmee (E.C):</label>
           <select id="bara" name="bara" required onchange="validateField(this)">
             <option value="">-- Bara Filadhu / ዓመት ይምረጡ --</option>
@@ -489,7 +535,6 @@
             <option value="2020">2020</option>
           </select>
 
-          <!-- Maqaa Guutuu -->
           <label id="lblMaqaa" for="maqaa">Maqaa Guutuu:</label>
           <input
             type="text"
@@ -500,7 +545,6 @@
             oninput="validateField(this)"
           />
 
-          <!-- Saala -->
           <label id="lblSaala" for="saala">Saala:</label>
           <select
             id="saala"
@@ -513,7 +557,6 @@
             <option value="dhalaa">Dhalaa / ሴት / Female</option>
           </select>
 
-          <!-- Umrii -->
           <label id="lblUmrii" for="umrii">Umrii:</label>
           <input
             type="number"
@@ -524,7 +567,6 @@
             oninput="validateField(this)"
           />
 
-          <!-- Lakkoofsa Bilbilaa -->
           <label id="lblBilbila" for="bilbila">Lakkoofsa Bilbilaa:</label>
           <input
             type="tel"
@@ -534,7 +576,6 @@
             oninput="validateField(this)"
           />
 
-          <!-- Ganda / Gooxii -->
           <label id="lblGooxii" for="gooxii">Ganda / Gooxii:</label>
           <input
             type="text"
@@ -545,7 +586,6 @@
             oninput="validateField(this)"
           />
 
-          <!-- Masjida Itti Dhihaatu -->
           <label id="lblMasjida" for="masjida"
             >Masjida Itti Dhihaatu / Hordofan:</label
           >
@@ -558,7 +598,6 @@
             oninput="validateField(this)"
           />
 
-          <!-- Baay'ina Miseensa Maatii: Dhiiraa fi Dhalaa -->
           <label id="lblMaatiiDhiira" for="maatiiDhiira"
             >Baay'ina Miseensa Maatii (Dhiira):</label
           >
@@ -595,7 +634,6 @@
             <option value="6">6ti ol / ከ 6 በላይ</option>
           </select>
 
-          <!-- Sadarkaa Barnootaa -->
           <label id="lblBarnoota" for="barnoota"
             >Sadarkaa Barnootaa (Ammayyaa / Diinii):</label
           >
@@ -630,14 +668,12 @@
             </option>
           </select>
 
-          <!-- Submit Button with Spinner Container -->
           <button type="submit" id="btnSubmit">
             <span id="btnText">Galmeessi</span>
             <span id="loadingSpinner" class="spinner hidden"></span>
           </button>
         </form>
 
-        <!-- Iddoo Gabaasaa -->
         <div id="reportSection" class="hidden">
           <button
             type="button"
@@ -656,15 +692,14 @@
     <script>
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
         sidebar.classList.toggle("open");
+        overlay.classList.toggle("active");
       }
-
       function toggleLangMenu() {
         const langMenu = document.getElementById("langMenu");
         langMenu.classList.toggle("hidden");
       }
-
-      // Close language menu when clicking outside
       window.addEventListener("click", function (e) {
         if (!e.target.closest(".lang-dropdown")) {
           const langMenu = document.getElementById("langMenu");

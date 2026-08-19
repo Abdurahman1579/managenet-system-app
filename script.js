@@ -5,6 +5,8 @@ const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
 const translations = {
   om: {
+    headerMainTitle: "Lakkoofsa Muslimoota Malkaa Noonnoo",
+    headerSubTitle: "Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo",
     mainTitle: "Lakkoofsa Muslimoota Kutaa Magaalaa Malkaa Noonnoo",
     introText:
       "Lakkoofsa muslimoota beekuun diinaaf, hawaasaaf, karoora misoomaaf, gargaarsa waloo fi tokkummaa hawaasaa cimsuuf shoora olaanaa qaba. Ragaa sirrii qabaachuun deeggarsa sirrii kennuuf nu dandeessisa.",
@@ -32,6 +34,8 @@ const translations = {
       "Maaloo osoo saanduuqoota dursanii jiran hin guutin gara isa itti aanutti hin darbin! Maaloo dura saanduuqa kana guuti.",
   },
   am: {
+    headerMainTitle: "የመልካ ኖኖ ክፍለ ከተማ ሙስሊሞች ቆጠራ",
+    headerSubTitle: "የመልካ ኖኖ ክፍለ ከተማ እስልምና ጉዳዮች ምክር ቤት",
     mainTitle: "የመልካ ኖኖ ክፍለ ከተማ ሙስሊሞች ቆጠራ",
     introText:
       "የሙስሊሞችን ቁጥር ማወቅ ለህብረተሰቡ እድገት፣ ለልማት እቅድ እና ለአብሮነት ትልቅ ሚና አለው። ትክክለኛ መረጃ መኖሩ ተገቢውን ድጋፍ ለማድረግ ያስችላል።",
@@ -59,6 +63,8 @@ const translations = {
       "እባክዎ ቀድመው ያሉትን ሳጥኖች ሳይሞሉ ወደሚቀጥለው አይሂዱ! እባክዎ መጀመሪያ ይህንን ሳጥን ይሙሉ አብረው ያስገቡ።",
   },
   en: {
+    headerMainTitle: "Malkaa Noonnoo Sub-City Muslim Population",
+    headerSubTitle: "Malkaa Noonnoo Sub-City Islamic Affairs Supreme Council",
     mainTitle: "Malkaa Noonnoo Sub-City Muslim Population Census",
     introText:
       "Knowing the Muslim population plays a vital role in community planning, development, and strengthening unity. Accurate data ensures proper support and resources.",
@@ -89,7 +95,6 @@ const translations = {
 
 let currentLang = "om";
 
-// --- LANGUAGE SWITCH DROPDOWN FUNCTIONS ---
 function toggleLangMenu() {
   const menu = document.getElementById("langMenu");
   if (menu) menu.classList.toggle("hidden");
@@ -106,7 +111,6 @@ function selectLanguage(langCode, langDisplayName) {
   changeLanguage(langCode);
 }
 
-// Yoo iddoo biraa cuqaasan menuun akka cufamu
 window.onclick = function (event) {
   if (
     !event.target.matches(".lang-btn") &&
@@ -126,6 +130,10 @@ function changeLanguage(lang) {
     const el = document.getElementById(id);
     if (el) el.innerText = text;
   };
+
+  // Mata-duree gubbaa (Header)
+  safeSetText("headerMainTitle", translations[lang].headerMainTitle);
+  safeSetText("headerSubTitle", translations[lang].headerSubTitle);
 
   safeSetText("mainTitle", translations[lang].mainTitle);
   safeSetText("introText", translations[lang].introText);
@@ -160,7 +168,6 @@ function openRegistration() {
   clearFormValidation();
 }
 
-// --- SEQUENTIAL FIELD VALIDATION LOGIC ---
 const formFields = [
   "aanaa",
   "bara",
@@ -226,7 +233,6 @@ function clearFormValidation() {
   }
 }
 
-// --- SHOW REPORT FUNCTION ---
 async function showReport(type) {
   document.getElementById("introSection").classList.add("hidden");
   document.getElementById("menuButtons").classList.add("hidden");
@@ -323,7 +329,6 @@ function goBackToMenu() {
   clearFormValidation();
 }
 
-// --- AUTOMATIC EVENT ATTACHMENT FOR STRICT SEQUENTIAL VALIDATION ---
 document.addEventListener("DOMContentLoaded", function () {
   formFields.forEach((fieldId) => {
     const el = document.getElementById(fieldId);
@@ -341,7 +346,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-// --- SUPABASE DATA INSERTION WITH LOADING SPINNER ---
 const regForm = document.getElementById("registrationForm");
 if (regForm) {
   regForm.addEventListener("submit", async function (e) {
