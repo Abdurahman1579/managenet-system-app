@@ -42,7 +42,7 @@ const translations = {
     btn5: "አጠቃላይ የክ/ከተማው ሙስሊሞች ብዛት በወንድ እና ሴት / Walii Galaa",
     btn6: "አጠቃላይ የክ/ከተማው ሙስሊሞች ድምር ብዛት / Ida'ama Walii Galaa",
     lblAanaa: "ወረዳ ይምረጡ / Aanaa Filadhu:",
-    lblBara: "የቆጠራ ዓመት / Bara Galmee:", // <--- Jijjiirameera
+    lblBara: "የቆጠራ ዓመት / Bara Galmee:",
     lblMaqaa: "ሙሉ ስም / Maqaa Guutuu:",
     lblSaala: "ጾታ / Saala:",
     lblUmrii: "ዕድሜ / Umrii:",
@@ -92,13 +92,17 @@ let currentLang = "om";
 // --- LANGUAGE SWITCH DROPDOWN FUNCTIONS ---
 function toggleLangMenu() {
   const menu = document.getElementById("langMenu");
-  menu.classList.toggle("hidden");
+  if (menu) menu.classList.toggle("hidden");
 }
 
 function selectLanguage(langCode, langDisplayName) {
   currentLang = langCode;
-  document.getElementById("currentLangText").innerText = langDisplayName;
-  document.getElementById("langMenu").classList.add("hidden");
+  const langTextEl = document.getElementById("currentLangText");
+  if (langTextEl) langTextEl.innerText = langDisplayName;
+
+  const menu = document.getElementById("langMenu");
+  if (menu) menu.classList.add("hidden");
+
   changeLanguage(langCode);
 }
 
@@ -117,35 +121,35 @@ window.onclick = function (event) {
 
 function changeLanguage(lang) {
   currentLang = lang;
-  document.getElementById("mainTitle").innerText = translations[lang].mainTitle;
-  document.getElementById("introText").innerText = translations[lang].introText;
-  document.getElementById("btn1").innerText = translations[lang].btn1;
-  document.getElementById("btn2").innerText = translations[lang].btn2;
-  document.getElementById("btn3").innerText = translations[lang].btn3;
-  document.getElementById("btn4").innerText = translations[lang].btn4;
-  document.getElementById("btn5").innerText = translations[lang].btn5;
-  document.getElementById("btn6").innerText = translations[lang].btn6;
-  document.getElementById("lblAanaa").innerText = translations[lang].lblAanaa;
-  document.getElementById("lblBara").innerText = translations[lang].lblBara;
-  document.getElementById("lblMaqaa").innerText = translations[lang].lblMaqaa;
-  document.getElementById("lblSaala").innerText = translations[lang].lblSaala;
-  document.getElementById("lblUmrii").innerText = translations[lang].lblUmrii;
-  document.getElementById("lblBilbila").innerText =
-    translations[lang].lblBilbila;
-  document.getElementById("lblGooxii").innerText = translations[lang].lblGooxii;
-  document.getElementById("lblMasjida").innerText =
-    translations[lang].lblMasjida;
-  document.getElementById("lblMaatiiDhiira").innerText =
-    translations[lang].lblMaatiiDhiira;
-  document.getElementById("lblMaatiiDhalaa").innerText =
-    translations[lang].lblMaatiiDhalaa;
-  document.getElementById("lblBarnoota").innerText =
-    translations[lang].lblBarnoota;
-  document.getElementById("btnText").innerText = translations[lang].btnSubmit;
-  document.getElementById("formTitle").innerText = translations[lang].formTitle;
-  document.getElementById("btnBack").innerText = translations[lang].btnBack;
-  document.getElementById("btnBackReport").innerText =
-    translations[lang].btnBack;
+
+  const safeSetText = (id, text) => {
+    const el = document.getElementById(id);
+    if (el) el.innerText = text;
+  };
+
+  safeSetText("mainTitle", translations[lang].mainTitle);
+  safeSetText("introText", translations[lang].introText);
+  safeSetText("btn1", translations[lang].btn1);
+  safeSetText("btn2", translations[lang].btn2);
+  safeSetText("btn3", translations[lang].btn3);
+  safeSetText("btn4", translations[lang].btn4);
+  safeSetText("btn5", translations[lang].btn5);
+  safeSetText("btn6", translations[lang].btn6);
+  safeSetText("lblAanaa", translations[lang].lblAanaa);
+  safeSetText("lblBara", translations[lang].lblBara);
+  safeSetText("lblMaqaa", translations[lang].lblMaqaa);
+  safeSetText("lblSaala", translations[lang].lblSaala);
+  safeSetText("lblUmrii", translations[lang].lblUmrii);
+  safeSetText("lblBilbila", translations[lang].lblBilbila);
+  safeSetText("lblGooxii", translations[lang].lblGooxii);
+  safeSetText("lblMasjida", translations[lang].lblMasjida);
+  safeSetText("lblMaatiiDhiira", translations[lang].lblMaatiiDhiira);
+  safeSetText("lblMaatiiDhalaa", translations[lang].lblMaatiiDhalaa);
+  safeSetText("lblBarnoota", translations[lang].lblBarnoota);
+  safeSetText("btnText", translations[lang].btnSubmit);
+  safeSetText("formTitle", translations[lang].formTitle);
+  safeSetText("btnBack", translations[lang].btnBack);
+  safeSetText("btnBackReport", translations[lang].btnBack);
 }
 
 function openRegistration() {
@@ -178,7 +182,7 @@ function validateField(changedElement) {
     const fieldId = formFields[i];
     const el = document.getElementById(fieldId);
 
-    if (el.hasAttribute("required")) {
+    if (el && el.hasAttribute("required")) {
       const val = el.value ? el.value.trim() : "";
       if (!val) {
         firstUnfilledIndex = i;
@@ -191,21 +195,19 @@ function validateField(changedElement) {
 
   if (firstUnfilledIndex !== -1 && changedIndex > firstUnfilledIndex) {
     const unfilledEl = document.getElementById(formFields[firstUnfilledIndex]);
-    unfilledEl.classList.add("input-error");
+    if (unfilledEl) unfilledEl.classList.add("input-error");
 
-    if (changedElement.tagName === "SELECT") {
-      changedElement.value = "";
-    } else {
-      changedElement.value = "";
-    }
+    changedElement.value = "";
     changedElement.classList.add("input-error");
 
-    errorBox.innerText = translations[currentLang].warningMsg;
-    errorBox.classList.remove("hidden");
-    unfilledEl.focus();
+    if (errorBox && translations[currentLang]) {
+      errorBox.innerText = translations[currentLang].warningMsg;
+      errorBox.classList.remove("hidden");
+    }
+    if (unfilledEl) unfilledEl.focus();
   } else {
     changedElement.classList.remove("input-error");
-    if (firstUnfilledIndex === -1) {
+    if (firstUnfilledIndex === -1 && errorBox) {
       errorBox.classList.add("hidden");
       errorBox.innerText = "";
     }
@@ -249,10 +251,12 @@ async function showReport(type) {
       let sumDhiira = 0;
       let sumDhalaa = 0;
 
-      data.forEach((row) => {
-        sumDhiira += Number(row.maatii_dhiira || 0);
-        sumDhalaa += Number(row.maatii_dhalaa || 0);
-      });
+      if (data) {
+        data.forEach((row) => {
+          sumDhiira += Number(row.maatii_dhiira || 0);
+          sumDhalaa += Number(row.maatii_dhalaa || 0);
+        });
+      }
 
       reportHTML = `<p>Ida'ama Dhiiraa (የወንድ ድምር): <b>${sumDhiira}</b> | Ida'ama Dhalaa (የሴት ድምር): <b>${sumDhalaa}</b></p>`;
     } else if (type === "walii_galaa") {
@@ -267,10 +271,12 @@ async function showReport(type) {
       let totalDhiira = 0;
       let totalDhalaa = 0;
 
-      data.forEach((row) => {
-        totalDhiira += Number(row.maatii_dhiira || 0);
-        totalDhalaa += Number(row.maatii_dhalaa || 0);
-      });
+      if (data) {
+        data.forEach((row) => {
+          totalDhiira += Number(row.maatii_dhiira || 0);
+          totalDhalaa += Number(row.maatii_dhalaa || 0);
+        });
+      }
 
       reportHTML = `
                 <p>Ida'ama Dhiiraa (አጠቃላይ የወንድ ድምር): <b>${totalDhiira}</b></p>
@@ -287,10 +293,12 @@ async function showReport(type) {
 
       let grandTotal = 0;
 
-      data.forEach((row) => {
-        grandTotal +=
-          Number(row.maatii_dhiira || 0) + Number(row.maatii_dhalaa || 0);
-      });
+      if (data) {
+        data.forEach((row) => {
+          grandTotal +=
+            Number(row.maatii_dhiira || 0) + Number(row.maatii_dhalaa || 0);
+        });
+      }
 
       reportHTML = `<h3>Ida'ama Waliigala Uummata Muslimaa (አጠቃላይ የሙስሊሞች ድምር): <b>${grandTotal}</b></h3>`;
     }
@@ -300,8 +308,11 @@ async function showReport(type) {
       "<p style='color: red;'>Ragaan fiduu irratti dogoggorri uumameera! / መረጃውን በማምጣት ላይ ስህተት ተፈጥሯል!</p>";
   }
 
-  document.getElementById("reportTitle").innerText = titleText;
-  document.getElementById("reportContent").innerHTML = reportHTML;
+  const reportTitleEl = document.getElementById("reportTitle");
+  const reportContentEl = document.getElementById("reportContent");
+
+  if (reportTitleEl) reportTitleEl.innerText = titleText;
+  if (reportContentEl) reportContentEl.innerHTML = reportHTML;
 }
 
 function goBackToMenu() {
@@ -331,28 +342,30 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // --- SUPABASE DATA INSERTION WITH LOADING SPINNER ---
-document
-  .getElementById("registrationForm")
-  .addEventListener("submit", async function (e) {
+const regForm = document.getElementById("registrationForm");
+if (regForm) {
+  regForm.addEventListener("submit", async function (e) {
     e.preventDefault();
 
     const btnSubmit = document.getElementById("btnSubmit");
     const spinner = document.getElementById("loadingSpinner");
 
-    btnSubmit.disabled = true;
-    spinner.classList.remove("hidden");
+    if (btnSubmit) btnSubmit.disabled = true;
+    if (spinner) spinner.classList.remove("hidden");
 
     const formData = {
       aanaa: document.getElementById("aanaa").value,
       bara: document.getElementById("bara").value,
       maqaa: document.getElementById("maqaa").value,
       saala: document.getElementById("saala").value,
-      umrii: parseInt(document.getElementById("umrii").value),
+      umrii: parseInt(document.getElementById("umrii").value) || 0,
       bilbila: document.getElementById("bilbila").value,
       gooxii: document.getElementById("gooxii").value,
       masjida: document.getElementById("masjida").value,
-      maatii_dhiira: parseInt(document.getElementById("maatiiDhiira").value),
-      maatii_dhalaa: parseInt(document.getElementById("maatiiDhalaa").value),
+      maatii_dhiira:
+        parseInt(document.getElementById("maatiiDhiira").value) || 0,
+      maatii_dhalaa:
+        parseInt(document.getElementById("maatiiDhalaa").value) || 0,
       barnoota: document.getElementById("barnoota").value,
     };
 
@@ -373,7 +386,8 @@ document
       console.error("Network Error:", err);
       alert("Rakkoo internetiitiin daataan hin ergamne!");
     } finally {
-      btnSubmit.disabled = false;
-      spinner.classList.add("hidden");
+      if (btnSubmit) btnSubmit.disabled = false;
+      if (spinner) spinner.classList.add("hidden");
     }
   });
+}

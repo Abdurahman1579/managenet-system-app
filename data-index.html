@@ -1,260 +1,679 @@
 <!doctype html>
-<html lang="om">
+<html lang="om" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Lakkoofsa Muslimoota Malkaa Noonnoo | የሙስሊሞች ቆጠራ</title>
+    <title id="pageTitle">
+      Lakkoofsa Muslimoota Malkaa Noonnoo | የሙስሊሞች ቆጠራ
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
     <!-- Supabase SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      :root {
+        --primary: #1b4332;
+        --primary-light: #2d6a4f;
+        --accent: #d4a373;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --text-color: #2b2b2b;
+        --border-color: #dee2e6;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      body {
+        background-color: var(--primary);
+        color: var(--text-color);
+        min-height: 100vh;
+      }
+      /* Page Wrapper to unify Header and Content seamlessly with one color */
+      .page-wrapper {
+        max-width: 80rem;
+        margin: 0 auto;
+        background-color: var(--primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Header & Hamburger Menu */
+      header.main-header {
+        background: var(--primary);
+        color: white;
+        padding: 1.2rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        z-index: 900;
+        width: 100%;
+      }
+      .brand h1 {
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+      .brand span {
+        font-size: 0.8rem;
+        color: var(--accent);
+      }
+
+      /* Header Right Actions (Language Dropdown & Hamburger) */
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .menu-toggle {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.6rem;
+        cursor: pointer;
+      }
+
+      /* Language Dropdown Styling inside Header */
+      .lang-dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .lang-btn {
+        background: rgba(255, 255, 255, 0.15);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 0.4rem 0.8rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        transition: background 0.2s;
+      }
+      .lang-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+      }
+      .lang-menu {
+        position: absolute;
+        right: 0;
+        top: 115%;
+        background: white;
+        min-width: 130px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 6px;
+        overflow: hidden;
+        z-index: 1000;
+      }
+      .lang-menu.hidden {
+        display: none;
+      }
+      .lang-menu a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: var(--text-color);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: background 0.2s;
+      }
+      .lang-menu a:hover {
+        background: #f1f5f9;
+        color: var(--primary);
+      }
+
+      /* Sidebar Drawer */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 320px;
+        height: 100%;
+        background: var(--card-bg);
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.15);
+        z-index: 1200;
+        transition:
+          transform 0.3s ease-in-out,
+          left 0.3s ease-in-out;
+        transform: translateX(-100%);
+        padding: 1.5rem 1rem;
+        overflow-y: auto;
+      }
+      .sidebar.open,
+      .sidebar.active {
+        transform: translateX(0);
+        left: 0;
+      }
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 0.8rem;
+      }
+      .sidebar-header h3 {
+        color: var(--primary);
+        font-size: 1rem;
+      }
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.3rem;
+        cursor: pointer;
+        color: var(--text-color);
+      }
+      .sidebar-section-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: #888;
+        margin: 1rem 0 0.4rem 0.5rem;
+        font-weight: 700;
+      }
+      .sidebar ul {
+        list-style: none;
+      }
+      .sidebar li {
+        margin-bottom: 0.4rem;
+      }
+      .sidebar a {
+        display: block;
+        padding: 0.6rem 0.8rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border-radius: 6px;
+        background: #f8f9fa;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+      .sidebar a:hover {
+        background: var(--primary);
+        color: white;
+      }
+      .sidebar a.admin-link {
+        background: var(--accent);
+        color: white;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        display: none;
+        z-index: 1100;
+      }
+      .overlay.active {
+        display: block;
+      }
+    </style>
   </head>
-  <body>
-    <div class="container">
-      <!-- Jijjiirraa Afaanii (Dropdown Menu Style) -->
-      <div class="lang-dropdown">
-        <button class="lang-btn" onclick="toggleLangMenu()">
-          <span id="currentLangText">A/Oromoo</span> ▾
-        </button>
-        <div id="langMenu" class="lang-menu hidden">
-          <a href="#" onclick="selectLanguage('om', 'A/Oromoo')">A/Oromoo</a>
-          <a href="#" onclick="selectLanguage('am', 'አማርኛ')">አማርኛ</a>
-          <a href="#" onclick="selectLanguage('en', 'English')">English</a>
+  <body class="min-h-screen text-slate-800">
+    <!-- Overlay -->
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <!-- Page Wrapper to unify Header and Content with One Color -->
+    <div class="page-wrapper">
+      <!-- Header with Brand, Language Dropdown, and Hamburger Menu -->
+      <header class="main-header">
+        <div class="brand">
+          <h1 id="headerMainTitle">Lakkoofsa Muslimoota Malkaa Noonnoo</h1>
+          <span id="headerSubTitle"
+            >Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo</span
+          >
         </div>
+
+        <div class="header-actions">
+          <!-- Jijjiirraa Afaanii (Dropdown Menu Style moved to Header) -->
+          <div class="lang-dropdown">
+            <button class="lang-btn" onclick="toggleLangMenu()">
+              <span id="currentLangText">A/Oromoo</span> ▾
+            </button>
+            <div id="langMenu" class="lang-menu hidden">
+              <a href="#" onclick="selectLanguage('om', 'A/Oromoo')"
+                >A/Oromoo</a
+              >
+              <a href="#" onclick="selectLanguage('am', 'አማርኛ')">አማርኛ</a>
+              <a href="#" onclick="selectLanguage('en', 'English')">English</a>
+            </div>
+          </div>
+
+          <!-- Hamburger Menu Toggle Button -->
+          <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        </div>
+      </header>
+
+      <!-- Sidebar Menu Drawer -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <h3>Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+          <button class="close-btn" onclick="toggleSidebar()">✕</button>
+        </div>
+
+        <ul>
+          <li>
+            <a
+              href="index.html"
+              class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+            >
+              <span>ODEEFFANNOO MANA MARICHAA</span>
+              <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+            </a>
+          </li>
+          <li>
+            <a href="sector-index.html">
+              📂 Muummee Seektarootaa
+              <span class="am">የሴክተሮች ዋና ገጽ</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-section-title">
+          Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+        </div>
+        <ul>
+          <li>
+            <a href="finance-sector.html">
+              💰 Seektara Maallaqaa (Ibsa)
+              <span class="am">የፋይናንስ ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="finance-register.html">
+              📝 Galmee Seektara Maallaqaa
+              <span class="am">የፋይናንስ ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+          <li>
+            <a href="youth-sector.html">
+              👥 Seektara Dargaggoo (Ibsa)
+              <span class="am">የወጣቶች ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="youth-register.html">
+              📝 Galmee Seektara Dargaggoo
+              <span class="am">የወጣቶች ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+          <li>
+            <a href="women-sector.html">
+              👩 Seektara Dubartootaa (Ibsa)
+              <span class="am">የሴቶች ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="women-register.html">
+              📝 Galmee Seektara Dubartootaa
+              <span class="am">የሴቶች ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+          <li>
+            <a href="ulama-sector.html">
+              📖 Seektara Ulamaa (Ibsa)
+              <span class="am">የኡለማዎች ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="ulama-register.html">
+              📝 Galmee Seektara Ulamaa
+              <span class="am">የኡለማዎች ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+          <li>
+            <a href="masjid-sector.html">
+              🕌 Seektara Masjiidaa (Ibsa)
+              <span class="am">የመስጂዶች ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="masjid-register.html">
+              📝 Galmee Seektara Masjiidaa
+              <span class="am">የመስጂዶች ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+          <li>
+            <a href="madrasa-sector.html">
+              📚 Seektara Madrasaa (Ibsa)
+              <span class="am">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+            </a>
+          </li>
+          <li>
+            <a href="madrasa-register.html">
+              📝 Galmee Seektara Madrasaa
+              <span class="am">የመድረሳዎች ዘርፍ ምዝገባ</span>
+            </a>
+          </li>
+        </ul>
+
+        <div class="sidebar-section-title">
+          Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+        </div>
+        <ul>
+          <li>
+            <a href="gali-basi.html">
+              Fuula Galii Fi Baasii
+              <span class="am">የገቢ እና ወጪ ገጽ</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="donation-index.html"
+              class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+            >
+              <span>Fuula Grgaarsaa</span>
+              <span class="am text-slate-500">የድጋፍ ገጽ</span>
+            </a>
+          </li>
+          <li>
+            <a href="donation-admin.html">
+              ⚙️ Donation Admin
+              <span class="am">የድጋፍ አስተዳደር</span>
+            </a>
+          </li>
+          <li>
+            <a href="finance-admin.html">
+              📊 Finance Admin
+              <span class="am">የፋይናንስ አስተዳደር</span>
+            </a>
+          </li>
+          <li>
+            <a href="register-sector-admin.html" class="admin-link">
+              📈 Register Sector Admin (Excel)
+              <span class="am">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+            </a>
+          </li>
+          <li>
+            <a
+              href="news-admin.html"
+              class="flex items-center justify-between p-2 hover:bg-slate-100 rounded"
+            >
+              <span>---</span>
+            </a>
+          </li>
+        </ul>
       </div>
 
-      <!-- Barreeffama Barbaachisummaa Lakkoofsa Muslimaa -->
-      <div id="introSection" class="intro-box">
-        <h2 id="mainTitle">
-          Lakkoofsa Muslimoota Kutaa Magaalaa Malkaa Noonnoo
-        </h2>
-        <p id="introText">
-          Lakkoofsa muslimootaa beekuunn guddina hawaasa muslimaatiif, karoora
-          misoomaaf, gargaarsa waloo fi tokkummaa hawaasaa cimsuuf shoora
-          olaanaa qaba. Ragaa sirrii qabaachuun deeggarsa sirrii kennuuf nu
-          dandeessisa.
-        </p>
-      </div>
+      <!-- Main Container Content -->
+      <div
+        class="container max-w-7xl mx-auto p-4 md:p-6 w-full space-y-6 flex-grow"
+      >
+        <!-- Barreeffama Barbaachisummaa Lakkoofsa Muslimaa -->
+        <div id="introSection" class="intro-box">
+          <h2 id="mainTitle">
+            Lakkoofsa Muslimoota Kutaa Magaalaa Malkaa Noonnoo
+          </h2>
+          <p id="introText">
+            Lakkoofsa muslimootaa beekuunn guddina hawaasa muslimaatiif, karoora
+            misoomaaf, gargaarsa waloo fi tokkummaa hawaasaa cimsuuf shoora
+            olaanaa qaba. Ragaa sirrii qabaachuun deeggarsa sirrii kennuuf nu
+            dandeessisa.
+          </p>
+        </div>
 
-      <!-- Buttoonni 6 -->
-      <div id="menuButtons" class="menu-grid">
-        <button class="menu-btn" onclick="openRegistration()" id="btn1">
-          Daataa lakkoofsa muslimtoota kutaa magaalaa malkaa noonnoo haaraa
-        </button>
-        <button
-          class="menu-btn"
-          onclick="showReport('malkaa_gafarsaa')"
-          id="btn2"
-        >
-          Baay'ina muslimtoota aanaa malkaa gafarsaatti galmaa'anii dhiiraa fi
-          dhalaa
-        </button>
-        <button class="menu-btn" onclick="showReport('beeroo')" id="btn3">
-          Baay'ina muslimtoota aanaa beerootti galmaa'anii dhiiraa fi dhalaa
-        </button>
-        <button class="menu-btn" onclick="showReport('noonnoo')" id="btn4">
-          Baay'ina muslimtoota aanaa Noonnootti galmaa'anii dhiiraa fi dhalaa
-        </button>
-        <button class="menu-btn" onclick="showReport('walii_galaa')" id="btn5">
-          Baay'ina muslimtoota K/M/M/N walii galaa dhiiraa fi dhalaa
-        </button>
-        <button class="menu-btn" onclick="showReport('iada_ama')" id="btn6">
-          Ida'ama Baayyina muslimtoota K/M/M/N walii galaa
-        </button>
-      </div>
+        <!-- Buttoonni 6 -->
+        <div id="menuButtons" class="menu-grid">
+          <button class="menu-btn" onclick="openRegistration()" id="btn1">
+            Daataa lakkoofsa muslimtoota kutaa magaalaa malkaa noonnoo haaraa
+          </button>
+          <button
+            class="menu-btn"
+            onclick="showReport('malkaa_gafarsaa')"
+            id="btn2"
+          >
+            Baay'ina muslimtoota aanaa malkaa gafarsaatti galmaa'anii dhiiraa fi
+            dhalaa
+          </button>
+          <button class="menu-btn" onclick="showReport('beeroo')" id="btn3">
+            Baay'ina muslimtoota aanaa beerootti galmaa'anii dhiiraa fi dhalaa
+          </button>
+          <button class="menu-btn" onclick="showReport('noonnoo')" id="btn4">
+            Baay'ina muslimtoota aanaa Noonnootti galmaa'anii dhiiraa fi dhalaa
+          </button>
+          <button
+            class="menu-btn"
+            onclick="showReport('walii_galaa')"
+            id="btn5"
+          >
+            Baay'ina muslimtoota K/M/M/N walii galaa dhiiraa fi dhalaa
+          </button>
+          <button class="menu-btn" onclick="showReport('iada_ama')" id="btn6">
+            Ida'ama Baayyina muslimtoota K/M/M/N walii galaa
+          </button>
+        </div>
 
-      <!-- Formii Galmee -->
-      <form id="registrationForm" class="hidden">
-        <button
-          type="button"
-          class="back-btn"
-          onclick="goBackToMenu()"
-          id="btnBack"
-        >
-          ← Deebi'i / Back
-        </button>
-        <h3 id="formTitle">Galmee Daataa Haaraa</h3>
+        <!-- Formii Galmee -->
+        <form id="registrationForm" class="hidden">
+          <button
+            type="button"
+            class="back-btn"
+            onclick="goBackToMenu()"
+            id="btnBack"
+          >
+            ← Deebi'i / Back
+          </button>
+          <h3 id="formTitle">Galmee Daataa Haaraa</h3>
 
-        <!-- Error Warning Message Area -->
-        <div id="formErrorMsg" class="error-msg hidden"></div>
+          <!-- Error Warning Message Area -->
+          <div id="formErrorMsg" class="error-msg hidden"></div>
 
-        <!-- 1. Aanaa Filachuu -->
-        <label id="lblAanaa" for="aanaa">Aanaa Filadhu:</label>
-        <select id="aanaa" name="aanaa" required onchange="validateField(this)">
-          <option value="">-- Aanaa Filadhu / ወረዳ ይምረጡ --</option>
-          <option value="malkaa_gafarsaa">
-            Aanaa Malkaa Gafarsaa /መልካ ገፋርሳ ወረዳ
-          </option>
-          <option value="beeroo">Aanaa Beeroo /ቤሮ ወረዳ</option>
-          <option value="noonnoo">Aanaa Noonnoo /ኖኖ ወረዳ</option>
-        </select>
+          <!-- 1. Aanaa Filachuu -->
+          <label id="lblAanaa" for="aanaa">Aanaa Filadhu:</label>
+          <select
+            id="aanaa"
+            name="aanaa"
+            required
+            onchange="validateField(this)"
+          >
+            <option value="">-- Aanaa Filadhu / ወረዳ ይምረጡ --</option>
+            <option value="malkaa_gafarsaa">
+              Aanaa Malkaa Gafarsaa /መልካ ገፋርሳ ወረዳ
+            </option>
+            <option value="beeroo">Aanaa Beeroo /ቤሮ ወረዳ</option>
+            <option value="noonnoo">Aanaa Noonnoo /ኖኖ ወረዳ</option>
+          </select>
 
-        <!-- 2. Bara Galmee (E.C) -->
-        <label id="lblBara" for="bara">Bara Galmee (E.C):</label>
-        <select id="bara" name="bara" required onchange="validateField(this)">
-          <option value="">-- Bara Filadhu / ዓመት ይምረጡ --</option>
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-        </select>
+          <!-- 2. Bara Galmee (E.C) -->
+          <label id="lblBara" for="bara">Bara Galmee (E.C):</label>
+          <select id="bara" name="bara" required onchange="validateField(this)">
+            <option value="">-- Bara Filadhu / ዓመት ይምረጡ --</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+          </select>
 
-        <!-- Maqaa Guutuu -->
-        <label id="lblMaqaa" for="maqaa">Maqaa Guutuu:</label>
-        <input
-          type="text"
-          id="maqaa"
-          name="maqaa"
-          placeholder="Maqaa fi Maqaa Abbaa / ስም እና የአባት ስም"
-          required
-          oninput="validateField(this)"
-        />
+          <!-- Maqaa Guutuu -->
+          <label id="lblMaqaa" for="maqaa">Maqaa Guutuu:</label>
+          <input
+            type="text"
+            id="maqaa"
+            name="maqaa"
+            placeholder="Maqaa fi Maqaa Abbaa / ስም እና የአባት ስም"
+            required
+            oninput="validateField(this)"
+          />
 
-        <!-- Saala -->
-        <label id="lblSaala" for="saala">Saala:</label>
-        <select id="saala" name="saala" required onchange="validateField(this)">
-          <option value="">-- Saala Filadhu / ጾታ ይምረጡ --</option>
-          <option value="dhiira">Dhiira / ወንድ / Male</option>
-          <option value="dhalaa">Dhalaa / ሴት / Female</option>
-        </select>
+          <!-- Saala -->
+          <label id="lblSaala" for="saala">Saala:</label>
+          <select
+            id="saala"
+            name="saala"
+            required
+            onchange="validateField(this)"
+          >
+            <option value="">-- Saala Filadhu / ጾታ ይምረጡ --</option>
+            <option value="dhiira">Dhiira / ወንድ / Male</option>
+            <option value="dhalaa">Dhalaa / ሴት / Female</option>
+          </select>
 
-        <!-- Umrii -->
-        <label id="lblUmrii" for="umrii">Umrii:</label>
-        <input
-          type="number"
-          id="umrii"
-          name="umrii"
-          placeholder="Bara dhalootaa ykn umrii / ዕድሜ"
-          required
-          oninput="validateField(this)"
-        />
+          <!-- Umrii -->
+          <label id="lblUmrii" for="umrii">Umrii:</label>
+          <input
+            type="number"
+            id="umrii"
+            name="umrii"
+            placeholder="Bara dhalootaa ykn umrii / ዕድሜ"
+            required
+            oninput="validateField(this)"
+          />
 
-        <!-- Lakkoofsa Bilbilaa -->
-        <label id="lblBilbila" for="bilbila">Lakkoofsa Bilbilaa:</label>
-        <input
-          type="tel"
-          id="bilbila"
-          name="bilbila"
-          placeholder="09xxxxxxxx"
-          oninput="validateField(this)"
-        />
+          <!-- Lakkoofsa Bilbilaa -->
+          <label id="lblBilbila" for="bilbila">Lakkoofsa Bilbilaa:</label>
+          <input
+            type="tel"
+            id="bilbila"
+            name="bilbila"
+            placeholder="09xxxxxxxx"
+            oninput="validateField(this)"
+          />
 
-        <!-- Ganda / Gooxii -->
-        <label id="lblGooxii" for="gooxii">Ganda / Gooxii:</label>
-        <input
-          type="text"
-          id="gooxii"
-          name="gooxii"
-          placeholder="Maqaa Gandaa ykn Gooxii / ቀበሌ ወይም ጎጥ"
-          required
-          oninput="validateField(this)"
-        />
+          <!-- Ganda / Gooxii -->
+          <label id="lblGooxii" for="gooxii">Ganda / Gooxii:</label>
+          <input
+            type="text"
+            id="gooxii"
+            name="gooxii"
+            placeholder="Maqaa Gandaa ykn Gooxii / ቀበሌ ወይም ጎጥ"
+            required
+            oninput="validateField(this)"
+          />
 
-        <!-- Masjida Itti Dhihaatu -->
-        <label id="lblMasjida" for="masjida"
-          >Masjida Itti Dhihaatu / Hordofan:</label
-        >
-        <input
-          type="text"
-          id="masjida"
-          name="masjida"
-          placeholder="Maqaa Masjidaa / የመስጂዱ ስም"
-          required
-          oninput="validateField(this)"
-        />
+          <!-- Masjida Itti Dhihaatu -->
+          <label id="lblMasjida" for="masjida"
+            >Masjida Itti Dhihaatu / Hordofan:</label
+          >
+          <input
+            type="text"
+            id="masjida"
+            name="masjida"
+            placeholder="Maqaa Masjidaa / የመስጂዱ ስም"
+            required
+            oninput="validateField(this)"
+          />
 
-        <!-- Baay'ina Miseensa Maatii: Dhiiraa fi Dhalaa -->
-        <label id="lblMaatiiDhiira" for="maatiiDhiira"
-          >Baay'ina Miseensa Maatii (Dhiira):</label
-        >
-        <select
-          id="maatiiDhiira"
-          name="maatiiDhiira"
-          required
-          onchange="validateField(this)"
-        >
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6ti ol / ከ 6 በላይ</option>
-        </select>
+          <!-- Baay'ina Miseensa Maatii: Dhiiraa fi Dhalaa -->
+          <label id="lblMaatiiDhiira" for="maatiiDhiira"
+            >Baay'ina Miseensa Maatii (Dhiira):</label
+          >
+          <select
+            id="maatiiDhiira"
+            name="maatiiDhiira"
+            required
+            onchange="validateField(this)"
+          >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6ti ol / ከ 6 በላይ</option>
+          </select>
 
-        <label id="lblMaatiiDhalaa" for="maatiiDhalaa"
-          >Baay'ina Miseensa Maatii (Dhalaa):</label
-        >
-        <select
-          id="maatiiDhalaa"
-          name="maatiiDhalaa"
-          required
-          onchange="validateField(this)"
-        >
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6ti ol / ከ 6 በላይ</option>
-        </select>
+          <label id="lblMaatiiDhalaa" for="maatiiDhalaa"
+            >Baay'ina Miseensa Maatii (Dhalaa):</label
+          >
+          <select
+            id="maatiiDhalaa"
+            name="maatiiDhalaa"
+            required
+            onchange="validateField(this)"
+          >
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6ti ol / ከ 6 በላይ</option>
+          </select>
 
-        <!-- Sadarkaa Barnootaa -->
-        <label id="lblBarnoota" for="barnoota"
-          >Sadarkaa Barnootaa (Ammayyaa / Diinii):</label
-        >
-        <select
-          id="barnoota"
-          name="barnoota"
-          required
-          onchange="validateField(this)"
-        >
-          <option value="">
-            -- Sadarkaa Barnootaa Filadhu / የትምህርት ደረጃ --
-          </option>
-          <option value="sadarkaa_1ffaa">
-            Sadarkaa 1ffaa (1-8) / 1ኛ ደረጃ (1-8)
-          </option>
-          <option value="sadarkaa_2ffaa">
-            Sadarkaa 2ffaa (9-12) / 2ኛ ደረጃ (9-12)
-          </option>
-          <option value="Sertifikeeti">Sertifikeeti / ሰርተፊኬት</option>
-          <option value="Diploma">Diploma / ዲፕሎማ</option>
-          <option value="Digirii">Digirii / ዲግሪ</option>
-          <option value="Mastarsii">Mastarsii / ማስተርስ</option>
-          <option value="PhD">PhD / ፒኤችዲ</option>
-          <option value="Quraana_Qara'e">
-            Quraana Qara'e / ሂፍዝ / ቁርአን የቀራ
-          </option>
-          <option value="Kitaba_Ammayyaa_Diinii">
-            Barnoota Kitabaa (Aalim) / የኪታብ ትምህርት
-          </option>
-          <option value="Kan_Hin_Baratin">
-            Kan Hin Baratin / የትምህርት ደረጃ የሌለው
-          </option>
-        </select>
+          <!-- Sadarkaa Barnootaa -->
+          <label id="lblBarnoota" for="barnoota"
+            >Sadarkaa Barnootaa (Ammayyaa / Diinii):</label
+          >
+          <select
+            id="barnoota"
+            name="barnoota"
+            required
+            onchange="validateField(this)"
+          >
+            <option value="">
+              -- Sadarkaa Barnootaa Filadhu / የትምህርት ደረጃ --
+            </option>
+            <option value="sadarkaa_1ffaa">
+              Sadarkaa 1ffaa (1-8) / 1ኛ ደረጃ (1-8)
+            </option>
+            <option value="sadarkaa_2ffaa">
+              Sadarkaa 2ffaa (9-12) / 2ኛ ደረጃ (9-12)
+            </option>
+            <option value="Sertifikeeti">Sertifikeeti / ሰርተፊኬት</option>
+            <option value="Diploma">Diploma / ዲፕሎማ</option>
+            <option value="Digirii">Digirii / ዲግሪ</option>
+            <option value="Mastarsii">Mastarsii / ማስተርስ</option>
+            <option value="PhD">PhD / ፒኤችዲ</option>
+            <option value="Quraana_Qara'e">
+              Quraana Qara'e / ሂፍዝ / ቁርአን የቀራ
+            </option>
+            <option value="Kitaba_Ammayyaa_Diinii">
+              Barnoota Kitabaa (Aalim) / የኪታብ ትምህርት
+            </option>
+            <option value="Kan_Hin_Baratin">
+              Kan Hin Baratin / የትምህርት ደረጃ የሌለው
+            </option>
+          </select>
 
-        <!-- Submit Button with Spinner Container -->
-        <button type="submit" id="btnSubmit">
-          <span id="btnText">Galmeessi</span>
-          <span id="loadingSpinner" class="spinner hidden"></span>
-        </button>
-      </form>
+          <!-- Submit Button with Spinner Container -->
+          <button type="submit" id="btnSubmit">
+            <span id="btnText">Galmeessi</span>
+            <span id="loadingSpinner" class="spinner hidden"></span>
+          </button>
+        </form>
 
-      <!-- Iddoo Gabaasaa -->
-      <div id="reportSection" class="hidden">
-        <button
-          type="button"
-          class="back-btn"
-          onclick="goBackToMenu()"
-          id="btnBackReport"
-        >
-          ← Deebi'i / Back
-        </button>
-        <h3 id="reportTitle">Gabaasa</h3>
-        <div id="reportContent"></div>
+        <!-- Iddoo Gabaasaa -->
+        <div id="reportSection" class="hidden">
+          <button
+            type="button"
+            class="back-btn"
+            onclick="goBackToMenu()"
+            id="btnBackReport"
+          >
+            ← Deebi'i / Back
+          </button>
+          <h3 id="reportTitle">Gabaasa</h3>
+          <div id="reportContent"></div>
+        </div>
       </div>
     </div>
 
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+      }
+
+      function toggleLangMenu() {
+        const langMenu = document.getElementById("langMenu");
+        langMenu.classList.toggle("hidden");
+      }
+
+      // Close language menu when clicking outside
+      window.addEventListener("click", function (e) {
+        if (!e.target.closest(".lang-dropdown")) {
+          const langMenu = document.getElementById("langMenu");
+          if (langMenu && !langMenu.classList.contains("hidden")) {
+            langMenu.classList.add("hidden");
+          }
+        }
+      });
+    </script>
     <script src="script.js"></script>
   </body>
 </html>
