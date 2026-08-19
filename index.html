@@ -290,6 +290,31 @@
       </div>
     </main>
 
+    <!-- IMAGE LIGHTBOX / MODAL CONTAINER -->
+    <div
+      id="imageModal"
+      class="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 hidden"
+      onclick="closeImageModal()"
+    >
+      <div
+        class="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center"
+        onclick="event.stopPropagation()"
+      >
+        <button
+          onclick="closeImageModal()"
+          class="absolute -top-10 right-0 text-white text-2xl font-bold bg-black/50 px-3 py-1 rounded-full hover:bg-black transition"
+        >
+          ✕
+        </button>
+        <img
+          id="modalImage"
+          src=""
+          alt="Fullscreen Image"
+          class="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+        />
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer
       class="bg-white border-t py-4 text-center text-xs text-slate-500 mt-8"
@@ -307,6 +332,21 @@
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
         sidebar.classList.toggle("open");
+      }
+
+      // Functions for Opening and Closing the Image Modal
+      function openImageModal(imgSrc) {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        modalImg.src = imgSrc;
+        modal.classList.remove("hidden");
+        document.body.style.overflow = "hidden"; // Scroll duuba akka dhaabbatu godha
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById("imageModal");
+        modal.classList.add("hidden");
+        document.body.style.overflow = "auto";
       }
 
       async function handleLike(newsId, btnElement) {
@@ -553,7 +593,8 @@
             ) {
               mediaElement = `<div class="w-full mt-3"><audio src="${finalMediaUrl}" controls preload="metadata" class="w-full">Your browser does not support the audio element.</audio></div>`;
             } else {
-              mediaElement = `<div class="w-full bg-slate-100 rounded-xl mt-3 overflow-hidden shadow-sm flex items-center justify-center"><img src="${finalMediaUrl}" class="w-full h-auto max-h-[400px] object-contain block mx-auto" alt="News Image" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<p class=\'text-xs text-red-500 p-4 text-center\'>Fakkichi fe\'amuu hin danda\'e / ፎቶው መጫን አልቻለም</p>';"></div>`;
+              // As irratti suuraan dandeettii 'cursor-pointer' fi 'onclick' argateera akka inni tuqamuun guddatu
+              mediaElement = `<div class="w-full bg-slate-100 rounded-xl mt-3 overflow-hidden shadow-sm flex items-center justify-center"><img src="${finalMediaUrl}" onclick="openImageModal('${finalMediaUrl}')" class="w-full h-auto max-h-[400px] object-contain block mx-auto cursor-pointer hover:opacity-95 transition" alt="News Image" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<p class=\'text-xs text-red-500 p-4 text-center\'>Fakkichi fe\'amuu hin danda\'e / ፎቶው መጫን አልቻለም</p>';"></div>`;
             }
           }
 
@@ -622,7 +663,6 @@
 
           const card = `
             <div class="bg-white p-5 rounded-2xl shadow-md border space-y-3">
-              <!-- (Maqaan gubbaatti 'footoo' jedhee mul'achaa ture as irraa haqameera) -->
               <h2 class="text-lg font-bold text-slate-800">${news.title || ""}</h2>
               <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">${news.content || ""}</p>
               ${mediaElement}
