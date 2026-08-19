@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="om">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Oduu fi Beeksisa / ዜና እና ማስታወቂያዎች - Mana Marii Malkaa Noonnoo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      .sidebar.open {
+        transform: translateX(0);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-100 min-h-screen text-slate-800 flex flex-col justify-between relative"
+  >
+    <!-- Comprehensive Sidebar Menu -->
+    <div
+      class="sidebar fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl flex flex-col overflow-y-auto"
+      id="sidebar"
+    >
+      <div
+        class="sidebar-header flex justify-between items-center p-4 bg-emerald-900 text-white"
+      >
+        <h3 class="font-bold text-sm">Faayiloota Hunda / ሁሉም ፋይሎች</h3>
+        <button
+          class="close-btn text-xl font-bold px-2 py-1 hover:bg-emerald-800 rounded transition"
+          onclick="toggleSidebar()"
+        >
+          ✕
+        </button>
+      </div>
+
+      <ul class="p-2 space-y-1 text-xs">
+        <li>
+          <a
+            href="index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>ODEEFFANNOO MANA MARICHAA</span>
+            <span class="am text-slate-500">የምክር ቤቱ መረጃ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="sector-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📂 Muummee Seektarootaa</span>
+            <span class="am text-slate-500">የሴክተሮች ዋና ገጽ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
+        Seektaroota & Galmee / ሴክተሮች እና ምዝገባ
+      </div>
+      <ul class="p-2 space-y-1 text-xs">
+        <li>
+          <a
+            href="finance-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>💰 Seektara Maallaqaa (Ibsa)</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="finance-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Maallaqaa</span>
+            <span class="am text-slate-500">የፋይናንስ ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="youth-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>👥 Seektara Dargaggoo (Ibsa)</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="youth-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Dargaggoo</span>
+            <span class="am text-slate-500">የወጣቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="women-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>👩 Seektara Dubartootaa (Ibsa)</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="women-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Dubartootaa</span>
+            <span class="am text-slate-500">የሴቶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="ulama-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📖 Seektara Ulamaa (Ibsa)</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="ulama-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Ulamaa</span>
+            <span class="am text-slate-500">የኡለማዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="masjid-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>🕌 Seektara Masjiidaa (Ibsa)</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="masjid-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Masjiidaa</span>
+            <span class="am text-slate-500">የመስጂዶች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+
+        <li>
+          <a
+            href="madrasa-sector.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📚 Seektara Madrasaa (Ibsa)</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ (መግለጫ)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="madrasa-register.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📝 Galmee Seektara Madrasaa</span>
+            <span class="am text-slate-500">የመድረሳዎች ዘርፍ ምዝገባ</span>
+          </a>
+        </li>
+      </ul>
+
+      <div
+        class="sidebar-section-title px-3 py-2 text-[11px] font-bold text-slate-400 uppercase tracking-wider bg-slate-50"
+      >
+        Bulchiinsa & Deeggarsa / አስተዳደር እና ድጋፍ
+      </div>
+      <ul class="p-2 space-y-1 text-xs mb-6">
+        <li>
+          <a
+            href="gali-basi.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>Fuula Galii Fi Baasii</span>
+            <span class="am text-slate-500">የገቢ እና ወጪ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>Fuula Grgaarsaa</span>
+            <span class="am text-slate-500">የድጋፍ ገጽ</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="donation-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>⚙️ Donation Admin</span>
+            <span class="am text-slate-500">የድጋፍ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="finance-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📊 Finance Admin</span>
+            <span class="am text-slate-500">የፋይናንስ አስተዳደር</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="register-sector-admin.html"
+            class="admin-link flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📈 Register Sector Admin (Excel)</span>
+            <span class="am text-slate-500">የዘርፍ ምዝገባ አስተዳደር (ኤክሴል)</span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="news-admin.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>📰---</span>
+            <span class="am text-slate-500"></span>
+          </a>
+        </li>
+        <li>
+          <a
+            href="data-index.html"
+            class="flex items-center justify-between p-2 hover:bg-slate-100 rounded transition"
+          >
+            <span>DAATAA UMMATAA</span>
+            <span class="am text-slate-500">የህዝብ ዳታ</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-emerald-900 text-white p-4 shadow-md px-6">
+      <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <div class="flex items-center gap-3">
+          <button
+            onclick="toggleSidebar()"
+            class="text-white text-xl p-1.5 rounded-lg hover:bg-emerald-800 transition focus:outline-none"
+          >
+            ☰
+          </button>
+          <div>
+            <h1 class="text-lg md:text-xl font-bold">
+              Oduu fi Beeksisa / ዜና እና ማስታወቂያዎች
+            </h1>
+            <p class="text-xs text-emerald-200">
+              Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo / መልካ ኖኖ ክ/ከተማ
+              እስልምና ጉዳዮች ምክር ቤት
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content / News Feed -->
+    <main class="max-w-4xl w-full mx-auto p-6 space-y-6 my-auto">
+      <div id="newsContainer" class="space-y-4">
+        <div
+          class="flex flex-col items-center justify-center py-16 space-y-3"
+          id="initialLoader"
+        >
+          <div
+            class="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"
+          ></div>
+          <p class="text-sm font-medium text-slate-500">
+            Oduun fe'amaa jira... / ዜና በመጫን ላይ...
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+      class="bg-white border-t py-4 text-center text-xs text-slate-500 mt-8"
+    >
+      Mana Marii Dhimmoota Islaamummaa K/M Malkaa Noonnoo © 2026 / መልካ ኖኖ ክ/ከተማ
+      እስልምና ጉዳዮች ምክር ቤት
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+      const SUPABASE_URL = "https://stkabwoyxoakjzklbbsl.supabase.co";
+      const SUPABASE_KEY = "sb_publishable_5_OkM5j5WM-ASFpJO4hFkA_D3VXNpEl";
+      const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        sidebar.classList.toggle("open");
+      }
+
+      async function handleLike(newsId, btnElement) {
+        let likesKey = `news_liked_${newsId}`;
+        if (localStorage.getItem(likesKey)) {
+          alert("You have already liked this news!");
+          return;
+        }
+
+        const { data, error } = await supabaseClient
+          .from("daily_news")
+          .select("likes_count")
+          .eq("id", newsId)
+          .single();
+
+        if (error) return;
+
+        const newLikes = (data.likes_count || 0) + 1;
+        const { error: updateError } = await supabaseClient
+          .from("daily_news")
+          .update({ likes_count: newLikes })
+          .eq("id", newsId);
+
+        if (!updateError) {
+          localStorage.setItem(likesKey, "true");
+          document
+            .querySelectorAll(`.like-count-${newsId}`)
+            .forEach((el) => (el.textContent = newLikes));
+          btnElement.classList.add("text-blue-600", "font-bold");
+        }
+      }
+
+      async function handleCommentLike(commentId, btnElement) {
+        let commentLikeKey = `comment_liked_${commentId}`;
+        if (localStorage.getItem(commentLikeKey)) {
+          alert("You have already liked this comment!");
+          return;
+        }
+
+        const { data, error } = await supabaseClient
+          .from("news_comments")
+          .select("likes_count")
+          .eq("id", commentId)
+          .single();
+
+        if (error) return;
+
+        const newLikes = (data.likes_count || 0) + 1;
+        const { error: updateError } = await supabaseClient
+          .from("news_comments")
+          .update({ likes_count: newLikes })
+          .eq("id", commentId);
+
+        if (!updateError) {
+          localStorage.setItem(commentLikeKey, "true");
+          document
+            .querySelectorAll(`.comment-like-count-${commentId}`)
+            .forEach((el) => (el.textContent = newLikes));
+          btnElement.classList.add("text-blue-600", "font-bold");
+        }
+      }
+
+      async function handleShare(newsId, newsTitle, btnElement) {
+        const { data, error } = await supabaseClient
+          .from("daily_news")
+          .select("shares_count")
+          .eq("id", newsId)
+          .single();
+
+        if (error) return;
+
+        const newShares = (data.shares_count || 0) + 1;
+        const { error: updateError } = await supabaseClient
+          .from("daily_news")
+          .update({ shares_count: newShares })
+          .eq("id", newsId);
+
+        if (!updateError) {
+          document
+            .querySelectorAll(`.share-count-${newsId}`)
+            .forEach((el) => (el.textContent = newShares));
+        }
+
+        if (navigator.share) {
+          navigator
+            .share({ title: newsTitle, url: window.location.href })
+            .catch(() => {});
+        } else {
+          navigator.clipboard.writeText(window.location.href);
+          alert("Link copied to clipboard!");
+        }
+      }
+
+      async function handleCommentSubmit(event, newsId, parentId = null) {
+        event.preventDefault();
+        const inputId = parentId
+          ? `reply-input-${parentId}`
+          : `comment-input-${newsId}`;
+        const inputField = document.getElementById(inputId);
+        const commentText = inputField.value.trim();
+        if (!commentText) return;
+
+        const insertData = {
+          news_id: newsId,
+          comment_text: commentText,
+          parent_id: parentId,
+        };
+
+        const { data: insertedData, error: insertError } = await supabaseClient
+          .from("news_comments")
+          .insert([insertData])
+          .select()
+          .single();
+
+        if (insertError) {
+          alert("Error: " + insertError.message);
+          return;
+        }
+
+        if (!parentId) {
+          const { data } = await supabaseClient
+            .from("daily_news")
+            .select("comments_count")
+            .eq("id", newsId)
+            .single();
+
+          const newCount = ((data && data.comments_count) || 0) + 1;
+          await supabaseClient
+            .from("daily_news")
+            .update({ comments_count: newCount })
+            .eq("id", newsId);
+
+          document
+            .querySelectorAll(`.comment-count-${newsId}`)
+            .forEach((el) => {
+              el.textContent = newCount;
+            });
+
+          const commentsListContainer = document.getElementById(
+            `comments-list-${newsId}`,
+          );
+          if (commentsListContainer) {
+            const emptyNotice = commentsListContainer.querySelector(
+              ".no-comments-notice",
+            );
+            if (emptyNotice) emptyNotice.remove();
+
+            const newCommentHTML = `
+              <div class="bg-slate-50 p-2.5 rounded-xl text-xs text-slate-700 space-y-2" id="comment-container-${insertedData.id}">
+                <p class="font-medium">💬 ${insertedData.comment_text}</p>
+                <div class="flex items-center gap-4 text-[11px] text-slate-500">
+                  <button onclick="handleCommentLike(${insertedData.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${insertedData.id}">0</span>)</button>
+                  <button onclick="toggleReplyBox(${insertedData.id})" class="hover:text-emerald-700 font-medium">↩️ Reply</button>
+                </div>
+                <div class="space-y-1 mt-1" id="replies-list-${insertedData.id}"></div>
+                <div id="reply-box-${insertedData.id}" class="hidden pt-2 mt-2 border-t">
+                  <form onsubmit="handleCommentSubmit(event, ${newsId}, ${insertedData.id})" class="flex gap-2">
+                    <input type="text" id="reply-input-${insertedData.id}" placeholder="Write a reply..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                    <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Reply</button>
+                  </form>
+                </div>
+              </div>
+            `;
+            commentsListContainer.insertAdjacentHTML(
+              "beforeend",
+              newCommentHTML,
+            );
+          }
+        } else {
+          const repliesListContainer = document.getElementById(
+            `replies-list-${parentId}`,
+          );
+          if (repliesListContainer) {
+            const newReplyHTML = `
+              <div class="bg-white p-2 rounded-lg text-xs text-slate-700 ml-6 mt-1 border-l-2 border-emerald-600 space-y-1">
+                <p>↳ ${insertedData.comment_text}</p>
+                <div class="flex items-center gap-3 text-[10px] text-slate-500">
+                  <button onclick="handleCommentLike(${insertedData.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${insertedData.id}">0</span>)</button>
+                </div>
+              </div>
+            `;
+            repliesListContainer.insertAdjacentHTML("beforeend", newReplyHTML);
+            toggleReplyBox(parentId);
+          }
+        }
+
+        inputField.value = "";
+      }
+
+      function toggleReplyBox(commentId) {
+        const box = document.getElementById(`reply-box-${commentId}`);
+        if (box) box.classList.toggle("hidden");
+      }
+
+      async function fetchNews() {
+        const container = document.getElementById("newsContainer");
+
+        const { data, error } = await supabaseClient
+          .from("daily_news")
+          .select("*")
+          .order("id", { ascending: false });
+
+        if (error) {
+          container.innerHTML = `<p class="text-red-500 text-center">Dogoggorri uumame: ${error.message} / ስህተት ተፈጥሯል</p>`;
+          return;
+        }
+
+        if (!data || data.length === 0) {
+          container.innerHTML = `<p class="text-center text-slate-500 py-10">Oduun yeroo ammaa hin jiru. / በአሁኑ ጊዜ ምንም ዜና የለም።</p>`;
+          return;
+        }
+
+        container.innerHTML = "";
+
+        for (let news of data) {
+          let mediaElement = "";
+
+          if (news.media_url) {
+            let rawUrl = news.media_url.trim();
+            let finalMediaUrl = rawUrl;
+
+            if (!rawUrl.startsWith("http")) {
+              const { data: publicUrlData } = supabaseClient.storage
+                .from("news_media")
+                .getPublicUrl(rawUrl);
+
+              if (publicUrlData && publicUrlData.publicUrl) {
+                finalMediaUrl = publicUrlData.publicUrl;
+              }
+            }
+
+            const cat = (news.category || "").toLowerCase();
+            const lowerUrl = finalMediaUrl.toLowerCase();
+
+            if (
+              lowerUrl.match(/\.(mp4|webm|ogg|mov)(\?.*)?$/i) ||
+              cat.includes("viidiyoo")
+            ) {
+              mediaElement = `<div class="w-full bg-black rounded-xl mt-3 overflow-hidden shadow-sm aspect-video"><video src="${finalMediaUrl}" controls preload="metadata" class="w-full h-full object-contain block">Your browser does not support the video tag.</video></div>`;
+            } else if (
+              lowerUrl.match(/\.(mp3|wav|m4a|aac)(\?.*)?$/i) ||
+              cat.includes("sagalee") ||
+              cat.includes("music")
+            ) {
+              mediaElement = `<div class="w-full mt-3"><audio src="${finalMediaUrl}" controls preload="metadata" class="w-full">Your browser does not support the audio element.</audio></div>`;
+            } else {
+              mediaElement = `<div class="w-full bg-slate-100 rounded-xl mt-3 overflow-hidden shadow-sm flex items-center justify-center"><img src="${finalMediaUrl}" class="w-full h-auto max-h-[400px] object-contain block mx-auto" alt="News Image" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<p class=\'text-xs text-red-500 p-4 text-center\'>Fakkichi fe\'amuu hin danda\'e / ፎቶው መጫን አልቻለም</p>';"></div>`;
+            }
+          }
+
+          let viewedKey = `viewed_${news.id}`;
+          let currentViews = news.views_count || 0;
+          if (!sessionStorage.getItem(viewedKey)) {
+            sessionStorage.setItem(viewedKey, "true");
+            currentViews += 1;
+            await supabaseClient
+              .from("daily_news")
+              .update({ views_count: currentViews })
+              .eq("id", news.id);
+          }
+
+          const { data: commentsData } = await supabaseClient
+            .from("news_comments")
+            .select("*")
+            .eq("news_id", news.id)
+            .order("id", { ascending: true });
+
+          let commentsListHTML = "";
+          if (commentsData && commentsData.length > 0) {
+            const mainComments = commentsData.filter((c) => !c.parent_id);
+
+            mainComments.forEach((c) => {
+              const replies = commentsData.filter((r) => r.parent_id === c.id);
+              let repliesHTML = "";
+
+              replies.forEach((r) => {
+                repliesHTML += `
+                  <div class="bg-white p-2 rounded-lg text-xs text-slate-700 ml-6 mt-1 border-l-2 border-emerald-600 space-y-1">
+                    <p>↳ ${r.comment_text}</p>
+                    <div class="flex items-center gap-3 text-[10px] text-slate-500">
+                      <button onclick="handleCommentLike(${r.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${r.id}">${r.likes_count || 0}</span>)</button>
+                    </div>
+                  </div>
+                `;
+              });
+
+              commentsListHTML += `
+                <div class="bg-slate-50 p-2.5 rounded-xl text-xs text-slate-700 space-y-2" id="comment-container-${c.id}">
+                  <p class="font-medium">💬 ${c.comment_text}</p>
+                  <div class="flex items-center gap-4 text-[11px] text-slate-500">
+                    <button onclick="handleCommentLike(${c.id}, this)" class="hover:text-blue-600 font-medium">👍 Like (<span class="comment-like-count-${c.id}">${c.likes_count || 0}</span>)</button>
+                    <button onclick="toggleReplyBox(${c.id})" class="hover:text-emerald-700 font-medium">↩️ Reply</button>
+                  </div>
+                  <div class="space-y-1 mt-1" id="replies-list-${c.id}">
+                    ${repliesHTML}
+                  </div>
+                  <div id="reply-box-${c.id}" class="hidden pt-2 mt-2 border-t">
+                    <form onsubmit="handleCommentSubmit(event, ${news.id}, ${c.id})" class="flex gap-2">
+                      <input type="text" id="reply-input-${c.id}" placeholder="Write a reply..." class="flex-1 p-1.5 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                      <button type="submit" class="bg-emerald-800 text-white px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Reply</button>
+                    </form>
+                  </div>
+                </div>
+              `;
+            });
+          } else {
+            commentsListHTML = `<p class="text-[11px] text-slate-400 italic no-comments-notice">No comments yet</p>`;
+          }
+
+          const likesCount = news.likes_count || 0;
+          const commentsCount = news.comments_count || 0;
+          const sharesCount = news.shares_count || 0;
+
+          const card = `
+            <div class="bg-white p-5 rounded-2xl shadow-md border space-y-3">
+              <!-- (Maqaan gubbaatti 'footoo' jedhee mul'achaa ture as irraa haqameera) -->
+              <h2 class="text-lg font-bold text-slate-800">${news.title || ""}</h2>
+              <p class="text-sm text-slate-600 leading-relaxed whitespace-pre-line">${news.content || ""}</p>
+              ${mediaElement}
+
+              <div class="flex justify-between items-center text-xs text-slate-500 pt-2 border-t">
+                <div class="flex items-center gap-1">
+                  <span class="bg-blue-600 text-white rounded-full p-1 inline-flex items-center justify-center text-[10px]">👍</span>
+                  <span class="like-count-${news.id} font-medium">${likesCount}</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="font-medium"><span class="comment-count-${news.id}">${commentsCount}</span> comments</span>
+                  <span class="font-medium"><span class="share-count-${news.id}">${sharesCount}</span> shares</span>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-3 gap-1 pt-1 border-t text-xs font-semibold text-slate-600">
+                <button onclick="handleLike(${news.id}, this)" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
+                  <span class="text-base">👍</span>
+                  <span>Like (<span class="like-count-${news.id}">${likesCount}</span>)</span>
+                </button>
+                <button onclick="document.getElementById('comment-box-${news.id}').classList.toggle('hidden')" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
+                  <span class="text-base">💬</span>
+                  <span>Comment (<span class="comment-count-${news.id}">${commentsCount}</span>)</span>
+                </button>
+                <button onclick="handleShare(${news.id}, '${(news.title || "").replace(/'/g, "\\'")}', this)" class="flex items-center justify-center gap-2 py-2.5 hover:bg-slate-100 rounded-lg transition">
+                  <span class="text-base">↗️</span>
+                  <span>Share (<span class="share-count-${news.id}">${sharesCount}</span>)</span>
+                </button>
+              </div>
+
+              <div id="comment-box-${news.id}" class="hidden pt-3 border-t space-y-3">
+                <div class="space-y-2 max-h-60 overflow-y-auto" id="comments-list-${news.id}">
+                  ${commentsListHTML}
+                </div>
+                <form onsubmit="handleCommentSubmit(event, ${news.id})" class="flex gap-2 pt-2 border-t">
+                  <input type="text" id="comment-input-${news.id}" placeholder="Write a comment..." class="flex-1 p-2 border rounded-lg text-xs outline-none focus:ring-1 focus:ring-emerald-600" required />
+                  <button type="submit" class="bg-emerald-800 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-emerald-900 transition">Post</button>
+                </form>
+              </div>
+            </div>
+          `;
+          container.innerHTML += card;
+        }
+      }
+
+      fetchNews();
+    </script>
+  </body>
+</html>
