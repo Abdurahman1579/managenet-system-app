@@ -335,7 +335,7 @@
                   id="profileDisplayName"
                   class="text-xl md:text-2xl font-bold text-slate-800 flex items-center justify-center md:justify-start gap-1"
                 >
-                  Abdurrahmaan
+                  Maqaa Fe'amaa jira...
                   <span class="text-blue-500" title="Verified">✔</span>
                 </h2>
                 <p class="text-xs text-slate-500 font-medium mt-0.5">
@@ -716,11 +716,59 @@
           authHeaderBtn.classList.remove("hidden");
           authHeaderBtn.textContent = "Bahuu / Log out";
 
+          // --- MAQAA FI PROVIILIIN NAMA SEENEE QOFA AKKA MUL'ATU GOCHUU ---
+          await loadLoggedInUserProfile(session.user);
+
           fetchNews();
         } else {
           fullPageAuth.classList.remove("hidden");
           mainAppContent.classList.add("hidden");
           authHeaderBtn.classList.add("hidden");
+        }
+      }
+
+      // --- FUNCTION PROFAAYILII NAMA SEENEE FIDEE GUBBAA IRRATTI GEEDDARU ---
+      async function loadLoggedInUserProfile(user) {
+        const { data: profile, error } = await supabaseClient
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+
+        let displayName = "Fakkii/Maqaa";
+        let avatarUrl = null;
+
+        if (profile) {
+          displayName = profile.full_name || user.email.split("@")[0];
+          avatarUrl = profile.avatar_url;
+        } else if (user.user_metadata && user.user_metadata.full_name) {
+          displayName = user.user_metadata.full_name;
+        } else {
+          displayName = user.email.split("@")[0];
+        }
+
+        // Maqaa guutuu fuula gubbaa irratti jijjiiruu
+        const nameElement = document.getElementById("profileDisplayName");
+        if (nameElement) {
+          const isUserAdmin =
+            user.email === ADMIN_EMAIL || (profile && profile.is_admin);
+          const verifiedBadge = isUserAdmin
+            ? `<span class="text-blue-500" title="Verified">✔</span>`
+            : "";
+          nameElement.innerHTML = `${displayName} ${verifiedBadge}`;
+        }
+
+        // Suuraa/Avatar fuula gubbaa irratti jijjiiruu
+        const avatarContainer = document.getElementById(
+          "profileAvatarContainer",
+        );
+        if (avatarContainer) {
+          if (avatarUrl) {
+            avatarContainer.innerHTML = `<img src="${avatarUrl}" class="w-full h-full object-cover" />`;
+          } else {
+            const initial = displayName.charAt(0).toUpperCase();
+            avatarContainer.textContent = initial;
+          }
         }
       }
 
@@ -1015,7 +1063,7 @@
         if (box) box.classList.toggle("hidden");
       }
 
-      async function openEditProfileModal(userId, currentName) {
+      async function openEditProfileModal() {
         const {
           data: { session },
         } = await supabaseClient.auth.getSession();
@@ -1024,6 +1072,12 @@
           alert("Mee dura account keetiin seeni!");
           return;
         }
+
+        const currentNameElement =
+          document.getElementById("profileDisplayName");
+        const currentName = currentNameElement
+          ? currentNameElement.textContent.replace("✔", "").trim()
+          : "";
 
         const newName = prompt(
           "Maqaa jijjiiruu barbaaddu galchi (Enter your new full name):",
@@ -1198,7 +1252,7 @@
                 <div class="flex items-center gap-3">
                   ${avatarHtml}
                   <div>
-                    <h3 onclick="openEditProfileModal('${news.user_id}', '${authorName}')" class="font-bold text-sm text-slate-800 flex items-center gap-1 cursor-pointer hover:underline" title="Maqaa jijjiiruf tuqi">
+                    <h3 class="font-bold text-sm text-slate-800 flex items-center gap-1">
                       ${authorName}
                       ${verifiedBadge}
                     </h3>
